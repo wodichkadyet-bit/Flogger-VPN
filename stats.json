@@ -1,9 +1,19 @@
 {
   "project": "Flogger VPN",
-  "updated": "2026-11-08T03:33:07.070489+00:00",
-  "found": 0,
-  "tcp_reachable": 0,
-  "invalid": 0,
+  "version": "2.0",
+  "updated": "2026-11-08T08:15:07.682236+00:00",
+  "sources_total": 6,
   "source_errors": 0,
-  "saved": 0
+  "found": 383,
+  "saved": 383,
+  "wireguard_detected": 0,
+  "protocols": {
+    "vless": 304,
+    "vmess": 18,
+    "trojan": 40,
+    "shadowsocks": 14,
+    "hysteria2": 7
+  },
+  "errors": [],
+  "duration_seconds": 5.91
 }
