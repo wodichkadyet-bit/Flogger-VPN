@@ -1,18 +1,27 @@
 {
-  "project": "Flogger VPN",
-  "version": "2.0",
-  "updated": "2026-11-09T06:26:47.049318+00:00",
-  "sources_total": 4,
+  "version": "4.0",
+  "updated": "2026-11-09T13:51:27.746055+00:00",
+  "sources": 4,
   "source_errors": 0,
-  "found": 77,
-  "saved": 77,
-  "wireguard_detected": 0,
-  "protocols": {
-    "vless": 49,
-    "vmess": 19,
-    "hysteria2": 7,
-    "trojan": 2
-  },
-  "errors": [],
-  "duration_seconds": 4.46
+  "found": 73,
+  "new": 73,
+  "history": 73,
+  "expired": 0,
+  "checked": 73,
+  "skipped": 0,
+  "working": 6,
+  "subscription": 6,
+  "limit": 50,
+  "removed_dead": 0,
+  "check_errors": 6,
+  "testing": "sing-box",
+  "tests": [
+    "cloudflare",
+    "google"
+  ],
+  "ip_detection": true,
+  "country_detection": true,
+  "renaming": true,
+  "check_interval_hours": 12,
+  "duration_seconds": 698.54
 }
