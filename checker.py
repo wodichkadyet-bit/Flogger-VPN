@@ -912,4 +912,7 @@ if __name__ == "__main__":
     print("FLOGGER VPN CHECKER")
     print("=" * 45)
 
-    print("Checker module loaded s
+    print("Checker module loaded successfully.")
+    print("sing-box:", shutil.which("sing-box") or "not found")
+
+    print("=" * 45)
