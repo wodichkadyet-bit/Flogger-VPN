@@ -14,7 +14,7 @@ from checker import check_link
 
 
 # ==================================================
-# FLOGGER VPN PARSER 4.0
+# FLOGGER VPN PARSER 4.1
 # ==================================================
 
 ROOT = Path(__file__).resolve().parent
@@ -32,7 +32,7 @@ CHECK_INTERVAL_HOURS = 12
 MAX_FAILURES = 2
 KEEP_LAST_SUCCESS_HOURS = 48
 
-VERSION = "4.0"
+VERSION = "4.1"
 
 ALLOWED = (
     "vless://",
@@ -52,7 +52,7 @@ PROTOCOLS = (
 )
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; FloggerVPN/4.0)"
+    "User-Agent": "Mozilla/5.0 (compatible; FloggerVPN/4.1)"
 }
 
 
@@ -229,8 +229,6 @@ def extract_links(content):
 
     add_matches(content)
 
-    # Base64 subscription blocks
-
     candidates = re.findall(
         r'(?<![A-Za-z0-9+/=_-])[A-Za-z0-9_+/=-]{80,}',
         content
@@ -268,9 +266,6 @@ def protocol_of(link):
 # ==================================================
 
 def config_id(link):
-
-    # Fragment is only a display name.
-    # Different names must not create duplicate servers.
 
     canonical = link.split("#", 1)[0].strip()
 
@@ -338,9 +333,6 @@ def update_server_name(link, result):
 
     country_code = result.get("country_code")
     new_name = result.get("server_name")
-
-    # Do not replace the original name
-    # if country detection failed.
 
     if not country_code or not new_name:
         return link
@@ -431,8 +423,6 @@ def update_discovered(servers, discovered):
 
             item["last_seen"] = iso()
 
-            # Refresh display name without changing ID.
-
             if link != item.get("link"):
                 item["link"] = link
 
@@ -496,8 +486,6 @@ def apply_check_result(item, result):
             result
         )
 
-    # Successful configuration
-
     if result.get("working"):
 
         item["status"] = "working"
@@ -507,8 +495,6 @@ def apply_check_result(item, result):
         item.pop("check_error", None)
 
         return "working"
-
-    # Technical error: do not count as server failure.
 
     if result.get("error"):
 
@@ -524,17 +510,15 @@ def apply_check_result(item, result):
 
         return "error"
 
-    # Both endpoint checks failed.
-
     item["failures"] = (
         int(item.get("failures", 0)) + 1
     )
 
     if item["failures"] >= MAX_FAILURES:
 
-        item["status"] = "dead"
+        item["status"] = "suspect_dead"
 
-        return "dead"
+        return "suspect_dead"
 
     item["status"] = "suspect"
 
@@ -542,7 +526,7 @@ def apply_check_result(item, result):
 
 
 # ==================================================
-# SERVER CHECKING
+# SERVER CHECKING & SEPARATE CONFIRMATION
 # ==================================================
 
 def check_servers(servers):
@@ -552,6 +536,9 @@ def check_servers(servers):
     check_errors = 0
     removed_dead = 0
     skipped = 0
+
+    # Список кандидатов на удаление для отдельной подтверждающей проверки
+    candidates_for_deletion = []
 
     for index, item in enumerate(
         servers,
@@ -576,7 +563,7 @@ def check_servers(servers):
                 item.get("status") == "working"
                 and item.get("last_success")
             ) or (
-                item.get("status") == "suspect"
+                item.get("status") in ("suspect", "suspect_dead")
                 and is_recent(
                     item.get("last_success"),
                     KEEP_LAST_SUCCESS_HOURS
@@ -636,9 +623,6 @@ def check_servers(servers):
                 f"{item.get('check_error')}"
             )
 
-            # Keep recently verified servers
-            # during temporary checker failures.
-
             if is_recent(
                 item.get("last_success"),
                 KEEP_LAST_SUCCESS_HOURS
@@ -660,11 +644,38 @@ def check_servers(servers):
 
                 working.append(item)
 
-        elif status == "dead":
+        elif status == "suspect_dead":
 
-            removed_dead += 1
+            print("[SUSPECT DEAD] Queued for separate confirmation check...")
+            candidates_for_deletion.append(item)
 
-            print("[DEAD] Removed after repeated failures")
+    # ==========================================
+    # ОТДЕЛЬНАЯ ПРОВЕРКА ДЛЯ УДАЛЕНИЯ (CONFIRMATION)
+    # ==========================================
+    if candidates_for_deletion:
+        print("\n" + "=" * 45)
+        print("RUNNING SEPARATE CONFIRMATION CHECK FOR DEAD SERVERS")
+        print("=" * 45)
+
+        for item in candidates_for_deletion:
+            link = item.get("link", "")
+            print(f"[RE-CHECK] Confirming dead status for: {item.get('protocol')}")
+
+            try:
+                re_result = check_link(link)
+            except Exception:
+                re_result = {"working": False}
+
+            if re_result.get("working"):
+                print("[RE-CHECK] Server recovered during confirmation! Keeping it.")
+                item["status"] = "working"
+                item["last_success"] = iso()
+                item["failures"] = 0
+                working.append(item)
+            else:
+                print("[RE-CHECK] Confirmed dead. Removing server.")
+                item["status"] = "dead"
+                removed_dead += 1
 
     return (
         working,
@@ -800,31 +811,29 @@ def main():
 
     print(f"[INFO] Sources: {len(sources)}")
 
+    # Загружаем существующую базу данных (не теряется при перезапуске)
     database = load_database()
 
     servers = database["servers"]
+    print(f"[INFO] Loaded servers from database: {len(servers)}")
 
-    # Collect links
-
+    # Собираем ссылки из источников
     discovered, source_errors = collect_sources(
         sources
     )
 
     print(
-        f"\n[INFO] Unique configurations: "
+        f"\n[INFO] Unique configurations found in sources: "
         f"{len(discovered)}"
     )
 
-    # Update database
-
+    # Если новых записей нет, прежние данные базы НЕ обнуляются, а сохраняются для повторной проверки
     new_count = update_discovered(
         servers,
         discovered
     )
 
-    print(f"[INFO] New servers: {new_count}")
-
-    # Check servers
+    print(f"[INFO] New servers added: {new_count}")
 
     print("\n" + "=" * 55)
     print("STARTING SERVER CHECKS")
@@ -838,13 +847,9 @@ def main():
         removed_dead
     ) = check_servers(servers)
 
-    # Remove dead and expired servers
-
     servers, expired = cleanup_servers(
         servers
     )
-
-    # Remove duplicate export entries
 
     unique_working = {}
 
@@ -852,7 +857,8 @@ def main():
 
         if item.get("status") in (
             "working",
-            "suspect"
+            "suspect",
+            "suspect_dead"
         ):
 
             unique_working[item["id"]] = item
@@ -861,8 +867,6 @@ def main():
         unique_working.values()
     )
 
-    # Sort by last successful check
-
     working_servers.sort(
         key=lambda item: parse_date(
             item.get("last_success")
@@ -870,11 +874,7 @@ def main():
         reverse=True
     )
 
-    # Maximum subscription size
-
     exportable = working_servers[:MAX_SERVERS]
-
-    # Save everything
 
     database["servers"] = servers
 
@@ -917,8 +917,6 @@ def main():
 
     write_stats(stats)
 
-    # Final output
-
     print("\n" + "=" * 55)
     print("       FLOGGER VPN RESULTS")
     print("=" * 55)
@@ -946,4 +944,4 @@ def main():
 if __name__ == "__main__":
 
     main()
-        
+    
