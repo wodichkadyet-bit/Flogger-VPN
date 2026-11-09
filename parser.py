@@ -1,18 +1,16 @@
 import base64
+import hashlib
 import json
 import re
 import time
-import hashlib
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from urllib.request import Request, urlopen
-from urllib.error import URLError, HTTPError
-from urllib.parse import urlparse
 
-# FLOGGER VPN PARSER
-# Collection and history stage
+from checker import check_link
 
 ROOT = Path(__file__).parent
+
 SOURCES_FILE = ROOT / "sources.txt"
 DATABASE_FILE = ROOT / "servers.json"
 SUBSCRIPTION_FILE = ROOT / "subscription.txt"
@@ -32,7 +30,7 @@ ALLOWED = (
 )
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; FloggerVPN/3.0)"
+    "User-Agent": "Mozilla/5.0 (compatible; FloggerVPN/3.1)"
 }
 
 
@@ -46,7 +44,10 @@ def iso(value=None):
 
 def parse_date(value):
     try:
-        return datetime.fromisoformat(value)
+        result = datetime.fromisoformat(value)
+        if result.tzinfo is None:
+            result = result.replace(tzinfo=timezone.utc)
+        return result
     except (TypeError, ValueError):
         return now()
 
@@ -59,17 +60,17 @@ def read_text(path):
 
 def fetch_url(url):
     request = Request(url, headers=HEADERS)
-    with urlopen(request, timeout=20) as response:
+    with urlopen(request, timeout=25) as response:
         return response.read().decode("utf-8", errors="ignore")
 
 
-def decode_base64(text):
-    text = text.strip()
-    text += "=" * (-len(text) % 4)
+def decode_base64(value):
+    value = value.strip()
+    value += "=" * (-len(value) % 4)
 
     for decoder in (base64.urlsafe_b64decode, base64.b64decode):
         try:
-            return decoder(text).decode("utf-8", errors="ignore")
+            return decoder(value).decode("utf-8", errors="ignore")
         except Exception:
             pass
 
@@ -84,16 +85,12 @@ def get_source_content(source):
 
     if source.startswith(("http://", "https://")):
         try:
-            content = fetch_url(source)
-
-            # Telegram public channel preview
             if "t.me/" in source and "/s/" not in source:
                 channel = source.rstrip("/").split("/")[-1]
-                content = fetch_url(
-                    f"https://t.me/s/{channel}"
-                )
+                url = f"https://t.me/s/{channel}"
+                return fetch_url(url)
 
-            return content
+            return fetch_url(source)
 
         except Exception as error:
             print(f"[SOURCE ERROR] {source}: {error}")
@@ -102,54 +99,38 @@ def get_source_content(source):
     return source
 
 
+def is_allowed(link):
+    return link.lower().startswith(ALLOWED)
+
+
 def extract_links(content):
     found = set()
 
-    # Direct protocol links
     pattern = (
         r'(?i)(?:vless|vmess|trojan|ss|hysteria2|hy2)://'
         r'[^\s<>"\'\]\[{}]+'
     )
 
-    for match in re.findall(pattern, content):
-        link = match.rstrip(".,;)")
-        if is_allowed(link):
-            found.add(link)
+    def add_matches(text):
+        for match in re.findall(pattern, text):
+            link = match.rstrip(".,;)")
+            if is_allowed(link):
+                found.add(link)
 
-    # Base64 subscription content
-    for candidate in re.findall(
+    add_matches(content)
+
+    # Decode base64 subscription blocks
+    candidates = re.findall(
         r'(?<![A-Za-z0-9+/=_-])[A-Za-z0-9_+/=-]{80,}',
         content
-    ):
-        decoded = decode_base64(candidate)
+    )
 
+    for candidate in candidates:
+        decoded = decode_base64(candidate)
         if decoded:
-            for match in re.findall(pattern, decoded):
-                link = match.rstrip(".,;)")
-                if is_allowed(link):
-                    found.add(link)
+            add_matches(decoded)
 
     return found
-
-
-def is_allowed(link):
-    lower = link.lower()
-
-    if lower.startswith(ALLOWED):
-        return True
-
-    # Explicitly excluded protocols
-    if lower.startswith((
-        "wireguard://",
-        "socks://",
-        "socks4://",
-        "socks5://",
-        "tuic://",
-        "tuicv5://",
-    )):
-        return False
-
-    return False
 
 
 def protocol_of(link):
@@ -191,13 +172,10 @@ def load_database():
 
         return data
 
-    except Exception:
-        print("[WARNING] servers.json повреждён.")
-        return {
-            "version": 3,
-            "updated": None,
-            "servers": []
-        }
+    except Exception as error:
+        raise RuntimeError(
+            f"Cannot read servers.json: {error}"
+        )
 
 
 def save_database(database):
@@ -213,12 +191,43 @@ def save_database(database):
     )
 
 
+def write_results(exportable):
+    RESULTS_DIR.mkdir(exist_ok=True)
+
+    groups = {
+        "vless": [],
+        "vmess": [],
+        "trojan": [],
+        "shadowsocks": [],
+        "hysteria2": []
+    }
+
+    for item in exportable:
+        protocol = item.get("protocol")
+        link = item.get("link")
+
+        if protocol in groups and link:
+            groups[protocol].append(link)
+
+    for protocol, links in groups.items():
+        output = RESULTS_DIR / f"{protocol}.txt"
+        output.write_text(
+            "\n".join(links),
+            encoding="utf-8"
+        )
+
+    SUBSCRIPTION_FILE.write_text(
+        "\n".join(item["link"] for item in exportable),
+        encoding="utf-8"
+    )
+
+
 def main():
     started = time.time()
 
-    print("=" * 45)
-    print("       FLOGGER VPN PARSER 3.0")
-    print("=" * 45)
+    print("=" * 50)
+    print("       FLOGGER VPN PARSER 3.1")
+    print("=" * 50)
 
     RESULTS_DIR.mkdir(exist_ok=True)
 
@@ -231,13 +240,17 @@ def main():
     database = load_database()
     servers = database["servers"]
 
-    # Remove records older than seven days
+    # Remove entries older than seven days
     cutoff = now() - timedelta(days=MAX_AGE_DAYS)
+
+    before_cleanup = len(servers)
 
     servers = [
         item for item in servers
         if parse_date(item.get("first_seen")) >= cutoff
     ]
+
+    expired_count = before_cleanup - len(servers)
 
     existing = {
         item["id"]: item
@@ -246,9 +259,9 @@ def main():
     }
 
     discovered = {}
-
     source_errors = 0
 
+    # Collect configurations
     for source in sources:
         print(f"\n[FETCH] {source}")
 
@@ -267,10 +280,10 @@ def main():
 
     new_count = 0
 
+    # Add new configurations and refresh last_seen
     for identifier, link in discovered.items():
         if identifier in existing:
-            item = existing[identifier]
-            item["last_seen"] = iso()
+            existing[identifier]["last_seen"] = iso()
         else:
             item = {
                 "id": identifier,
@@ -288,76 +301,137 @@ def main():
             existing[identifier] = item
             new_count += 1
 
-    # Sort newest first
-    servers.sort(
-        key=lambda item: parse_date(item.get("last_seen")),
+    print("\n[CHECK] Starting sing-box checks")
+
+    working_servers = []
+    check_errors = 0
+    removed_dead = 0
+
+    # Check every configuration in the database
+    for index, item in enumerate(servers, start=1):
+        link = item.get("link", "")
+
+        if not link:
+            continue
+
+        print(
+            f"\n[CHECK {index}/{len(servers)}] "
+            f"{item.get('protocol', 'unknown')}"
+        )
+
+        try:
+            result = check_link(link)
+
+        except Exception as error:
+            result = {
+                "cloudflare": False,
+                "google": False,
+                "working": False,
+                "error": str(error)[:250]
+            }
+
+        item["last_checked"] = iso()
+        item["cloudflare"] = bool(result.get("cloudflare"))
+        item["google"] = bool(result.get("google"))
+
+        if result.get("working"):
+            item["status"] = "working"
+            item["last_success"] = iso()
+            item["failures"] = 0
+            item.pop("check_error", None)
+
+            working_servers.append(item)
+
+            print(
+                "[WORKING] "
+                f"Cloudflare={item['cloudflare']} "
+                f"Google={item['google']}"
+            )
+
+        elif result.get("error"):
+            item["status"] = "check_error"
+            item["check_error"] = str(result["error"])[:250]
+            check_errors += 1
+
+            print(f"[CHECK ERROR] {item['check_error']}")
+
+        else:
+            # Both external tests failed
+            item["status"] = "dead"
+            item["failures"] = item.get("failures", 0) + 1
+            removed_dead += 1
+
+            print("[DEAD] Both tests failed")
+
+    # Permanently remove servers that failed both tests
+    servers = [
+        item for item in servers
+        if item.get("status") != "dead"
+    ]
+
+    # Sort by most recent successful check
+    working_servers.sort(
+        key=lambda item: parse_date(item.get("last_success")),
         reverse=True
     )
 
-    # Keep history, but do not publish untested entries
+    # Maximum 50 verified configurations
+    exportable = working_servers[:MAX_SERVERS]
+
+    # Save database and subscription
     database["servers"] = servers
     save_database(database)
 
-    # This stage exports collected configurations.
-    # Actual sing-box testing is added in the next stage.
-    exportable = [
-        item for item in servers
-        if item.get("status") == "untested"
-        and item.get("link")
-    ][:MAX_SERVERS]
-
-    # Protocol files
-    protocol_groups = {
-        "vless": [],
-        "vmess": [],
-        "trojan": [],
-        "shadowsocks": [],
-        "hysteria2": []
-    }
-
-    for item in exportable:
-        protocol_groups[item["protocol"]].append(item["link"])
-
-    for protocol, links in protocol_groups.items():
-        (RESULTS_DIR / f"{protocol}.txt").write_text(
-            "\n".join(links),
-            encoding="utf-8"
-        )
-
-    # Temporary collection output.
-    # Do not treat this as a verified working subscription.
-    SUBSCRIPTION_FILE.write_text(
-        "\n".join(item["link"] for item in exportable),
-        encoding="utf-8"
-    )
+    write_results(exportable)
 
     stats = {
+        "version": "3.1",
         "updated": iso(),
         "sources": len(sources),
+        "source_errors": source_errors,
         "found": len(discovered),
         "new": new_count,
         "history": len(servers),
+        "expired": expired_count,
+        "checked": len(servers),
+        "working": len(working_servers),
         "subscription": len(exportable),
         "limit": MAX_SERVERS,
-        "source_errors": source_errors,
-        "testing": "not_enabled_yet",
-        "duration_seconds": round(time.time() - started, 2)
+        "removed_dead": removed_dead,
+        "check_errors": check_errors,
+        "testing": "sing-box",
+        "tests": [
+            "cloudflare",
+            "google"
+        ],
+        "duration_seconds": round(
+            time.time() - started, 2
+        )
     }
 
     STATS_FILE.write_text(
-        json.dumps(stats, ensure_ascii=False, indent=2),
+        json.dumps(
+            stats,
+            ensure_ascii=False,
+            indent=2
+        ),
         encoding="utf-8"
     )
 
-    print("\n" + "=" * 45)
+    print("\n" + "=" * 50)
+    print("       FLOGGER VPN RESULTS")
+    print("=" * 50)
     print(f"Sources:       {len(sources)}")
     print(f"Found:         {len(discovered)}")
     print(f"New:           {new_count}")
-    print(f"History:       {len(servers)}")
+    print(f"Working:       {len(working_servers)}")
     print(f"Exported:      {len(exportable)} / {MAX_SERVERS}")
+    print(f"Removed dead:  {removed_dead}")
+    print(f"Expired:       {expired_count}")
+    print(f"Check errors:  {check_errors}")
     print(f"Source errors: {source_errors}")
-    print("Testing:       NOT ENABLED")
-    print("=" * 45)
+    print(f"Duration:      {stats['duration_seconds']} sec")
+    print("=" * 50)
 
 
 if __name__ == "__main__":
