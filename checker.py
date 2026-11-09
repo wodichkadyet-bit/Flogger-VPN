@@ -904,7 +904,6 @@ def check_link(link):
 
     return results
 
-
 # ==================================================
 # TEST RUN
 # ==================================================
@@ -912,4 +911,11 @@ def check_link(link):
 if __name__ == "__main__":
 
     print("=" * 45)
-    print(
+    print("FLOGGER VPN CHECKER")
+    print("=" * 45)
+
+    print("Checker module loaded successfully.")
+    print("sing-box:", shutil.which("sing-box") or "not found")
+
+    print("=" * 45)
+    
