@@ -1,16 +1,15 @@
-name: Flogger VPN Parser 4.0
+name: Flogger VPN Parser 4.1
 
 on:
   workflow_dispatch:
 
   schedule:
-    # Every hour at minute 17 (UTC)
+    # Каждый час в 17 минут (UTC)
     - cron: "17 * * * *"
 
 permissions:
   contents: write
 
-# Prevent simultaneous scheduled/manual runs
 concurrency:
   group: flogger-vpn-parser
   cancel-in-progress: false
@@ -23,26 +22,21 @@ jobs:
     timeout-minutes: 45
 
     steps:
-      # 1. Download repository
       - name: Checkout project
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2. Setup Python
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-        
 
-      # 3. Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
-      # 4. Install sing-box
       - name: Install sing-box
         shell: bash
         run: |
@@ -70,7 +64,6 @@ jobs:
 
           sing-box version
 
-      # 5. Verify project files
       - name: Verify project
         run: |
           test -f parser.py
@@ -81,12 +74,10 @@ jobs:
 
           echo "Project files verified"
 
-      # 6. Run parser
       - name: Run Flogger Parser
         run: |
           python -u parser.py
 
-      # 7. Verify generated files
       - name: Verify results
         run: |
           test -f subscription.txt
@@ -96,8 +87,7 @@ jobs:
 
           echo "Generated files verified"
 
-      # 8. Save results to GitHub
-      - name: Save results
+      - name: Save results to GitHub
         shell: bash
         run: |
           set -euo pipefail
@@ -111,7 +101,7 @@ jobs:
           git add results/
 
           if ! git diff --cached --quiet; then
-            git commit -m "Update Flogger VPN subscription"
+            git commit -m "Update Flogger VPN subscription & database"
 
             git pull --rebase origin "${GITHUB_REF_NAME}"
 
@@ -120,7 +110,6 @@ jobs:
             echo "No changes to save"
           fi
 
-      # 9. Final status
       - name: Completion
         if: success()
         run: echo "FLOGGER VPN PARSER COMPLETED SUCCESSFULLY"
