@@ -1,5 +1,6 @@
 import base64
 import json
+import shutil
 import socket
 import subprocess
 import tempfile
@@ -17,7 +18,7 @@ import requests
 # FLOGGER VPN CHECKER
 # ==================================================
 
-VERSION = "2.0"
+VERSION = "2.1"
 
 TEST_URLS = {
     "cloudflare": "https://cp.cloudflare.com/generate_204",
@@ -34,31 +35,31 @@ RETRY_DELAY = 2
 SING_BOX = "sing-box"
 
 COUNTRIES = {
-    "DE": ("🇩🇪", "Germany"),
-    "NL": ("🇳🇱", "Netherlands"),
-    "PL": ("🇵🇱", "Poland"),
-    "FI": ("🇫🇮", "Finland"),
-    "SE": ("🇸🇪", "Sweden"),
-    "NO": ("🇳🇴", "Norway"),
-    "FR": ("🇫🇷", "France"),
-    "GB": ("🇬🇧", "United Kingdom"),
-    "US": ("🇺🇸", "USA"),
-    "CA": ("🇨🇦", "Canada"),
-    "CH": ("🇨🇭", "Switzerland"),
-    "AT": ("🇦🇹", "Austria"),
-    "BE": ("🇧🇪", "Belgium"),
-    "ES": ("🇪🇸", "Spain"),
-    "IT": ("🇮🇹", "Italy"),
-    "CZ": ("🇨🇿", "Czechia"),
-    "RO": ("🇷🇴", "Romania"),
-    "BG": ("🇧🇬", "Bulgaria"),
-    "TR": ("🇹🇷", "Turkey"),
-    "JP": ("🇯🇵", "Japan"),
-    "SG": ("🇸🇬", "Singapore"),
-    "HK": ("🇭🇰", "Hong Kong"),
-    "RU": ("🇷🇺", "Russia"),
-    "UA": ("🇺🇦", "Ukraine"),
-    "BY": ("🇧🇾", "Belarus"),
+    "DE": ("🇩🇪", "Германия"),
+    "NL": ("🇳🇱", "Нидерланды"),
+    "PL": ("🇵🇱", "Польша"),
+    "FI": ("🇫🇮", "Финляндия"),
+    "SE": ("🇸🇪", "Швеция"),
+    "NO": ("🇳🇴", "Норвегия"),
+    "FR": ("🇫🇷", "Франция"),
+    "GB": ("🇬🇧", "Великобритания"),
+    "US": ("🇺🇸", "США"),
+    "CA": ("🇨🇦", "Канада"),
+    "CH": ("🇨🇭", "Швейцария"),
+    "AT": ("🇦🇹", "Австрия"),
+    "BE": ("🇧🇪", "Бельгия"),
+    "ES": ("🇪🇸", "Испания"),
+    "IT": ("🇮🇹", "Италия"),
+    "CZ": ("🇨🇿", "Чехия"),
+    "RO": ("🇷🇴", "Румыния"),
+    "BG": ("🇧🇬", "Болгария"),
+    "TR": ("🇹🇷", "Турция"),
+    "JP": ("🇯🇵", "Япония"),
+    "SG": ("🇸🇬", "Сингапур"),
+    "HK": ("🇭🇰", "Гонконг"),
+    "RU": ("🇷🇺", "Россия"),
+    "UA": ("🇺🇦", "Украина"),
+    "BY": ("🇧🇾", "Беларусь"),
 }
 
 
@@ -513,15 +514,15 @@ def parse_link(link):
             "tls": tls
         }
 
-        obfs = params.get("obfs", [""])[0]
-        obfs_password = params.get(
+        obs = params.get("obfs", [""])[0]
+        obs_password = params.get(
             "obfs-password", [""]
         )[0]
 
-        if obfs:
+        if obs:
             outbound["obfs"] = {
-                "type": obfs,
-                "password": obfs_password
+                "type": obs,
+                "password": obs_password
             }
 
         return outbound
@@ -654,7 +655,7 @@ def make_server_name(outbound, country_code=None):
         )
 
     return (
-        f"🌐 Unknown | "
+        f"🌐 Неизвестно | "
         f"{protocol} | {port}"
     )
 
@@ -824,8 +825,6 @@ def check_link(link):
                     "https": proxy
                 }
 
-                # Independent endpoint checks
-
                 results["cloudflare"] = test_endpoint(
                     session,
                     TEST_URLS["cloudflare"],
@@ -837,8 +836,6 @@ def check_link(link):
                     TEST_URLS["google"],
                     proxies
                 )
-
-                # IP check is informational
 
                 if results["cloudflare"] or results["google"]:
 
@@ -904,6 +901,7 @@ def check_link(link):
 
     return results
 
+
 # ==================================================
 # TEST RUN
 # ==================================================
@@ -914,8 +912,4 @@ if __name__ == "__main__":
     print("FLOGGER VPN CHECKER")
     print("=" * 45)
 
-    print("Checker module loaded successfully.")
-    print("sing-box:", shutil.which("sing-box") or "not found")
-
-    print("=" * 45)
-    
+    print("Checker module loaded s
