@@ -1,4 +1,4 @@
-name: Flogger VPN Parser
+name: Flogger VPN Parser 3.0
 
 on:
   workflow_dispatch:
@@ -21,6 +21,20 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Install sing-box
+        run: |
+          VERSION=$(curl -s https://api.github.com/repos/SagerNet/sing-box/releases/latest | python -c "import sys,json; print(json.load(sys.stdin)['tag_name'])")
+          VERSION=${VERSION#v}
+          curl -L "https://github.com/SagerNet/sing-box/releases/download/v${VERSION}/sing-box-${VERSION}-linux-amd64.tar.gz" -o sing-box.tar.gz
+          tar -xzf sing-box.tar.gz
+          sudo install sing-box-*/sing-box /usr/local/bin/sing-box
+          sing-box version
+
       - name: Run Flogger Parser
         run: python parser.py
 
@@ -28,7 +42,7 @@ jobs:
         run: |
           git config user.name "Flogger Bot"
           git config user.email "actions@github.com"
-          git add subscription.txt stats.json
+          git add subscription.txt stats.json servers.json results/
           git diff --cached --quiet || git commit -m "Update Flogger subscription"
           git push
           
