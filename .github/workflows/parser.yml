@@ -1,4 +1,4 @@
-name: Flogger VPN Parser 4.1
+name: Flogger VPN Parser 4.3
 
 on:
   workflow_dispatch:
@@ -101,7 +101,7 @@ jobs:
           git add results/
 
           if ! git diff --cached --quiet; then
-            git commit -m "Update Flogger VPN subscription & database"
+            git commit -m "Update Flogger VPN subscription & database [v4.3]"
 
             git pull --rebase origin "${GITHUB_REF_NAME}"
 
