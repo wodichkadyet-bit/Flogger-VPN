@@ -1,19 +1,19 @@
 {
   "version": "4.1",
-  "updated": "2026-11-09T17:32:53.750739+00:00",
+  "updated": "2026-11-10T01:40:41.656722+00:00",
   "sources": 5,
   "source_errors": 0,
-  "found": 115,
-  "new": 31,
-  "history": 199,
+  "found": 151,
+  "new": 73,
+  "history": 272,
   "expired": 0,
-  "checked": 31,
-  "skipped": 168,
-  "working": 19,
-  "subscription": 19,
+  "checked": 73,
+  "skipped": 199,
+  "working": 48,
+  "subscription": 48,
   "limit": 50,
   "removed_dead": 0,
-  "check_errors": 7,
+  "check_errors": 9,
   "testing": "sing-box",
   "tests": [
     "cloudflare",
@@ -23,5 +23,5 @@
   "country_detection": true,
   "renaming": true,
   "check_interval_hours": 12,
-  "duration_seconds": 228.98
+  "duration_seconds": 624.42
 }
