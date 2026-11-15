@@ -1,0 +1,1 @@
+trojan://12012@47.242.93.89:12012?insecure=1&amp;security=tls&amp;sni=ali-hk.b-gfw.cfd&amp;type=tcp#%F0%9F%87%AD%F0%9F%87%B0%20%D0%93%D0%BE%D0%BD%D0%BA%D0%BE%D0%BD%D0%B3%20%7C%20TROJAN%20%7C%2012012
