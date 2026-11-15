@@ -1,14 +1,14 @@
 {
   "version": "4.3",
-  "updated": "2026-11-15T02:07:49.447962+00:00",
+  "updated": "2026-11-15T09:50:42.212371+00:00",
   "sources": 4,
-  "found": 81,
-  "new": 60,
-  "history": 256,
-  "expired": 12,
-  "checked": 268,
-  "working": 107,
+  "found": 100,
+  "new": 81,
+  "history": 303,
+  "expired": 34,
+  "checked": 337,
+  "working": 139,
   "subscription": 50,
-  "removed_dead": 12,
-  "duration_seconds": 730.48
+  "removed_dead": 34,
+  "duration_seconds": 1495.6
 }
