@@ -1,11 +1,10 @@
-name: Flogger VPN Parser 4.3
+name: Flogger VPN Parser
 
 on:
   workflow_dispatch:
-
   schedule:
-    # Каждый час в 17 минут (UTC)
-    - cron: "17 * * * *"
+    # Запуск каждые 4 часа
+    - cron: "0 */4 * * *"
 
 permissions:
   contents: write
@@ -19,7 +18,7 @@ jobs:
     name: Collect and check servers
 
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 60
 
     steps:
       - name: Checkout project
@@ -42,11 +41,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          VERSION=$(curl -fsSL \
-            https://api.github.com/repos/SagerNet/sing-box/releases/latest \
-            | python -c "import sys,json; print(json.load(sys.stdin)['tag_name'])")
-
-          VERSION="${VERSION#v}"
+          # Фиксированная стабильная версия во избежание лимитов GitHub API (ошибок 403)
+          VERSION="1.10.0"
 
           echo "Installing sing-box ${VERSION}"
 
@@ -101,7 +97,7 @@ jobs:
           git add results/
 
           if ! git diff --cached --quiet; then
-            git commit -m "Update Flogger VPN subscription & database [v4.3]"
+            git commit -m "Update Flogger VPN subscription & database [Auto 4h]"
 
             git pull --rebase origin "${GITHUB_REF_NAME}"
 
@@ -113,4 +109,3 @@ jobs:
       - name: Completion
         if: success()
         run: echo "FLOGGER VPN PARSER COMPLETED SUCCESSFULLY"
-        
