@@ -1,37 +1,32 @@
 import base64
 import json
-import shutil
 import socket
 import subprocess
 import tempfile
 import time
 from pathlib import Path
-from urllib.parse import (
-    urlsplit, urlunsplit, parse_qs,
-    unquote, quote
-)
+from urllib.parse import urlsplit, parse_qs, unquote
 
 import requests
 
 
 # ==================================================
-# FLOGGER VPN CHECKER
+# FLOGGER VPN CHECKER (Google Only, Optimized)
 # ==================================================
 
-VERSION = "2.2"
+VERSION = "5.1"
 
 TEST_URLS = {
-    "cloudflare": "https://cp.cloudflare.com/generate_204",
     "google": "https://www.gstatic.com/generate_204",
 }
 
-# Изменили источник IP на ip-api.com (бесплатно, без ключа, быстро)
 IP_URL = "http://ip-api.com/json/?fields=status,message,country,countryCode,query"
 
-TIMEOUT = 12
-START_TIMEOUT = 10
-RETRIES = 2
-RETRY_DELAY = 2
+# Ускоренные таймауты
+TIMEOUT = 6
+START_TIMEOUT = 4
+RETRIES = 1
+RETRY_DELAY = 1
 
 SING_BOX = "sing-box"
 
@@ -157,7 +152,7 @@ def tls_config(params, default_server_name=""):
 
 
 # ==================================================
-# TRANSPORT (Включая XHTTP)
+# TRANSPORT
 # ==================================================
 
 def transport_config(params):
@@ -258,7 +253,7 @@ def transport_config(params):
 
 
 # ==================================================
-# VMESS & SHADOWSOCKS & MAIN PARSER
+# VMESS & SS & MAIN PARSER
 # ==================================================
 
 def parse_vmess(link):
@@ -457,15 +452,15 @@ def wait_for_port(port, process):
         if process.poll() is not None:
             return False
         try:
-            with socket.create_connection(("127.0.0.1", port), timeout=0.5):
+            with socket.create_connection(("127.0.0.1", port), timeout=0.3):
                 return True
         except OSError:
-            time.sleep(0.25)
+            time.sleep(0.15)
     return False
 
 
 # ==================================================
-# IP CHECK (Адаптировано под ip-api.com)
+# IP CHECK
 # ==================================================
 
 def check_ip(proxy):
@@ -537,7 +532,6 @@ def test_endpoint(session, url, proxies):
 def check_link(link):
     results = {
         "working": False,
-        "cloudflare": False,
         "google": False,
         "ip": None,
         "country": None,
@@ -576,7 +570,7 @@ def check_link(link):
             try:
                 subprocess.run(
                     [SING_BOX, "check", "-c", str(config_path)],
-                    check=True, capture_output=True, text=True, timeout=15
+                    check=True, capture_output=True, text=True, timeout=10
                 )
             except subprocess.CalledProcessError as error:
                 raise RuntimeError("sing-box config error: " + (error.stderr or error.stdout)[:180])
@@ -593,19 +587,18 @@ def check_link(link):
                 proxy = f"http://127.0.0.1:{port}"
                 proxies = {"http": proxy, "https": proxy}
 
-                results["cloudflare"] = test_endpoint(session, TEST_URLS["cloudflare"], proxies)
                 results["google"] = test_endpoint(session, TEST_URLS["google"], proxies)
 
-                if results["cloudflare"] or results["google"]:
+                if results["google"]:
                     results.update(check_ip(proxy))
 
-                results["working"] = results["cloudflare"] or results["google"]
+                results["working"] = results["google"]
                 results["server_name"] = make_server_name(outbound, results["country_code"])
             finally:
                 if process and process.poll() is None:
                     process.terminate()
                     try:
-                        process.wait(timeout=3)
+                        process.wait(timeout=2)
                     except subprocess.TimeoutExpired:
                         process.kill()
                         process.wait()
@@ -620,11 +613,10 @@ def check_link(link):
         if process and process.poll() is None:
             process.terminate()
             try:
-                process.wait(timeout=3)
+                process.wait(timeout=2)
             except subprocess.TimeoutExpired:
                 process.kill()
                 process.wait()
         session.close()
 
     return results
-    
