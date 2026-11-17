@@ -14,7 +14,7 @@ from checker import check_link
 
 
 # ==================================================
-# FLOGGER VPN PARSER 4.3 (Full Check Every Run)
+# FLOGGER VPN PARSER (Max 70, Strict Cleanup)
 # ==================================================
 
 ROOT = Path(__file__).resolve().parent
@@ -25,12 +25,9 @@ SUBSCRIPTION_FILE = ROOT / "subscription.txt"
 RESULTS_DIR = ROOT / "results"
 STATS_FILE = ROOT / "stats.json"
 
-MAX_SERVERS = 50
-MAX_AGE_DAYS = 7
-MAX_FAILURES = 2
-KEEP_LAST_SUCCESS_HOURS = 48
-
-VERSION = "4.3"
+MAX_SERVERS = 70       # Увеличено до 70 серверов в подписке
+MAX_FAILURES = 1
+VERSION = "5.0"
 
 ALLOWED = (
     "vless://",
@@ -50,7 +47,7 @@ PROTOCOLS = (
 )
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; FloggerVPN/4.3)"
+    "User-Agent": "Mozilla/5.0 (compatible; FloggerVPN/5.0)"
 }
 
 
@@ -70,11 +67,6 @@ def parse_date(value):
         return result
     except (TypeError, ValueError):
         return datetime.min.replace(tzinfo=timezone.utc)
-
-def is_recent(value, hours):
-    if not value:
-        return False
-    return now() - parse_date(value) <= timedelta(hours=hours)
 
 def atomic_write(path, content):
     temporary = path.with_suffix(path.suffix + ".tmp")
@@ -172,20 +164,20 @@ def config_id(link):
 
 def load_database():
     if not DATABASE_FILE.exists():
-        return {"version": 4.3, "updated": None, "servers": [], "channels": {}}
+        return {"version": 5.0, "updated": None, "servers": [], "channels": {}}
     try:
         data = json.loads(DATABASE_FILE.read_text(encoding="utf-8"))
         if not isinstance(data, dict):
             raise ValueError("Database must be an object")
         data.setdefault("servers", [])
         data.setdefault("channels", {})
-        data["version"] = 4.3
+        data["version"] = 5.0
         return data
     except Exception as error:
         raise RuntimeError(f"Cannot read servers.json: {error}")
 
 def save_database(database):
-    database["version"] = 4.3
+    database["version"] = 5.0
     database["updated"] = iso()
     save_json(DATABASE_FILE, database)
 
@@ -281,25 +273,13 @@ def apply_check_result(item, result):
         item.pop("check_error", None)
         return "working"
 
-    if result.get("error"):
-        item["status"] = "check_error" if not item.get("last_success") else "working"
-        item["check_error"] = str(result["error"])[:250]
-        return "error"
-
-    item["failures"] = int(item.get("failures", 0)) + 1
-    if item["failures"] >= MAX_FAILURES:
-        item["status"] = "suspect_dead"
-        return "suspect_dead"
-
-    item["status"] = "suspect"
-    return "suspect"
+    item["status"] = "dead"
+    return "dead"
 
 def check_servers(servers):
     checked = 0
     working = []
-    check_errors = 0
     removed_dead = 0
-    candidates_for_deletion = []
 
     for index, item in enumerate(servers, start=1):
         link = item.get("link", "")
@@ -319,52 +299,27 @@ def check_servers(servers):
         if status == "working":
             working.append(item)
             print(f"[WORKING] CF={item.get('cloudflare')} Google={item.get('google')}")
-        elif status == "error":
-            check_errors += 1
-            if is_recent(item.get("last_success"), KEEP_LAST_SUCCESS_HOURS):
-                working.append(item)
-        elif status == "suspect":
-            if is_recent(item.get("last_success"), KEEP_LAST_SUCCESS_HOURS):
-                working.append(item)
-        elif status == "suspect_dead":
-            candidates_for_deletion.append(item)
+        else:
+            print("[DEAD] Removing.")
+            removed_dead += 1
 
-    # Подтверждающая проверка для удаления мертвых
-    if candidates_for_deletion:
-        print("\n" + "=" * 45)
-        print("RUNNING CONFIRMATION CHECK FOR DEAD SERVERS")
-        print("=" * 45)
-        for item in candidates_for_deletion:
-            try:
-                re_result = check_link(item.get("link", ""))
-            except Exception:
-                re_result = {"working": False}
-
-            if re_result.get("working"):
-                print("[RE-CHECK] Recovered! Keeping server.")
-                item["status"] = "working"
-                item["last_success"] = iso()
-                item["failures"] = 0
-                working.append(item)
-            else:
-                print("[RE-CHECK] Confirmed dead. Removing.")
-                item["status"] = "dead"
-                removed_dead += 1
-
-    return working, checked, 0, check_errors, removed_dead
+    return working, checked, removed_dead
 
 def cleanup_servers(servers):
-    cutoff = now() - timedelta(days=MAX_AGE_DAYS)
-    before = len(servers)
+    # Жестко удаляем всё, что было создано в прошлые дни (вчерашние и старые «н/д»)
+    today_str = now().strftime("%Y-%m-%d")
     cleaned = []
+    expired = 0
+
     for item in servers:
-        if item.get("status") == "dead":
-            continue
-        last_seen = parse_date(item.get("last_seen") or item.get("first_seen"))
-        if last_seen < cutoff:
+        first_seen = item.get("first_seen", "")
+        if not first_seen or not first_seen.startswith(today_str):
+            expired += 1
             continue
         cleaned.append(item)
-    return cleaned, before - len(cleaned)
+
+    print(f"[CLEANUP] Removed {expired} old/yesterday servers. Kept today's: {len(cleaned)}")
+    return cleaned, expired
 
 def write_results(exportable):
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -389,20 +344,22 @@ def main():
         raise FileNotFoundError("sources.txt not found")
 
     sources = [l.strip() for l in SOURCES_FILE.read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")]
+    
     database = load_database()
     servers = database["servers"]
 
+    # Стираем вчерашний день и старые «н/д»
+    servers, expired = cleanup_servers(servers)
+
+    # Собираем новые ссылки за сегодня
     discovered, source_errors = collect_sources(sources, database)
     new_count = update_discovered(servers, discovered)
 
-    print("\n" + "=" * 55)
-    print("STARTING FULL SERVER CHECKS (ALL SERVERS)")
-    print("=" * 55)
+    print(f"\n[INFO] Checking {len(servers)} current configurations...")
+    working_servers, checked, removed_dead = check_servers(servers)
 
-    working_servers, checked, _, check_errors, removed_dead = check_servers(servers)
-    servers, expired = cleanup_servers(servers)
-
-    unique_working = {item["id"]: item for item in working_servers if item.get("status") in ("working", "suspect", "suspect_dead")}
+    # Оставляем только те, что реально работают (никаких мертвых «н/д»)
+    unique_working = {item["id"]: item for item in working_servers if item.get("status") == "working"}
     working_servers = list(unique_working.values())
     working_servers.sort(key=lambda x: parse_date(x.get("last_success")), reverse=True)
 
@@ -417,7 +374,6 @@ def main():
         "sources": len(sources),
         "found": len(discovered),
         "new": new_count,
-        "history": len(servers),
         "expired": expired,
         "checked": checked,
         "working": len(working_servers),
@@ -430,4 +386,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-                                     
