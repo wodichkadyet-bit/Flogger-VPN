@@ -11,11 +11,6 @@ from urllib.parse import urlsplit, urlunsplit, quote
 import requests
 from checker import check_link
 
-
-# ==================================================
-# FLOGGER VPN PARSER (v5.3 - Requests & Anti-403)
-# ==================================================
-
 ROOT = Path(__file__).resolve().parent
 
 SOURCES_FILE = ROOT / "sources.txt"
@@ -25,8 +20,7 @@ RESULTS_DIR = ROOT / "results"
 STATS_FILE = ROOT / "stats.json"
 
 MAX_SERVERS = 70
-MAX_FAILURES = 1
-VERSION = "5.3"
+VERSION = "7.0"
 
 ALLOWED = (
     "vless://",
@@ -45,16 +39,10 @@ PROTOCOLS = (
     "hysteria2",
 )
 
-# Полноценные заголовки браузера для обхода 403 ошибок на Codeberg и других сайтах
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Connection": "keep-alive",
-    "Upgrade-Insecure-Requests": "1"
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
-
 
 def now():
     return datetime.now(timezone.utc)
@@ -81,12 +69,35 @@ def atomic_write(path, content):
 def save_json(path, data):
     atomic_write(path, json.dumps(data, ensure_ascii=False, indent=2))
 
+def decode_base64(value):
+    value = value.strip()
+    if not value:
+        return ""
+    value_padded = value + "=" * (-len(value) % 4)
+    for altchars in (b"-_", b"+/"):
+        try:
+            decoded = base64.b64decode(value_padded, altchars=altchars, validate=False)
+            res = decoded.decode("utf-8", errors="ignore")
+            if "://" in res:
+                return res
+        except Exception:
+            continue
+    return ""
+
 def fetch_url(url):
+    # Автоматически заменяем пробелы на %20, чтобы URLs с пробелами (как на Codeberg) не падали с 403
+    url = url.replace(" ", "%20")
     session = requests.Session()
     session.trust_env = False
     response = session.get(url, headers=HEADERS, timeout=25, allow_redirects=True)
     response.raise_for_status()
-    return response.text
+    text = response.text.strip()
+    
+    # Если ответ целиком является Base64 подпиской (без HTML-тегов) — сразу распаковываем его
+    decoded_sub = decode_base64(text)
+    if decoded_sub:
+        return decoded_sub
+    return text
 
 def get_source_content(source):
     source = source.strip()
@@ -98,20 +109,11 @@ def get_source_content(source):
             if "t.me/" in source and "/s/" not in source:
                 channel = source.rstrip("/").split("/")[-1]
                 target_url = f"https://t.me/s/{channel}"
-            
             return fetch_url(target_url)
         except Exception as error:
             print(f"[SOURCE ERROR] {source}: {error}")
             return ""
     return source
-
-def decode_base64(value):
-    value = value.strip() + "=" * (-len(value) % 4)
-    try:
-        decoded = base64.b64decode(value, altchars=b"-_", validate=True)
-        return decoded.decode("utf-8", errors="ignore")
-    except Exception:
-        return ""
 
 def is_allowed(link):
     return link.lower().startswith(ALLOWED)
@@ -127,7 +129,8 @@ def extract_links(content):
                 found.add(link)
 
     add_matches(content)
-    for candidate in re.findall(r'(?<![A-Za-z0-9+/=_-])[A-Za-z0-9_+/=-]{80,}', content):
+    # Проверяем Base64 блоки внутри текста
+    for candidate in re.findall(r'(?<![A-Za-z0-9+/=_-])[A-Za-z0-9_+/=-]{20,}', content):
         decoded = decode_base64(candidate)
         if decoded:
             add_matches(decoded)
@@ -171,20 +174,18 @@ def config_id(link):
 
 def load_database():
     if not DATABASE_FILE.exists():
-        return {"version": 5.3, "updated": None, "servers": [], "channels": {}}
+        return {"version": 7.0, "updated": None, "servers": [], "channels": {}}
     try:
         data = json.loads(DATABASE_FILE.read_text(encoding="utf-8"))
-        if not isinstance(data, dict):
-            raise ValueError("Database must be an object")
         data.setdefault("servers", [])
         data.setdefault("channels", {})
-        data["version"] = 5.3
+        data["version"] = 7.0
         return data
     except Exception as error:
         raise RuntimeError(f"Cannot read servers.json: {error}")
 
 def save_database(database):
-    database["version"] = 5.3
+    database["version"] = 7.0
     database["updated"] = iso()
     save_json(DATABASE_FILE, database)
 
@@ -277,7 +278,6 @@ def apply_check_result(item, result):
         item["status"] = "working"
         item["last_success"] = iso()
         item["failures"] = 0
-        item.pop("check_error", None)
         return "working"
 
     item["status"] = "dead"
@@ -305,7 +305,7 @@ def check_servers(servers):
 
         if status == "working":
             working.append(item)
-            print(f"[WORKING] Google=True")
+            print(f"[WORKING] Ping={result.get('ping')}ms | {item.get('server_name')}")
         else:
             print("[DEAD] Removing.")
             removed_dead += 1
@@ -324,7 +324,7 @@ def cleanup_servers(servers):
             continue
         cleaned.append(item)
 
-    print(f"[CLEANUP] Removed {expired} old/yesterday servers. Kept today's: {len(cleaned)}")
+    print(f"[CLEANUP] Removed {expired} old servers. Kept today's: {len(cleaned)}")
     return cleaned, expired
 
 def write_results(exportable):
@@ -355,7 +355,6 @@ def main():
     servers = database["servers"]
 
     servers, expired = cleanup_servers(servers)
-
     discovered, source_errors = collect_sources(sources, database)
     new_count = update_discovered(servers, discovered)
 
