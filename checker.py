@@ -11,10 +11,10 @@ import requests
 
 
 # ==================================================
-# FLOGGER VPN CHECKER (Via Proxy GET + Ping)
+# FLOGGER VPN CHECKER (Robust & Optimized v6.1)
 # ==================================================
 
-VERSION = "6.0"
+VERSION = "6.1"
 
 TEST_URLS = {
     "google": "https://www.gstatic.com/generate_204",
@@ -22,8 +22,8 @@ TEST_URLS = {
 
 IP_URL = "http://ip-api.com/json/?fields=status,message,country,countryCode,query"
 
-TIMEOUT = 6
-START_TIMEOUT = 4
+TIMEOUT = 10      # Увеличенный таймаут для стабильности сбора
+START_TIMEOUT = 5
 RETRIES = 1
 RETRY_DELAY = 1
 
@@ -61,8 +61,13 @@ COUNTRIES = {
 def decode_b64(value):
     value = value.strip()
     value += "=" * (-len(value) % 4)
-    decoded = base64.b64decode(value, altchars=b"-_", validate=True)
-    return decoded.decode("utf-8")
+    for altchars in (b"-_", b"+/"):
+        try:
+            decoded = base64.b64decode(value, altchars=altchars, validate=False)
+            return decoded.decode("utf-8", errors="ignore")
+        except Exception:
+            continue
+    return ""
 
 
 def tls_config(params, default_server_name=""):
@@ -92,11 +97,21 @@ def tls_config(params, default_server_name=""):
         tls["utls"] = {"enabled": True, "fingerprint": fingerprint}
 
     if security == "reality":
-        public_key = params.get("pbk", [""])[0] or params.get("publicKey", [""])[0]
-        short_id = params.get("sid", [""])[0] or params.get("shortId", [""])[0]
-        if not public_key:
-            raise ValueError("Reality: missing public key")
-        tls["reality"] = {"enabled": True, "public_key": public_key, "short_id": short_id}
+        public_key = (
+            params.get("pbk", [""])[0]
+            or params.get("publicKey", [""])[0]
+            or params.get("pk", [""])[0]
+        )
+        short_id = (
+            params.get("sid", [""])[0]
+            or params.get("shortId", [""])[0]
+        )
+        if public_key:
+            tls["reality"] = {
+                "enabled": True,
+                "public_key": public_key,
+                "short_id": short_id
+            }
 
     return {"tls": tls}
 
@@ -134,12 +149,15 @@ def transport_config(params):
     if kind == "quic":
         return {"transport": {"type": "quic"}}
 
-    raise ValueError(f"Unsupported transport: {kind}")
+    return {}
 
 
 def parse_vmess(link):
     raw = link[len("vmess://"):].strip()
-    data = json.loads(decode_b64(raw))
+    decoded_json = decode_b64(raw)
+    if not decoded_json:
+        raise ValueError("Invalid VMess base64")
+    data = json.loads(decoded_json)
     host = data.get("add")
     port = int(data.get("port"))
     uuid = data.get("id")
@@ -181,23 +199,25 @@ def parse_ss(link):
         password = unquote(parsed.password or "")
         if not password:
             decoded = decode_b64(username)
-            if ":" not in decoded:
-                raise ValueError("Invalid Shadowsocks credentials")
-            method, password = decoded.split(":", 1)
+            if ":" in decoded:
+                method, password = decoded.split(":", 1)
+            else:
+                method, password = "aes-256-gcm", username
         else:
             method = username
-        params = parse_qs(parsed.query)
     else:
         raw = link[len("ss://"):]
         decoded = decode_b64(raw.split("#", 1)[0])
-        credentials, address = decoded.rsplit("@", 1)
-        method, password = credentials.split(":", 1)
-        address_parsed = urlsplit("//" + address)
-        host = address_parsed.hostname
-        port = address_parsed.port
-        params = {}
+        if "@" in decoded:
+            credentials, address = decoded.rsplit("@", 1)
+            method, password = credentials.split(":", 1)
+            address_parsed = urlsplit("//" + address)
+            host = address_parsed.hostname
+            port = address_parsed.port
+        else:
+            raise ValueError("Unsupported Shadowsocks format")
 
-    outbound = {
+    return {
         "type": "shadowsocks",
         "tag": "proxy",
         "server": host,
@@ -205,7 +225,6 @@ def parse_ss(link):
         "method": method,
         "password": password
     }
-    return outbound
 
 
 def parse_link(link):
@@ -234,7 +253,7 @@ def parse_link(link):
             "tag": "proxy",
             "server": host,
             "server_port": port,
-            "uuid": username
+            "uuid": username or "none"
         }
         flow = params.get("flow", [""])[0]
         if flow:
@@ -264,7 +283,7 @@ def parse_link(link):
         insecure = params.get("insecure", ["0"])[0].lower()
         if insecure in ("1", "true", "yes"):
             tls["insecure"] = True
-        outbound = {
+        return {
             "type": "hysteria2",
             "tag": "proxy",
             "server": host,
@@ -272,7 +291,6 @@ def parse_link(link):
             "password": secret,
             "tls": tls
         }
-        return outbound
 
     raise ValueError(f"Unsupported protocol: {scheme}")
 
@@ -323,7 +341,6 @@ def make_server_name(outbound, country_code=None):
     return f"🌐 Неизвестно | {protocol} | {port}"
 
 
-# СТРОГИЙ PROXY GET ТЕСТ С ЗАМЕРОМ ПИНГА
 def test_endpoint(session, url, proxies):
     for attempt in range(RETRIES):
         try:
@@ -391,7 +408,6 @@ def check_link(link):
                 proxy = f"http://127.0.0.1:{port}"
                 proxies = {"http": proxy, "https": proxy}
 
-                # Запуск via Proxy GET с замером отклика
                 success, ping = test_endpoint(session, TEST_URLS["google"], proxies)
                 results["working"] = success
                 results["ping"] = ping
