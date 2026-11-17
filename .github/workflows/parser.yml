@@ -3,7 +3,6 @@ name: Flogger VPN Parser
 on:
   workflow_dispatch:
   schedule:
-    # Запуск каждые 2 часа
     - cron: "0 */2 * * *"
 
 permissions:
@@ -40,24 +39,15 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-
-          # Фиксированная стабильная версия во избежание лимитов GitHub API (ошибок 403)
           VERSION="1.10.0"
-
           echo "Installing sing-box ${VERSION}"
-
           curl -fL \
             "https://github.com/SagerNet/sing-box/releases/download/v${VERSION}/sing-box-${VERSION}-linux-amd64.tar.gz" \
             -o sing-box.tar.gz
-
           tar -xzf sing-box.tar.gz
-
           BINARY=$(find . -type f -name sing-box -perm -111 | head -n 1)
-
           test -n "$BINARY"
-
           sudo install "$BINARY" /usr/local/bin/sing-box
-
           sing-box version
 
       - name: Verify project
@@ -65,9 +55,7 @@ jobs:
           test -f parser.py
           test -f checker.py
           test -f sources.txt
-
           python -m py_compile parser.py checker.py
-
           echo "Project files verified"
 
       - name: Run Flogger Parser
@@ -80,27 +68,18 @@ jobs:
           test -f stats.json
           test -f servers.json
           test -d results
-
           echo "Generated files verified"
 
       - name: Save results to GitHub
         shell: bash
         run: |
           set -euo pipefail
-
           git config user.name "Flogger Bot"
           git config user.email "actions@github.com"
-
-          git add subscription.txt
-          git add stats.json
-          git add servers.json
-          git add results/
-
+          git add subscription.txt stats.json servers.json results/
           if ! git diff --cached --quiet; then
-            git commit -m "Update Flogger VPN subscription & database [Auto 4h]"
-
+            git commit -m "Update Flogger VPN subscription [Auto 2h]"
             git pull --rebase origin "${GITHUB_REF_NAME}"
-
             git push origin "HEAD:${GITHUB_REF_NAME}"
           else
             echo "No changes to save"
