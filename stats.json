@@ -1,7 +1,7 @@
 {
   "version": "5.3",
-  "updated": "2026-11-17T15:45:57.180420+00:00",
-  "sources": 4,
+  "updated": "2026-11-17T16:14:27.369352+00:00",
+  "sources": 5,
   "found": 83,
   "new": 0,
   "expired": 0,
@@ -9,5 +9,5 @@
   "working": 17,
   "subscription": 17,
   "removed_dead": 106,
-  "duration_seconds": 229.4
+  "duration_seconds": 226.28
 }
