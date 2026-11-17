@@ -4,17 +4,16 @@ import json
 import os
 import re
 import time
-
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from urllib.request import Request, urlopen
 from urllib.parse import urlsplit, urlunsplit, quote
 
+import requests
 from checker import check_link
 
 
 # ==================================================
-# FLOGGER VPN PARSER (Robust Telegram & Fallback)
+# FLOGGER VPN PARSER (v5.3 - Requests & Anti-403)
 # ==================================================
 
 ROOT = Path(__file__).resolve().parent
@@ -27,7 +26,7 @@ STATS_FILE = ROOT / "stats.json"
 
 MAX_SERVERS = 70
 MAX_FAILURES = 1
-VERSION = "5.2"
+VERSION = "5.3"
 
 ALLOWED = (
     "vless://",
@@ -46,11 +45,14 @@ PROTOCOLS = (
     "hysteria2",
 )
 
-# Реалистичные заголовки браузера, чтобы Telegram не блокировал запросы
+# Полноценные заголовки браузера для обхода 403 ошибок на Codeberg и других сайтах
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.5"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1"
 }
 
 
@@ -80,9 +82,11 @@ def save_json(path, data):
     atomic_write(path, json.dumps(data, ensure_ascii=False, indent=2))
 
 def fetch_url(url):
-    request = Request(url, headers=HEADERS)
-    with urlopen(request, timeout=25) as response:
-        return response.read().decode("utf-8", errors="ignore")
+    session = requests.Session()
+    session.trust_env = False
+    response = session.get(url, headers=HEADERS, timeout=25, allow_redirects=True)
+    response.raise_for_status()
+    return response.text
 
 def get_source_content(source):
     source = source.strip()
@@ -149,7 +153,6 @@ def get_telegram_new_links(content, stored_last_id):
                 except ValueError:
                     pass
 
-    # УМНЫЙ FALLBACK: если разметка поменялась или ничего не нашлось по постам — парсим всю страницу целиком
     if not new_links:
         new_links = extract_links(content)
 
@@ -168,20 +171,20 @@ def config_id(link):
 
 def load_database():
     if not DATABASE_FILE.exists():
-        return {"version": 5.2, "updated": None, "servers": [], "channels": {}}
+        return {"version": 5.3, "updated": None, "servers": [], "channels": {}}
     try:
         data = json.loads(DATABASE_FILE.read_text(encoding="utf-8"))
         if not isinstance(data, dict):
             raise ValueError("Database must be an object")
         data.setdefault("servers", [])
         data.setdefault("channels", {})
-        data["version"] = 5.2
+        data["version"] = 5.3
         return data
     except Exception as error:
         raise RuntimeError(f"Cannot read servers.json: {error}")
 
 def save_database(database):
-    database["version"] = 5.2
+    database["version"] = 5.3
     database["updated"] = iso()
     save_json(DATABASE_FILE, database)
 
@@ -386,4 +389,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-8
