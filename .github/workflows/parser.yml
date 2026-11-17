@@ -3,8 +3,8 @@ name: Flogger VPN Parser
 on:
   workflow_dispatch:
   schedule:
-    # Запуск каждые 4 часа
-    - cron: "0 */4 * * *"
+    # Запуск каждые 2 часа
+    - cron: "0 */2 * * *"
 
 permissions:
   contents: write
