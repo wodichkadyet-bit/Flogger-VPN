@@ -11,10 +11,10 @@ import requests
 
 
 # ==================================================
-# FLOGGER VPN CHECKER (Google Only, Optimized)
+# FLOGGER VPN CHECKER (Via Proxy GET + Ping)
 # ==================================================
 
-VERSION = "5.1"
+VERSION = "6.0"
 
 TEST_URLS = {
     "google": "https://www.gstatic.com/generate_204",
@@ -22,7 +22,6 @@ TEST_URLS = {
 
 IP_URL = "http://ip-api.com/json/?fields=status,message,country,countryCode,query"
 
-# Ускоренные таймауты
 TIMEOUT = 6
 START_TIMEOUT = 4
 RETRIES = 1
@@ -59,33 +58,15 @@ COUNTRIES = {
 }
 
 
-# ==================================================
-# BASE64
-# ==================================================
-
 def decode_b64(value):
     value = value.strip()
     value += "=" * (-len(value) % 4)
-
-    decoded = base64.b64decode(
-        value,
-        altchars=b"-_",
-        validate=True
-    )
-
+    decoded = base64.b64decode(value, altchars=b"-_", validate=True)
     return decoded.decode("utf-8")
 
 
-# ==================================================
-# TLS
-# ==================================================
-
 def tls_config(params, default_server_name=""):
-
-    security = params.get(
-        "security", [""]
-    )[0].lower()
-
+    security = params.get("security", [""])[0].lower()
     if security not in ("tls", "reality"):
         return {}
 
@@ -94,167 +75,67 @@ def tls_config(params, default_server_name=""):
         or params.get("serverName", [""])[0]
         or default_server_name
     )
-
     tls = {"enabled": True}
-
     if sni:
         tls["server_name"] = sni
 
     alpn = params.get("alpn", [""])[0]
-
     if alpn:
-        tls["alpn"] = [
-            item.strip()
-            for item in alpn.split(",")
-            if item.strip()
-        ]
+        tls["alpn"] = [item.strip() for item in alpn.split(",") if item.strip()]
 
-    insecure = params.get(
-        "allowInsecure",
-        params.get("insecure", ["false"])
-    )[0].lower()
-
+    insecure = params.get("allowInsecure", params.get("insecure", ["false"]))[0].lower()
     if insecure in ("1", "true", "yes"):
         tls["insecure"] = True
 
     fingerprint = params.get("fp", [""])[0]
-
     if fingerprint:
-        tls["utls"] = {
-            "enabled": True,
-            "fingerprint": fingerprint
-        }
+        tls["utls"] = {"enabled": True, "fingerprint": fingerprint}
 
     if security == "reality":
-
-        public_key = (
-            params.get("pbk", [""])[0]
-            or params.get("publicKey", [""])[0]
-        )
-
-        short_id = (
-            params.get("sid", [""])[0]
-            or params.get("shortId", [""])[0]
-        )
-
+        public_key = params.get("pbk", [""])[0] or params.get("publicKey", [""])[0]
+        short_id = params.get("sid", [""])[0] or params.get("shortId", [""])[0]
         if not public_key:
-            raise ValueError(
-                "Reality: missing public key"
-            )
-
-        tls["reality"] = {
-            "enabled": True,
-            "public_key": public_key,
-            "short_id": short_id
-        }
+            raise ValueError("Reality: missing public key")
+        tls["reality"] = {"enabled": True, "public_key": public_key, "short_id": short_id}
 
     return {"tls": tls}
 
 
-# ==================================================
-# TRANSPORT
-# ==================================================
-
 def transport_config(params):
-
-    kind = params.get(
-        "type", ["tcp"]
-    )[0].lower()
-
+    kind = params.get("type", ["tcp"])[0].lower()
     if kind in ("tcp", ""):
         return {}
 
     if kind == "ws":
-
         path = params.get("path", ["/"])[0]
         host = params.get("host", [""])[0]
-
-        result = {
-            "type": "ws",
-            "path": path,
-            "headers": {}
-        }
-
+        result = {"type": "ws", "path": path, "headers": {}}
         if host:
             result["headers"]["Host"] = host
-
-        early_data = params.get("ed", ["0"])[0]
-
-        try:
-            if int(early_data) > 0:
-                result["max_early_data"] = int(early_data)
-                result["early_data_header_name"] = (
-                    params.get("eh", [""])[0]
-                )
-        except ValueError:
-            pass
-
         return {"transport": result}
 
     if kind == "grpc":
-
-        service = (
-            params.get("serviceName", [""])[0]
-            or params.get("service_name", [""])[0]
-        )
-
-        return {
-            "transport": {
-                "type": "grpc",
-                "service_name": service
-            }
-        }
+        service = params.get("serviceName", [""])[0] or params.get("service_name", [""])[0]
+        return {"transport": {"type": "grpc", "service_name": service}}
 
     if kind in ("xhttp", "splithttp"):
-
-        return {
-            "transport": {
-                "type": "xhttp",
-                "path": params.get("path", ["/"])[0],
-                "host": params.get("host", [""])[0]
-            }
-        }
+        return {"transport": {"type": "xhttp", "path": params.get("path", ["/"])[0], "host": params.get("host", [""])[0]}}
 
     if kind == "httpupgrade":
-
-        return {
-            "transport": {
-                "type": "httpupgrade",
-                "path": params.get("path", ["/"])[0],
-                "host": params.get("host", [""])[0]
-            }
-        }
+        return {"transport": {"type": "httpupgrade", "path": params.get("path", ["/"])[0], "host": params.get("host", [""])[0]}}
 
     if kind in ("http", "h2"):
-
         host = params.get("host", [""])[0]
-
-        result = {
-            "type": "http",
-            "path": params.get("path", ["/"])[0]
-        }
-
+        result = {"type": "http", "path": params.get("path", ["/"])[0]}
         if host:
             result["host"] = [host]
-
         return {"transport": result}
 
     if kind == "quic":
+        return {"transport": {"type": "quic"}}
 
-        return {
-            "transport": {
-                "type": "quic"
-            }
-        }
+    raise ValueError(f"Unsupported transport: {kind}")
 
-    raise ValueError(
-        f"Unsupported transport: {kind}"
-    )
-
-
-# ==================================================
-# VMESS & SS & MAIN PARSER
-# ==================================================
 
 def parse_vmess(link):
     raw = link[len("vmess://"):].strip()
@@ -309,19 +190,12 @@ def parse_ss(link):
     else:
         raw = link[len("ss://"):]
         decoded = decode_b64(raw.split("#", 1)[0])
-        if "@" not in decoded:
-            raise ValueError("Unsupported Shadowsocks format")
         credentials, address = decoded.rsplit("@", 1)
-        if ":" not in credentials:
-            raise ValueError("Invalid Shadowsocks credentials")
         method, password = credentials.split(":", 1)
         address_parsed = urlsplit("//" + address)
         host = address_parsed.hostname
         port = address_parsed.port
         params = {}
-
-    if not host or not port or not method or not password:
-        raise ValueError("Incomplete Shadowsocks configuration")
 
     outbound = {
         "type": "shadowsocks",
@@ -331,13 +205,6 @@ def parse_ss(link):
         "method": method,
         "password": password
     }
-    plugin = params.get("plugin", [""])[0]
-    if plugin:
-        plugin_name, _, plugin_options = plugin.partition(";")
-        if plugin_name not in ("obfs-local", "v2ray-plugin"):
-            raise ValueError(f"Unsupported SS plugin: {plugin_name}")
-        outbound["plugin"] = plugin_name
-        outbound["plugin_opts"] = plugin_options
     return outbound
 
 
@@ -362,8 +229,6 @@ def parse_link(link):
     password = unquote(parsed.password or "")
 
     if scheme == "vless":
-        if not username:
-            raise ValueError("VLESS: missing UUID")
         outbound = {
             "type": "vless",
             "tag": "proxy",
@@ -374,17 +239,12 @@ def parse_link(link):
         flow = params.get("flow", [""])[0]
         if flow:
             outbound["flow"] = flow
-        packet_encoding = params.get("packetEncoding", [""])[0]
-        if packet_encoding:
-            outbound["packet_encoding"] = packet_encoding
         outbound.update(tls_config(params, host))
         outbound.update(transport_config(params))
         return outbound
 
     if scheme == "trojan":
         secret = password or username
-        if not secret:
-            raise ValueError("Trojan: missing password")
         tls_params = dict(params)
         tls_params["security"] = ["tls"]
         outbound = {
@@ -400,18 +260,10 @@ def parse_link(link):
 
     if scheme in ("hysteria2", "hy2"):
         secret = password or username
-        if not secret:
-            raise ValueError("Hysteria2: missing password")
-        tls = {
-            "enabled": True,
-            "server_name": params.get("sni", [host])[0]
-        }
+        tls = {"enabled": True, "server_name": params.get("sni", [host])[0]}
         insecure = params.get("insecure", ["0"])[0].lower()
         if insecure in ("1", "true", "yes"):
             tls["insecure"] = True
-        alpn = params.get("alpn", [""])[0]
-        if alpn:
-            tls["alpn"] = [item.strip() for item in alpn.split(",") if item.strip()]
         outbound = {
             "type": "hysteria2",
             "tag": "proxy",
@@ -420,24 +272,9 @@ def parse_link(link):
             "password": secret,
             "tls": tls
         }
-        obs = params.get("obfs", [""])[0]
-        obs_password = params.get("obfs-password", [""])[0]
-        if obs:
-            outbound["obfs"] = {
-                "type": obs,
-                "password": obs_password
-            }
         return outbound
 
     raise ValueError(f"Unsupported protocol: {scheme}")
-
-
-def get_server_info(outbound):
-    return {
-        "protocol": outbound["type"],
-        "host": outbound["server"],
-        "port": outbound["server_port"]
-    }
 
 
 def get_free_port():
@@ -459,80 +296,58 @@ def wait_for_port(port, process):
     return False
 
 
-# ==================================================
-# IP CHECK
-# ==================================================
-
 def check_ip(proxy):
-    result = {
-        "ip": None,
-        "country": None,
-        "country_code": None
-    }
-    proxies = {
-        "http": proxy,
-        "https": proxy
-    }
+    result = {"ip": None, "country": None, "country_code": None}
     session = requests.Session()
     session.trust_env = False
-
     try:
-        response = session.get(
-            IP_URL,
-            proxies=proxies,
-            timeout=TIMEOUT
-        )
-        response.raise_for_status()
+        response = session.get(IP_URL, proxies={"http": proxy, "https": proxy}, timeout=TIMEOUT)
         data = response.json()
-
         if data.get("status") == "success":
             result["ip"] = data.get("query")
             result["country"] = data.get("country")
             result["country_code"] = data.get("countryCode")
-    except (requests.RequestException, ValueError):
+    except Exception:
         pass
     finally:
         session.close()
-
     return result
 
 
 def make_server_name(outbound, country_code=None):
     protocol = outbound["type"].upper()
     port = outbound["server_port"]
-
     if country_code:
-        flag, country = COUNTRIES.get(
-            country_code.upper(),
-            ("🌍", country_code.upper())
-        )
+        flag, country = COUNTRIES.get(country_code.upper(), ("🌍", country_code.upper()))
         return f"{flag} {country} | {protocol} | {port}"
-
     return f"🌐 Неизвестно | {protocol} | {port}"
 
 
+# СТРОГИЙ PROXY GET ТЕСТ С ЗАМЕРОМ ПИНГА
 def test_endpoint(session, url, proxies):
     for attempt in range(RETRIES):
         try:
+            start_time = time.time()
             response = session.get(
                 url,
                 proxies=proxies,
                 timeout=TIMEOUT,
                 allow_redirects=False
             )
+            ping_ms = int((time.time() - start_time) * 1000)
             if response.status_code == 204:
-                return True
+                return True, ping_ms
         except requests.RequestException:
             pass
         if attempt + 1 < RETRIES:
             time.sleep(RETRY_DELAY)
-    return False
+    return False, None
 
 
 def check_link(link):
     results = {
         "working": False,
-        "google": False,
+        "ping": None,
         "ip": None,
         "country": None,
         "country_code": None,
@@ -548,17 +363,14 @@ def check_link(link):
 
     try:
         outbound = parse_link(link)
-        results.update(get_server_info(outbound))
-        port = get_free_port()
+        results["protocol"] = outbound["type"]
+        results["host"] = outbound["server"]
+        results["port"] = outbound["server_port"]
 
+        port = get_free_port()
         config = {
             "log": {"level": "error"},
-            "inbounds": [{
-                "type": "mixed",
-                "tag": "local-in",
-                "listen": "127.0.0.1",
-                "listen_port": port
-            }],
+            "inbounds": [{"type": "mixed", "tag": "local-in", "listen": "127.0.0.1", "listen_port": port}],
             "outbounds": [outbound, {"type": "direct", "tag": "direct"}],
             "route": {"final": "proxy"}
         }
@@ -566,14 +378,6 @@ def check_link(link):
         with tempfile.TemporaryDirectory() as directory:
             config_path = Path(directory) / "config.json"
             config_path.write_text(json.dumps(config, ensure_ascii=False), encoding="utf-8")
-
-            try:
-                subprocess.run(
-                    [SING_BOX, "check", "-c", str(config_path)],
-                    check=True, capture_output=True, text=True, timeout=10
-                )
-            except subprocess.CalledProcessError as error:
-                raise RuntimeError("sing-box config error: " + (error.stderr or error.stdout)[:180])
 
             process = subprocess.Popen(
                 [SING_BOX, "run", "-c", str(config_path)],
@@ -587,36 +391,24 @@ def check_link(link):
                 proxy = f"http://127.0.0.1:{port}"
                 proxies = {"http": proxy, "https": proxy}
 
-                results["google"] = test_endpoint(session, TEST_URLS["google"], proxies)
+                # Запуск via Proxy GET с замером отклика
+                success, ping = test_endpoint(session, TEST_URLS["google"], proxies)
+                results["working"] = success
+                results["ping"] = ping
 
-                if results["google"]:
+                if success:
                     results.update(check_ip(proxy))
 
-                results["working"] = results["google"]
                 results["server_name"] = make_server_name(outbound, results["country_code"])
             finally:
                 if process and process.poll() is None:
                     process.terminate()
-                    try:
-                        process.wait(timeout=2)
-                    except subprocess.TimeoutExpired:
-                        process.kill()
-                        process.wait()
-                    process = None
-    except FileNotFoundError:
-        results["error"] = "sing-box executable not found"
-    except subprocess.TimeoutExpired:
-        results["error"] = "sing-box operation timed out"
+                    process.wait(timeout=2)
     except Exception as error:
         results["error"] = str(error)[:250]
     finally:
         if process and process.poll() is None:
             process.terminate()
-            try:
-                process.wait(timeout=2)
-            except subprocess.TimeoutExpired:
-                process.kill()
-                process.wait()
         session.close()
 
     return results
