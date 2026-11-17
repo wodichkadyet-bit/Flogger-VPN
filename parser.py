@@ -14,7 +14,7 @@ from checker import check_link
 
 
 # ==================================================
-# FLOGGER VPN PARSER (Max 70, Strict Cleanup)
+# FLOGGER VPN PARSER (Robust Telegram & Fallback)
 # ==================================================
 
 ROOT = Path(__file__).resolve().parent
@@ -25,9 +25,9 @@ SUBSCRIPTION_FILE = ROOT / "subscription.txt"
 RESULTS_DIR = ROOT / "results"
 STATS_FILE = ROOT / "stats.json"
 
-MAX_SERVERS = 70       # Увеличено до 70 серверов в подписке
+MAX_SERVERS = 70
 MAX_FAILURES = 1
-VERSION = "5.0"
+VERSION = "5.2"
 
 ALLOWED = (
     "vless://",
@@ -46,8 +46,11 @@ PROTOCOLS = (
     "hysteria2",
 )
 
+# Реалистичные заголовки браузера, чтобы Telegram не блокировал запросы
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; FloggerVPN/5.0)"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.5"
 }
 
 
@@ -87,10 +90,12 @@ def get_source_content(source):
         return ""
     if source.startswith(("http://", "https://")):
         try:
+            target_url = source
             if "t.me/" in source and "/s/" not in source:
                 channel = source.rstrip("/").split("/")[-1]
-                return fetch_url(f"https://t.me/s/{channel}")
-            return fetch_url(source)
+                target_url = f"https://t.me/s/{channel}"
+            
+            return fetch_url(target_url)
         except Exception as error:
             print(f"[SOURCE ERROR] {source}: {error}")
             return ""
@@ -129,24 +134,23 @@ def get_telegram_new_links(content, stored_last_id):
     max_id = stored_last_id
     parts = content.split('class="tgme_widget_message ')
 
-    for part in parts[1:]:
-        post_id_match = re.search(r'data-post="[^/]+/(\d+)"', part)
-        if not post_id_match:
-            post_id_match = re.search(r'href="https://t.me/[^/]+/(\d+)"', part)
-        if post_id_match:
-            try:
-                post_id = int(post_id_match.group(1))
-                if post_id > max_id:
-                    max_id = post_id
-                if post_id > stored_last_id:
-                    new_links.update(extract_links(part))
-            except ValueError:
-                pass
-        else:
-            if stored_last_id == 0:
-                new_links.update(extract_links(part))
+    if len(parts) > 1:
+        for part in parts[1:]:
+            post_id_match = re.search(r'data-post="[^/]+/(\d+)"', part)
+            if not post_id_match:
+                post_id_match = re.search(r'href="https://t.me/[^/]+/(\d+)"', part)
+            if post_id_match:
+                try:
+                    post_id = int(post_id_match.group(1))
+                    if post_id > max_id:
+                        max_id = post_id
+                    if post_id > stored_last_id:
+                        new_links.update(extract_links(part))
+                except ValueError:
+                    pass
 
-    if not new_links and stored_last_id == 0:
+    # УМНЫЙ FALLBACK: если разметка поменялась или ничего не нашлось по постам — парсим всю страницу целиком
+    if not new_links:
         new_links = extract_links(content)
 
     return new_links, max_id
@@ -164,20 +168,20 @@ def config_id(link):
 
 def load_database():
     if not DATABASE_FILE.exists():
-        return {"version": 5.0, "updated": None, "servers": [], "channels": {}}
+        return {"version": 5.2, "updated": None, "servers": [], "channels": {}}
     try:
         data = json.loads(DATABASE_FILE.read_text(encoding="utf-8"))
         if not isinstance(data, dict):
             raise ValueError("Database must be an object")
         data.setdefault("servers", [])
         data.setdefault("channels", {})
-        data["version"] = 5.0
+        data["version"] = 5.2
         return data
     except Exception as error:
         raise RuntimeError(f"Cannot read servers.json: {error}")
 
 def save_database(database):
-    database["version"] = 5.0
+    database["version"] = 5.2
     database["updated"] = iso()
     save_json(DATABASE_FILE, database)
 
@@ -199,6 +203,7 @@ def collect_sources(sources, database):
         content = get_source_content(source)
         if not content:
             source_errors += 1
+            print(f"[ERROR] Failed to fetch content from {source}")
             continue
 
         if "t.me/" in source:
@@ -211,7 +216,7 @@ def collect_sources(sources, database):
                 "last_message_id": max(stored_last_id, max_id),
                 "last_checked": iso()
             }
-            print(f"[TG] Channel: {channel_slug} | New links: {len(links)}")
+            print(f"[TG] Channel: {channel_slug} | Found links: {len(links)}")
         else:
             links = extract_links(content)
             print(f"[FOUND] {len(links)} configurations")
@@ -253,7 +258,6 @@ def update_discovered(servers, discovered):
 
 def apply_check_result(item, result):
     item["last_checked"] = iso()
-    item["cloudflare"] = bool(result.get("cloudflare"))
     item["google"] = bool(result.get("google"))
 
     if result.get("ip"):
@@ -298,7 +302,7 @@ def check_servers(servers):
 
         if status == "working":
             working.append(item)
-            print(f"[WORKING] CF={item.get('cloudflare')} Google={item.get('google')}")
+            print(f"[WORKING] Google=True")
         else:
             print("[DEAD] Removing.")
             removed_dead += 1
@@ -306,7 +310,6 @@ def check_servers(servers):
     return working, checked, removed_dead
 
 def cleanup_servers(servers):
-    # Жестко удаляем всё, что было создано в прошлые дни (вчерашние и старые «н/д»)
     today_str = now().strftime("%Y-%m-%d")
     cleaned = []
     expired = 0
@@ -348,17 +351,14 @@ def main():
     database = load_database()
     servers = database["servers"]
 
-    # Стираем вчерашний день и старые «н/д»
     servers, expired = cleanup_servers(servers)
 
-    # Собираем новые ссылки за сегодня
     discovered, source_errors = collect_sources(sources, database)
     new_count = update_discovered(servers, discovered)
 
     print(f"\n[INFO] Checking {len(servers)} current configurations...")
     working_servers, checked, removed_dead = check_servers(servers)
 
-    # Оставляем только те, что реально работают (никаких мертвых «н/д»)
     unique_working = {item["id"]: item for item in working_servers if item.get("status") == "working"}
     working_servers = list(unique_working.values())
     working_servers.sort(key=lambda x: parse_date(x.get("last_success")), reverse=True)
@@ -386,3 +386,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+8
