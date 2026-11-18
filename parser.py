@@ -20,7 +20,7 @@ RESULTS_DIR = ROOT / "results"
 STATS_FILE = ROOT / "stats.json"
 
 MAX_SERVERS = 70
-VERSION = "7.0"
+VERSION = "7.4"
 
 ALLOWED = (
     "vless://",
@@ -78,24 +78,25 @@ def decode_base64(value):
         try:
             decoded = base64.b64decode(value_padded, altchars=altchars, validate=False)
             res = decoded.decode("utf-8", errors="ignore")
-            if "://" in res:
+            if "://" in res or len(res) > 20:
                 return res
         except Exception:
             continue
     return ""
 
 def fetch_url(url):
-    # Автоматически заменяем пробелы на %20, чтобы URLs с пробелами (как на Codeberg) не падали с 403
-    url = url.replace(" ", "%20")
+    # Прямой переход по ссылке, замена пробелов на %20 для защиты от 403
+    target_url = url.strip().replace(" ", "%20")
+
     session = requests.Session()
     session.trust_env = False
-    response = session.get(url, headers=HEADERS, timeout=25, allow_redirects=True)
+    response = session.get(target_url, headers=HEADERS, timeout=25, allow_redirects=True)
     response.raise_for_status()
     text = response.text.strip()
     
-    # Если ответ целиком является Base64 подпиской (без HTML-тегов) — сразу распаковываем его
+    # Если содержимое является Base64-подпиской — декодируем его
     decoded_sub = decode_base64(text)
-    if decoded_sub:
+    if decoded_sub and "://" in decoded_sub:
         return decoded_sub
     return text
 
@@ -129,7 +130,6 @@ def extract_links(content):
                 found.add(link)
 
     add_matches(content)
-    # Проверяем Base64 блоки внутри текста
     for candidate in re.findall(r'(?<![A-Za-z0-9+/=_-])[A-Za-z0-9_+/=-]{20,}', content):
         decoded = decode_base64(candidate)
         if decoded:
@@ -174,18 +174,18 @@ def config_id(link):
 
 def load_database():
     if not DATABASE_FILE.exists():
-        return {"version": 7.0, "updated": None, "servers": [], "channels": {}}
+        return {"version": 7.4, "updated": None, "servers": [], "channels": {}}
     try:
         data = json.loads(DATABASE_FILE.read_text(encoding="utf-8"))
         data.setdefault("servers", [])
         data.setdefault("channels", {})
-        data["version"] = 7.0
+        data["version"] = 7.4
         return data
     except Exception as error:
         raise RuntimeError(f"Cannot read servers.json: {error}")
 
 def save_database(database):
-    database["version"] = 7.0
+    database["version"] = 7.4
     database["updated"] = iso()
     save_json(DATABASE_FILE, database)
 
@@ -313,18 +313,21 @@ def check_servers(servers):
     return working, checked, removed_dead
 
 def cleanup_servers(servers):
-    today_str = now().strftime("%Y-%m-%d")
     cleaned = []
     expired = 0
+    now_dt = now()
+    cutoff_12h = now_dt - timedelta(hours=12)
 
     for item in servers:
-        first_seen = item.get("first_seen", "")
-        if not first_seen or not first_seen.startswith(today_str):
+        status = item.get("status")
+        last_success = parse_date(item.get("last_success"))
+
+        if status != "working" or last_success < cutoff_12h:
             expired += 1
             continue
         cleaned.append(item)
 
-    print(f"[CLEANUP] Removed {expired} old servers. Kept today's: {len(cleaned)}")
+    print(f"[CLEANUP] Removed dead/old: {expired}. Kept working: {len(cleaned)}")
     return cleaned, expired
 
 def write_results(exportable):
