@@ -6,7 +6,7 @@ import re
 import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from urllib.parse import urlsplit, urlunsplit, quote
+from urllib.parse import urlsplit, urlunsplit, quote, parse_qs, unquote
 
 import requests
 from checker import check_link
@@ -20,7 +20,7 @@ RESULTS_DIR = ROOT / "results"
 STATS_FILE = ROOT / "stats.json"
 
 MAX_SERVERS = 70
-VERSION = "7.4"
+VERSION = "7.7"
 
 ALLOWED = (
     "vless://",
@@ -40,8 +40,9 @@ PROTOCOLS = (
 )
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.9",
 }
 
 def now():
@@ -84,21 +85,38 @@ def decode_base64(value):
             continue
     return ""
 
-def fetch_url(url):
-    # Прямой переход по ссылке, замена пробелов на %20 для защиты от 403
-    target_url = url.strip().replace(" ", "%20")
+def extract_real_target_url(source):
+    """Достает реальную ссылку из параметров ?url=, ?sub=, ?link="""
+    parsed = urlsplit(source)
+    query_params = parse_qs(parsed.query)
+    
+    for key in ("url", "sub", "link", "target", "file", "data"):
+        if key in query_params:
+            inner_url = unquote(query_params[key][0])
+            if inner_url.startswith(("http://", "https://")):
+                return inner_url
+    return source
+
+def fetch_url(raw_url):
+    # Сначала пробуем вытащить внутренний адрес из обертки
+    target_url = extract_real_target_url(raw_url).strip().replace(" ", "%20")
 
     session = requests.Session()
     session.trust_env = False
-    response = session.get(target_url, headers=HEADERS, timeout=25, allow_redirects=True)
-    response.raise_for_status()
-    text = response.text.strip()
-    
-    # Если содержимое является Base64-подпиской — декодируем его
-    decoded_sub = decode_base64(text)
-    if decoded_sub and "://" in decoded_sub:
-        return decoded_sub
-    return text
+    try:
+        response = session.get(target_url, headers=HEADERS, timeout=25, allow_redirects=True)
+        if response.status_code != 200:
+            print(f"[SKIP] HTTP {response.status_code} for {target_url}")
+            return ""
+        text = response.text.strip()
+        
+        decoded_sub = decode_base64(text)
+        if decoded_sub and "://" in decoded_sub:
+            return decoded_sub
+        return text
+    except Exception as e:
+        print(f"[SKIP] Failed to fetch {target_url}: {e}")
+        return ""
 
 def get_source_content(source):
     source = source.strip()
@@ -174,28 +192,20 @@ def config_id(link):
 
 def load_database():
     if not DATABASE_FILE.exists():
-        return {"version": 7.4, "updated": None, "servers": [], "channels": {}}
+        return {"version": 7.7, "updated": None, "servers": [], "channels": {}}
     try:
         data = json.loads(DATABASE_FILE.read_text(encoding="utf-8"))
         data.setdefault("servers", [])
         data.setdefault("channels", {})
-        data["version"] = 7.4
+        data["version"] = 7.7
         return data
-    except Exception as error:
-        raise RuntimeError(f"Cannot read servers.json: {error}")
+    except Exception:
+        return {"version": 7.7, "updated": None, "servers": [], "channels": {}}
 
 def save_database(database):
-    database["version"] = 7.4
+    database["version"] = 7.7
     database["updated"] = iso()
     save_json(DATABASE_FILE, database)
-
-def update_server_name(link, result):
-    country_code = result.get("country_code")
-    new_name = result.get("server_name")
-    if not country_code or not new_name:
-        return link
-    parsed = urlsplit(link)
-    return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, parsed.query, quote(new_name, safe="")))
 
 def collect_sources(sources, database):
     discovered = {}
@@ -207,7 +217,6 @@ def collect_sources(sources, database):
         content = get_source_content(source)
         if not content:
             source_errors += 1
-            print(f"[ERROR] Failed to fetch content from {source}")
             continue
 
         if "t.me/" in source:
@@ -272,7 +281,7 @@ def apply_check_result(item, result):
         item["country_code"] = result["country_code"]
     if result.get("server_name"):
         item["server_name"] = result["server_name"]
-        item["link"] = update_server_name(item["link"], result)
+        item["link"] = result["link"]
 
     if result.get("working"):
         item["status"] = "working"
@@ -364,7 +373,7 @@ def main():
     print(f"\n[INFO] Checking {len(servers)} current configurations...")
     working_servers, checked, removed_dead = check_servers(servers)
 
-    unique_working = {item["id"]: item for item in working_servers if item.get("status") == "working"}
+    unique_working = {item["id"]: item for item in working_servers if item.get("status"] == "working"}
     working_servers = list(unique_working.values())
     working_servers.sort(key=lambda x: parse_date(x.get("last_success")), reverse=True)
 
