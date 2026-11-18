@@ -1,13 +1,13 @@
 {
   "version": "7.0",
-  "updated": "2026-11-18T12:30:47.199711+00:00",
+  "updated": "2026-11-18T16:19:27.425582+00:00",
   "sources": 5,
-  "found": 141,
-  "new": 97,
+  "found": 38,
+  "new": 28,
   "expired": 0,
-  "checked": 265,
-  "working": 67,
-  "subscription": 67,
-  "removed_dead": 198,
-  "duration_seconds": 428.44
+  "checked": 293,
+  "working": 45,
+  "subscription": 45,
+  "removed_dead": 248,
+  "duration_seconds": 410.38
 }
