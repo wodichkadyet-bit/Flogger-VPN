@@ -132,13 +132,20 @@ def download(url):
 
 
 def fetch_url(raw_url):
-    target = extract_real_target_url(raw_url).strip().replace(" ", "%20")
+    raw_url = raw_url.strip().replace(" ", "%20")
+    inner = extract_real_target_url(raw_url).strip().replace(" ", "%20")
 
-    candidates = [target]
-    if target.startswith("http://"):
-        candidates.append("https://" + target[len("http://"):])
-    elif target.startswith("https://"):
-        candidates.append("http://" + target[len("https://"):])
+    targets = [raw_url]
+    if inner != raw_url:
+        targets.append(inner)
+
+    candidates = []
+    for target in targets:
+        candidates.append(target)
+        if target.startswith("http://"):
+            candidates.append("https://" + target[len("http://"):])
+        elif target.startswith("https://"):
+            candidates.append("http://" + target[len("https://"):])
 
     last_text = ""
     for url in candidates:
