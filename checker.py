@@ -11,10 +11,10 @@ import requests
 
 
 # ==================================================
-# FLOGGER VPN CHECKER (Robust & Optimized v6.1)
+# FLOGGER VPN CHECKER (Strict Validation & Clean Names v8.0)
 # ==================================================
 
-VERSION = "6.1"
+VERSION = "8.0"
 
 TEST_URLS = {
     "google": "https://www.gstatic.com/generate_204",
@@ -22,39 +22,49 @@ TEST_URLS = {
 
 IP_URL = "http://ip-api.com/json/?fields=status,message,country,countryCode,query"
 
-TIMEOUT = 10      # Увеличенный таймаут для стабильности сбора
+TIMEOUT = 10
 START_TIMEOUT = 5
 RETRIES = 1
 RETRY_DELAY = 1
 
 SING_BOX = "sing-box"
 
+# Строгий фиксированный словарь стран по твоему списку
 COUNTRIES = {
     "DE": ("🇩🇪", "Германия"),
-    "NL": ("🇳🇱", "Нидерланды"),
-    "PL": ("🇵🇱", "Польша"),
-    "FI": ("🇫🇮", "Финляндия"),
-    "SE": ("🇸🇪", "Швеция"),
-    "NO": ("🇳🇴", "Норвегия"),
-    "FR": ("🇫🇷", "Франция"),
-    "GB": ("🇬🇧", "Великобритания"),
-    "US": ("🇺🇸", "США"),
-    "CA": ("🇨🇦", "Канада"),
-    "CH": ("🇨🇭", "Швейцария"),
-    "AT": ("🇦🇹", "Австрия"),
-    "BE": ("🇧🇪", "Бельгия"),
-    "ES": ("🇪🇸", "Испания"),
-    "IT": ("🇮🇹", "Италия"),
-    "CZ": ("🇨🇿", "Чехия"),
-    "RO": ("🇷🇴", "Румыния"),
-    "BG": ("🇧🇬", "Болгария"),
-    "TR": ("🇹🇷", "Турция"),
-    "JP": ("🇯🇵", "Япония"),
-    "SG": ("🇸🇬", "Сингапур"),
-    "HK": ("🇭🇰", "Гонконг"),
     "RU": ("🇷🇺", "Россия"),
+    "US": ("🇺🇸", "США"),
+    "PL": ("🇵🇱", "Польша"),
+    "NL": ("🇳🇱", "Нидерланды"),
+    "FR": ("🇲🇫", "Франция"),
+    "MF": ("🇲🇫", "Франция"),
     "UA": ("🇺🇦", "Украина"),
+    "TR": ("🇹🇷", "Турция"),
+    "RS": ("🇷🇸", "Сербия"),
+    "NO": ("🇳🇴", "Норвегия"),
+    "MX": ("🇲🇽", "Мексика"),
+    "LV": ("🇱🇻", "Латвия"),
+    "IR": ("🇮🇷", "Иран"),
+    "FI": ("🇫🇮", "Финляндия"),
+    "EE": ("🇪🇪", "Эстония"),
+    "CZ": ("🇨🇿", "Чехия"),
+    "DK": ("🇩🇰", "Дания"),
     "BY": ("🇧🇾", "Беларусь"),
+    "CN": ("🇨🇳", "Китай"),
+    "BG": ("🇧🇬", "Болгария"),
+    "AT": ("🇦🇹", "Австрия"),
+    "JP": ("🇯🇵", "Япония"),
+    "LT": ("🇱🇹", "Литва"),
+    "CH": ("🇨🇭", "Швейцария"),
+    "RO": ("🇷🇴", "Румыния"),
+    "MD": ("🇲🇩", "Молдова"),
+    "CY": ("🇨🇾", "Кипр"),
+    "GB": ("🇬🇧", "Великобритания"),
+    "KR": ("🇰🇷", "Южная Корея"),
+    "CA": ("🇨🇦", "Канада"),
+    "NE": ("🇳🇪", "Нигер"),
+    "BR": ("🇧🇷", "Бразилия"),
+    "AU": ("🇦🇺", "Австралия"),
 }
 
 
@@ -63,7 +73,7 @@ def decode_b64(value):
     value += "=" * (-len(value) % 4)
     for altchars in (b"-_", b"+/"):
         try:
-            decoded = base64.b64decode(value, altchars=altchars, validate=False)
+            decoded = base64.b64decode(value_padded if 'value_padded' in locals() else value, altchars=altchars, validate=False)
             return decoded.decode("utf-8", errors="ignore")
         except Exception:
             continue
@@ -324,7 +334,9 @@ def check_ip(proxy):
         if data.get("status") == "success":
             result["ip"] = data.get("query")
             result["country"] = data.get("country")
-            result["country_code"] = data.get("countryCode")
+            code = data.get("countryCode")
+            if code and code.upper() in COUNTRIES:
+                result["country_code"] = code.upper()
     except Exception:
         pass
     finally:
@@ -335,9 +347,11 @@ def check_ip(proxy):
 def make_server_name(outbound, country_code=None):
     protocol = outbound["type"].upper()
     port = outbound["server_port"]
-    if country_code:
-        flag, country = COUNTRIES.get(country_code.upper(), ("🌍", country_code.upper()))
+    
+    if country_code and country_code.upper() in COUNTRIES:
+        flag, country = COUNTRIES[country_code.upper()]
         return f"{flag} {country} | {protocol} | {port}"
+    
     return f"🌐 Неизвестно | {protocol} | {port}"
 
 
@@ -385,8 +399,15 @@ def check_link(link):
         results["port"] = outbound["server_port"]
 
         port = get_free_port()
+        
         config = {
             "log": {"level": "error"},
+            "dns": {
+                "servers": [
+                    {"tag": "google", "address": "8.8.8.8"},
+                    {"tag": "cloudflare", "address": "1.1.1.1"}
+                ]
+            },
             "inbounds": [{"type": "mixed", "tag": "local-in", "listen": "127.0.0.1", "listen_port": port}],
             "outbounds": [outbound, {"type": "direct", "tag": "direct"}],
             "route": {"final": "proxy"}
@@ -408,6 +429,7 @@ def check_link(link):
                 proxy = f"http://127.0.0.1:{port}"
                 proxies = {"http": proxy, "https": proxy}
 
+                # Строгий Proxy GET через Google
                 success, ping = test_endpoint(session, TEST_URLS["google"], proxies)
                 results["working"] = success
                 results["ping"] = ping
