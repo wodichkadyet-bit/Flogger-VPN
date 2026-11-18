@@ -5,16 +5,16 @@ import subprocess
 import tempfile
 import time
 from pathlib import Path
-from urllib.parse import urlsplit, parse_qs, unquote
+from urllib.parse import urlsplit, parse_qs, unquote, quote
 
 import requests
 
 
 # ==================================================
-# FLOGGER VPN CHECKER (Strict Validation & Clean Names v8.0)
+# FLOGGER VPN CHECKER (Strict Validation & Clean Names v8.1)
 # ==================================================
 
-VERSION = "8.0"
+VERSION = "8.1"
 
 TEST_URLS = {
     "google": "https://www.gstatic.com/generate_204",
@@ -29,7 +29,7 @@ RETRY_DELAY = 1
 
 SING_BOX = "sing-box"
 
-# Строгий фиксированный словарь стран по твоему списку
+# Строгий фиксированный словарь стран
 COUNTRIES = {
     "DE": ("🇩🇪", "Германия"),
     "RU": ("🇷🇺", "Россия"),
@@ -73,7 +73,7 @@ def decode_b64(value):
     value += "=" * (-len(value) % 4)
     for altchars in (b"-_", b"+/"):
         try:
-            decoded = base64.b64decode(value_padded if 'value_padded' in locals() else value, altchars=altchars, validate=False)
+            decoded = base64.b64decode(value, altchars=altchars, validate=False)
             return decoded.decode("utf-8", errors="ignore")
         except Exception:
             continue
@@ -346,13 +346,23 @@ def check_ip(proxy):
 
 def make_server_name(outbound, country_code=None):
     protocol = outbound["type"].upper()
-    port = outbound["server_port"]
-    
     if country_code and country_code.upper() in COUNTRIES:
         flag, country = COUNTRIES[country_code.upper()]
-        return f"{flag} {country} | {protocol} | {port}"
+        return f"{flag} {country} | {protocol}"
+    return f"🌐 Неизвестно | {protocol}"
+
+
+def update_server_link_name(link, country_code, outbound):
+    """Принудительно заменяет старое/грязное имя в ссылке на чистое"""
+    if not country_code or country_code.upper() not in COUNTRIES:
+        return link
     
-    return f"🌐 Неизвестно | {protocol} | {port}"
+    flag, country = COUNTRIES[country_code.upper()]
+    protocol = outbound["type"].upper()
+    clean_name = f"{flag} {country} | {protocol}"
+    
+    base_link = link.split("#", 1)[0]
+    return f"{base_link}#{quote(clean_name)}"
 
 
 def test_endpoint(session, url, proxies):
@@ -429,7 +439,6 @@ def check_link(link):
                 proxy = f"http://127.0.0.1:{port}"
                 proxies = {"http": proxy, "https": proxy}
 
-                # Строгий Proxy GET через Google
                 success, ping = test_endpoint(session, TEST_URLS["google"], proxies)
                 results["working"] = success
                 results["ping"] = ping
@@ -437,7 +446,12 @@ def check_link(link):
                 if success:
                     results.update(check_ip(proxy))
 
-                results["server_name"] = make_server_name(outbound, results["country_code"])
+                # Установка чистого имени и перезапись хвоста ссылки (стираем весь мусор)
+                results["server_name"] = make_server_name(outbound, results.get("country_code"))
+                if results.get("country_code"):
+                    results["link"] = update_server_link_name(link, results["country_code"], outbound)
+                else:
+                    results["link"] = link
             finally:
                 if process and process.poll() is None:
                     process.terminate()
