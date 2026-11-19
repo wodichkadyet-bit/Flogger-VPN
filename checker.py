@@ -15,13 +15,24 @@ import requests
 # FLOGGER VPN CHECKER (Strict Validation & Clean Names v8.2)
 # ==================================================
 
-VERSION = "8.2"
+VERSION = "8.3"
 
+# имя: (адрес, допустимые коды ответа)
 TEST_URLS = {
-    "google": "https://www.gstatic.com/generate_204",
+    "google": ("https://www.gstatic.com/generate_204", (204,)),
+    "telegram": ("https://web.telegram.org/", (200, 301, 302, 307, 308)),
+    "youtube": ("https://www.youtube.com/generate_204", (204,)),
 }
 
-IP_URL = "http://ip-api.com/json/?fields=status,message,country,countryCode,query"
+# Сервер считается рабочим, только если проходят ВСЕ эти сайты.
+# Хочешь мягче — убери "telegram" из списка.
+REQUIRED_SITES = ("google", "telegram")
+
+# Сервисы определения страны (если первый не ответил, берётся второй)
+IP_SERVICES = (
+    "http://ip-api.com/json/?fields=status,message,country,countryCode,query",
+    "https://ipwho.is/",
+)
 
 TIMEOUT = 10
 START_TIMEOUT = 6
@@ -422,21 +433,33 @@ def stop_process(process):
         process.wait()
 
 
+def parse_ip_data(data):
+    """Приводит ответы разных сервисов к одному виду: (ip, страна, код)"""
+    if data.get("status") == "success":  # ip-api.com
+        return data.get("query"), data.get("country"), data.get("countryCode")
+    if data.get("success") is True:  # ipwho.is
+        return data.get("ip"), data.get("country"), data.get("country_code")
+    return None
+
+
 def check_ip(proxy):
     result = {"ip": None, "country": None, "country_code": None}
     session = requests.Session()
     session.trust_env = False
     try:
-        response = session.get(IP_URL, proxies={"http": proxy, "https": proxy}, timeout=TIMEOUT)
-        data = response.json()
-        if data.get("status") == "success":
-            result["ip"] = data.get("query")
-            result["country"] = data.get("country")
-            code = (data.get("countryCode") or "").upper()
+        for url in IP_SERVICES:
+            try:
+                response = session.get(url, proxies={"http": proxy, "https": proxy}, timeout=TIMEOUT)
+                parsed = parse_ip_data(response.json())
+            except Exception:
+                continue
+            if not parsed:
+                continue
+            ip, country, code = parsed
+            code = (code or "").upper()
             if re.fullmatch(r"[A-Z]{2}", code):
-                result["country_code"] = code
-    except Exception:
-        pass
+                result.update(ip=ip, country=country, country_code=code)
+                break
     finally:
         session.close()
     return result
@@ -467,7 +490,7 @@ def rename_link(link, name):
     return f"{base_link}#{quote(name)}"
 
 
-def test_endpoint(session, url, proxies):
+def test_endpoint(session, url, proxies, ok_statuses=(204,)):
     for attempt in range(RETRIES):
         try:
             start_time = time.time()
@@ -478,7 +501,7 @@ def test_endpoint(session, url, proxies):
                 allow_redirects=False
             )
             ping_ms = int((time.time() - start_time) * 1000)
-            if response.status_code == 204:
+            if response.status_code in ok_statuses:
                 return True, ping_ms
         except requests.RequestException:
             pass
@@ -491,6 +514,8 @@ def check_link(link):
     results = {
         "working": False,
         "google": False,
+        "telegram": False,
+        "sites": {},
         "ping": None,
         "ip": None,
         "country": None,
@@ -542,12 +567,24 @@ def check_link(link):
                 proxy = f"http://127.0.0.1:{port}"
                 proxies = {"http": proxy, "https": proxy}
 
-                success, ping = test_endpoint(session, TEST_URLS["google"], proxies)
-                results["working"] = success
-                results["google"] = success
+                sites = {}
+                url, statuses = TEST_URLS["google"]
+                ok, ping = test_endpoint(session, url, proxies, statuses)
+                sites["google"] = ok
                 results["ping"] = ping
 
-                if success:
+                # остальные сайты проверяем, только если базовый интернет есть
+                if ok:
+                    for name, (url, statuses) in TEST_URLS.items():
+                        if name != "google":
+                            sites[name], _ = test_endpoint(session, url, proxies, statuses)
+
+                results["sites"] = sites
+                results["google"] = sites.get("google", False)
+                results["telegram"] = sites.get("telegram", False)
+                results["working"] = all(sites.get(name) for name in REQUIRED_SITES)
+
+                if results["working"]:
                     results.update(check_ip(proxy))
 
                 results["server_name"] = make_server_name(
