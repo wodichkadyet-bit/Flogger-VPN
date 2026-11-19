@@ -24,7 +24,8 @@ RESULTS_DIR = ROOT / "results"
 STATS_FILE = ROOT / "stats.json"
 
 MAX_SERVERS = 70
-VERSION = "7.9"
+MAX_PING = 1500  # мс; более медленные серверы не попадают в подписку
+VERSION = "8.0"
 
 ALLOWED = (
     "vless://",
@@ -135,6 +136,7 @@ def fetch_url(raw_url):
     raw_url = raw_url.strip().replace(" ", "%20")
     inner = extract_real_target_url(raw_url).strip().replace(" ", "%20")
 
+    # сначала исходная ссылка (посредник), потом вложенная
     targets = [raw_url]
     if inner != raw_url:
         targets.append(inner)
@@ -161,17 +163,48 @@ def fetch_url(raw_url):
     return last_text
 
 
+TELEGRAM_HOSTS = ("t.me", "telegram.me", "telegram.dog")
+
+
+def telegram_channel(source):
+    """Имя канала, если source — ссылка на Telegram-канал, иначе None"""
+    parsed = urlsplit(source)
+    if (parsed.hostname or "").lower() not in TELEGRAM_HOSTS:
+        return None
+    parts = [p for p in parsed.path.split("/") if p]
+    if not parts:
+        return None
+    if parts[0] == "s" and len(parts) > 1:
+        return parts[1]
+    return parts[0]
+
+
+def report_telegram_page(content):
+    """Диагностика: что именно получил парсер от Telegram"""
+    posts = content.count('data-post="')
+    raw = len(re.findall(r"(?i)(?:vless|vmess|trojan|ss|hysteria2|hy2)://", content))
+    print(f"[TG] Page: {len(content)} chars | posts: {posts} | raw links in text: {raw}")
+    if posts == 0:
+        text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", content)).strip()
+        print(f"[TG] WARNING: no posts on page (preview disabled or blocked). Text: {text[:200]}")
+
+
 def get_source_content(source):
     source = source.strip()
     if not source or source.startswith("#"):
         return ""
     if source.startswith(("http://", "https://")):
         try:
-            target_url = source
-            if "t.me/" in source and "/s/" not in source:
-                channel = source.rstrip("/").split("/")[-1]
-                target_url = f"https://t.me/s/{channel}"
-            return fetch_url(target_url)
+            channel = telegram_channel(source)
+            if channel:
+                fallback = ""
+                for host in ("t.me", "telegram.me"):
+                    text = fetch_url(f"https://{host}/s/{channel}")
+                    if "tgme_widget_message" in text:
+                        return text
+                    fallback = fallback or text
+                return fallback
+            return fetch_url(source)
         except Exception as error:
             print(f"[SOURCE ERROR] {source}: {error}")
             return ""
@@ -179,7 +212,13 @@ def get_source_content(source):
 
 
 def is_allowed(link):
-    return link.lower().startswith(ALLOWED)
+    low = link.lower()
+    if not low.startswith(ALLOWED):
+        return False
+    # заглушки вида "пользователь не найден"
+    if "@127.0.0.1" in low or "@localhost" in low or "00000000-0000-0000-0000-000000000000" in low:
+        return False
+    return True
 
 
 def extract_links(content):
@@ -277,8 +316,8 @@ def collect_sources(sources, database):
             source_errors += 1
             continue
 
-        if "t.me/" in source:
-            channel_slug = source.rstrip("/").split("/")[-1]
+        channel_slug = telegram_channel(source)
+        if channel_slug:
             stored_state = channels_state.get(channel_slug, {})
             stored_last_id = stored_state.get("last_message_id", 0)
 
@@ -288,6 +327,7 @@ def collect_sources(sources, database):
                 "last_checked": iso()
             }
             print(f"[TG] Channel: {channel_slug} | Found links: {len(links)}")
+            report_telegram_page(content)
         else:
             links = extract_links(content)
             print(f"[FOUND] {len(links)} configurations")
@@ -332,6 +372,7 @@ def update_discovered(servers, discovered):
 def apply_check_result(item, result):
     item["last_checked"] = iso()
     item["google"] = bool(result.get("google"))
+    item["telegram"] = bool(result.get("telegram"))
 
     if result.get("ip"):
         item["ip"] = result["ip"]
@@ -347,6 +388,7 @@ def apply_check_result(item, result):
     if result.get("working"):
         item["status"] = "working"
         item["last_success"] = iso()
+        item["ping"] = result.get("ping")
         item["failures"] = 0
         return "working"
 
@@ -445,8 +487,8 @@ def main():
     working_servers, checked, removed_dead = check_servers(servers)
 
     unique_working = {item["id"]: item for item in working_servers}
-    working_servers = list(unique_working.values())
-    working_servers.sort(key=lambda x: parse_date(x.get("last_success")), reverse=True)
+    working_servers = [x for x in unique_working.values() if (x.get("ping") or 99999) <= MAX_PING]
+    working_servers.sort(key=lambda x: x.get("ping") or 99999)
 
     exportable = working_servers[:MAX_SERVERS]
     database["servers"] = working_servers
