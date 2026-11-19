@@ -1,14 +1,14 @@
 {
   "version": "7.9",
-  "updated": "2026-11-18T21:42:18.765971+00:00",
+  "updated": "2026-11-19T02:56:30.716949+00:00",
   "sources": 4,
   "source_errors": 1,
-  "found": 37,
-  "new": 29,
+  "found": 23,
+  "new": 22,
   "expired": 0,
-  "checked": 77,
-  "working": 51,
-  "subscription": 51,
-  "removed_dead": 26,
-  "duration_seconds": 200.21
+  "checked": 73,
+  "working": 57,
+  "subscription": 57,
+  "removed_dead": 16,
+  "duration_seconds": 274.35
 }
