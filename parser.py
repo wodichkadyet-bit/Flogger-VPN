@@ -23,9 +23,10 @@ SUBSCRIPTION_FILE = ROOT / "subscription.txt"
 RESULTS_DIR = ROOT / "results"
 STATS_FILE = ROOT / "stats.json"
 
-MAX_SERVERS = 70
+MAX_SERVERS = 50
+SERVER_TTL_HOURS = 24  # сервер, которого уже сутки нет ни в одном источнике, удаляется
 MAX_PING = 1500  # мс; более медленные серверы не попадают в подписку
-VERSION = "8.0"
+VERSION = "8.3"
 
 ALLOWED = (
     "vless://",
@@ -189,6 +190,34 @@ def report_telegram_page(content):
         print(f"[TG] WARNING: no posts on page (preview disabled or blocked). Text: {text[:200]}")
 
 
+TELEGRAM_PAGES = 2  # сколько страниц (по ~20 постов) читать назад: 2 страницы = 40 постов
+
+
+def fetch_telegram_channel(channel):
+    """Читает последние посты канала через веб-просмотр t.me/s/..."""
+    pages = []
+    before = None
+    for _ in range(TELEGRAM_PAGES):
+        text = ""
+        for host in ("t.me", "telegram.me"):
+            url = f"https://{host}/s/{channel}"
+            if before:
+                url += f"?before={before}"
+            text = fetch_url(url)
+            if "tgme_widget_message" in text:
+                break
+        if "tgme_widget_message" not in text:
+            if not pages:
+                return text  # пусть диагностика покажет, что пришло
+            break
+        pages.append(text)
+        ids = [int(i) for i in re.findall(r'data-post="[^/"]+/(\d+)"', text)]
+        if not ids or min(ids) <= 1:
+            break
+        before = min(ids)
+    return "\n".join(pages)
+
+
 def get_source_content(source):
     source = source.strip()
     if not source or source.startswith("#"):
@@ -197,13 +226,7 @@ def get_source_content(source):
         try:
             channel = telegram_channel(source)
             if channel:
-                fallback = ""
-                for host in ("t.me", "telegram.me"):
-                    text = fetch_url(f"https://{host}/s/{channel}")
-                    if "tgme_widget_message" in text:
-                        return text
-                    fallback = fallback or text
-                return fallback
+                return fetch_telegram_channel(channel)
             return fetch_url(source)
         except Exception as error:
             print(f"[SOURCE ERROR] {source}: {error}")
@@ -241,31 +264,6 @@ def extract_links(content):
         if decoded:
             add_matches(decoded)
     return found
-
-
-def get_telegram_new_links(content, stored_last_id):
-    new_links = set()
-    max_id = stored_last_id
-    parts = content.split('class="tgme_widget_message ')
-
-    if len(parts) > 1:
-        for part in parts[1:]:
-            post_id_match = re.search(r'data-post="[^/]+/(\d+)"', part)
-            if not post_id_match:
-                post_id_match = re.search(r'href="https://t.me/[^/]+/(\d+)"', part)
-            if post_id_match:
-                try:
-                    post_id = int(post_id_match.group(1))
-                except ValueError:
-                    continue
-                max_id = max(max_id, post_id)
-                if post_id > stored_last_id:
-                    new_links.update(extract_links(part))
-    else:
-        # страница не похожа на ленту Telegram — ищем по всему тексту
-        new_links = extract_links(content)
-
-    return new_links, max_id
 
 
 def protocol_of(link):
@@ -318,12 +316,15 @@ def collect_sources(sources, database):
 
         channel_slug = telegram_channel(source)
         if channel_slug:
-            stored_state = channels_state.get(channel_slug, {})
-            stored_last_id = stored_state.get("last_message_id", 0)
+            stored_last_id = channels_state.get(channel_slug, {}).get("last_message_id", 0)
 
-            links, max_id = get_telegram_new_links(content, stored_last_id)
+            # Каждый раз читаем ВСЕ посты со страниц, а не только новые:
+            # так ключи не теряются, если сервер был удалён из базы,
+            # а в базе дубликаты всё равно отсеиваются по id.
+            links = extract_links(content)
+            post_ids = [int(i) for i in re.findall(r'data-post="[^/"]+/(\d+)"', content)]
             channels_state[channel_slug] = {
-                "last_message_id": max(stored_last_id, max_id),
+                "last_message_id": max([stored_last_id] + post_ids),
                 "last_checked": iso()
             }
             print(f"[TG] Channel: {channel_slug} | Found links: {len(links)}")
@@ -331,6 +332,9 @@ def collect_sources(sources, database):
         else:
             links = extract_links(content)
             print(f"[FOUND] {len(links)} configurations")
+            if not links:
+                snippet = re.sub(r"\s+", " ", content)[:200]
+                print(f"[DEBUG] {len(content)} chars, no links. Starts with: {snippet}")
 
         for link in links:
             discovered[config_id(link)] = link
@@ -431,12 +435,15 @@ def cleanup_servers(servers):
     cleaned = []
     expired = 0
     cutoff_12h = now() - timedelta(hours=12)
+    cutoff_seen = now() - timedelta(hours=SERVER_TTL_HOURS)
 
     for item in servers:
         status = item.get("status")
         last_success = parse_date(item.get("last_success"))
+        last_seen = parse_date(item.get("last_seen") or item.get("last_success"))
 
-        if status != "working" or last_success < cutoff_12h:
+        # удаляем: нерабочие, давно не проверенные и пропавшие из источников
+        if status != "working" or last_success < cutoff_12h or last_seen < cutoff_seen:
             expired += 1
             continue
         cleaned.append(item)
@@ -456,6 +463,13 @@ def write_results(exportable):
 
     for protocol, links in groups.items():
         atomic_write(RESULTS_DIR / f"{protocol}.txt", "\n".join(links))
+
+    # удаляем файлы, оставшиеся от старых версий парсера
+    keep = {f"{protocol}.txt" for protocol in PROTOCOLS}
+    for stale in RESULTS_DIR.glob("*.txt"):
+        if stale.name not in keep:
+            stale.unlink()
+            print(f"[CLEANUP] Removed stale file: {stale.name}")
 
     atomic_write(SUBSCRIPTION_FILE, "\n".join(item["link"] for item in exportable if item.get("link")))
 
@@ -491,7 +505,7 @@ def main():
     working_servers.sort(key=lambda x: x.get("ping") or 99999)
 
     exportable = working_servers[:MAX_SERVERS]
-    database["servers"] = working_servers
+    database["servers"] = exportable  # в базе остаются только рабочие из подписки
     save_database(database)
     write_results(exportable)
 
