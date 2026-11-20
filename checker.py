@@ -15,7 +15,7 @@ import requests
 # FLOGGER VPN CHECKER (Strict Validation & Clean Names v8.2)
 # ==================================================
 
-VERSION = "8.3"
+VERSION = "8.4"
 
 # имя: (адрес, допустимые коды ответа)
 TEST_URLS = {
@@ -38,6 +38,10 @@ TIMEOUT = 10
 START_TIMEOUT = 6
 RETRIES = 2
 RETRY_DELAY = 1
+
+# Сколько ДОПОЛНИТЕЛЬНЫХ подтверждений нужно после первого успешного запроса.
+# Каждое — новое соединение через сервер. Не прошёл хоть один — сервер удаляется.
+STABILITY_CHECKS = 2
 
 SING_BOX = "sing-box"
 
@@ -490,13 +494,15 @@ def rename_link(link, name):
     return f"{base_link}#{quote(name)}"
 
 
-def test_endpoint(session, url, proxies, ok_statuses=(204,)):
-    for attempt in range(RETRIES):
+def test_endpoint(session, url, proxies, ok_statuses=(204,), retries=None):
+    attempts = retries or RETRIES
+    for attempt in range(attempts):
         try:
             start_time = time.time()
             response = session.get(
                 url,
                 proxies=proxies,
+                headers={"Connection": "close"},  # новое соединение каждый раз
                 timeout=TIMEOUT,
                 allow_redirects=False
             )
@@ -505,7 +511,7 @@ def test_endpoint(session, url, proxies, ok_statuses=(204,)):
                 return True, ping_ms
         except requests.RequestException:
             pass
-        if attempt + 1 < RETRIES:
+        if attempt + 1 < attempts:
             time.sleep(RETRY_DELAY)
     return False, None
 
@@ -570,8 +576,17 @@ def check_link(link):
                 sites = {}
                 url, statuses = TEST_URLS["google"]
                 ok, ping = test_endpoint(session, url, proxies, statuses)
-                sites["google"] = ok
                 results["ping"] = ping
+
+                # подтверждение стабильности: серия повторных запросов без повторов
+                if ok:
+                    for _ in range(STABILITY_CHECKS):
+                        time.sleep(1)
+                        again, _ping = test_endpoint(session, url, proxies, statuses, retries=1)
+                        if not again:
+                            ok = False
+                            break
+                sites["google"] = ok
 
                 # остальные сайты проверяем, только если базовый интернет есть
                 if ok:
