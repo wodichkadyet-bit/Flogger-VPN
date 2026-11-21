@@ -1,14 +1,14 @@
 {
   "version": "8.3",
-  "updated": "2026-11-20T21:58:57.172797+00:00",
+  "updated": "2026-11-21T03:21:43.053944+00:00",
   "sources": 14,
   "source_errors": 1,
-  "found": 225,
-  "new": 185,
+  "found": 247,
+  "new": 213,
   "expired": 0,
-  "checked": 235,
-  "working": 74,
+  "checked": 263,
+  "working": 86,
   "subscription": 50,
-  "removed_dead": 155,
-  "duration_seconds": 1384.48
+  "removed_dead": 174,
+  "duration_seconds": 1671.94
 }
