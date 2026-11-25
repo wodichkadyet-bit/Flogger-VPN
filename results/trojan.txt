@@ -1,4 +1,1 @@
-trojan://1vkFHbQX_gN1U8V8jVc@104.25.224.90:443?security=tls&sni=mhpanel.kigaping.com&type=ws&host=mhpanel.kigaping.com&path=%2Ftrojan-ws#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20TROJAN
-trojan://463f7453753f4d47@ikr200.zxom.eu.org:20045?encryption=chacha20#%F0%9F%87%B0%F0%9F%87%B7%20%D0%AE%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%9A%D0%BE%D1%80%D0%B5%D1%8F%20%7C%20TROJAN
-trojan://1vkFHbQX_gN1U8V8jVc@91.209.253.54:443?security=tls&sni=mhpanel.kigaping.com&type=ws&host=mhpanel.kigaping.com&path=%2Ftrojan-ws#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20TROJAN
-trojan://1vkFHbQX_gN1U8V8jVc@104.16.26.10:443?security=tls&sni=mhpanel.kigaping.com&type=ws&host=mhpanel.kigaping.com&path=%2Ftrojan-ws#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20TROJAN
+trojan://weueHhlxEXGl@66.81.247.250:8443?fp=chrome&host=raYAn12-0fy4yUmd-t3.rAYan-12.wOrkers.deV&path=%2F%3Fed%3D2560&pcs=384D816BEE3478297FF2F6F2DA38BA2354744E1C8554DE95140CB00089F3F35D&security=tls&sni=raYAn12-0fy4yUmd-t3.rAYan-12.wOrkers.deV&type=ws#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20TROJAN
