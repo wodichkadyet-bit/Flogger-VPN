@@ -25,8 +25,11 @@ STATS_FILE = ROOT / "stats.json"
 
 MAX_SERVERS = 50
 SERVER_TTL_HOURS = 24  # сервер, которого уже сутки нет ни в одном источнике, удаляется
+SERVER_MAX_AGE_HOURS = 48  # сервер старше этого возраста считается старым и идёт в подписку в последнюю очередь
+MIN_SERVERS = 10  # если свежих меньше, подписку добирают старыми, чтобы она не опустела
+HISTORY_DAYS = 30  # сколько дней помнить, когда сервер впервые появился
 MAX_PING = 1500  # мс; более медленные серверы не попадают в подписку
-VERSION = "8.3"
+VERSION = "8.4"
 
 ALLOWED = (
     "vless://",
@@ -342,14 +345,28 @@ def collect_sources(sources, database):
     return discovered, source_errors
 
 
-def update_discovered(servers, discovered):
+def update_discovered(servers, discovered, history):
+    """history хранит, когда сервер ВПЕРВЫЕ появился. Даже если он выпал из базы и
+    вернулся из источника, он остаётся «старым»."""
     existing = {item["id"]: item for item in servers if item.get("id")}
     new_count = 0
+    stamp = iso()
+
+    for item in servers:
+        if item.get("id"):
+            history.setdefault(item["id"], {
+                "first": item.get("first_seen") or stamp,
+                "last": item.get("last_seen") or stamp,
+            })
 
     for identifier, link in discovered.items():
+        record = history.setdefault(identifier, {"first": stamp, "last": stamp})
+        record["last"] = stamp
+
         if identifier in existing:
             item = existing[identifier]
-            item["last_seen"] = iso()
+            item["last_seen"] = stamp
+            item["first_seen"] = record["first"]
             if link != item.get("link"):
                 item["link"] = link
         else:
@@ -357,8 +374,8 @@ def update_discovered(servers, discovered):
                 "id": identifier,
                 "protocol": protocol_of(link),
                 "link": link,
-                "first_seen": iso(),
-                "last_seen": iso(),
+                "first_seen": record["first"],
+                "last_seen": stamp,
                 "last_checked": None,
                 "last_success": None,
                 "failures": 0,
@@ -371,6 +388,17 @@ def update_discovered(servers, discovered):
             existing[identifier] = item
             new_count += 1
     return new_count
+
+
+def prune_history(history):
+    cutoff = now() - timedelta(days=HISTORY_DAYS)
+    for identifier in [i for i, rec in history.items() if parse_date(rec.get("last")) < cutoff]:
+        del history[identifier]
+
+
+def is_fresh(item):
+    cutoff = now() - timedelta(hours=SERVER_MAX_AGE_HOURS)
+    return parse_date(item.get("first_seen")) >= cutoff
 
 
 def apply_check_result(item, result):
@@ -492,10 +520,12 @@ def main():
 
     database = load_database()
     servers = database["servers"]
+    history = database.setdefault("history", {})
 
     servers, expired = cleanup_servers(servers)
     discovered, source_errors = collect_sources(sources, database)
-    new_count = update_discovered(servers, discovered)
+    new_count = update_discovered(servers, discovered, history)
+    prune_history(history)
 
     print(f"\n[INFO] Checking {len(servers)} current configurations...")
     working_servers, checked, removed_dead = check_servers(servers)
@@ -504,7 +534,18 @@ def main():
     working_servers = [x for x in unique_working.values() if (x.get("ping") or 99999) <= MAX_PING]
     working_servers.sort(key=lambda x: x.get("ping") or 99999)
 
-    exportable = working_servers[:MAX_SERVERS]
+    # свежие серверы идут в подписку в первую очередь, старые (старше
+    # SERVER_MAX_AGE_HOURS) только если свежих слишком мало
+    fresh = [x for x in working_servers if is_fresh(x)]
+    old = [x for x in working_servers if not is_fresh(x)]
+    exportable = fresh[:MAX_SERVERS]
+    if len(exportable) < MIN_SERVERS:
+        filler = old[:MIN_SERVERS - len(exportable)]
+        exportable += filler
+        print(f"[OLD] Fresh servers: {len(fresh)}. Added {len(filler)} old to reach minimum {MIN_SERVERS}.")
+    print(f"[INFO] Working: {len(working_servers)} | fresh: {len(fresh)} | old skipped: {len(old) - (len(exportable) - len(fresh[:MAX_SERVERS]))}")
+    exportable.sort(key=lambda x: x.get("ping") or 99999)
+
     database["servers"] = exportable  # в базе остаются только рабочие из подписки
     save_database(database)
     write_results(exportable)
@@ -519,6 +560,8 @@ def main():
         "expired": expired,
         "checked": checked,
         "working": len(working_servers),
+        "fresh": len(fresh),
+        "old": len(old),
         "subscription": len(exportable),
         "removed_dead": removed_dead,
         "duration_seconds": round(time.time() - started, 2)
