@@ -1,2 +1,0 @@
-trojan://weueHhlxEXGl@66.81.247.250:8443?fp=chrome&host=raYAn12-0fy4yUmd-t3.rAYan-12.wOrkers.deV&path=%2F%3Fed%3D2560&pcs=384D816BEE3478297FF2F6F2DA38BA2354744E1C8554DE95140CB00089F3F35D&security=tls&sni=raYAn12-0fy4yUmd-t3.rAYan-12.wOrkers.deV&type=ws#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20TROJAN
-trojan://7756180a-3a07-4939-91be-ae7664b311ca@23.144.92.53:49213?insecure=1&security=tls&sni=www.itunes.com&type=tcp#%F0%9F%87%AD%F0%9F%87%B0%20%D0%93%D0%BE%D0%BD%D0%BA%D0%BE%D0%BD%D0%B3%20%7C%20TROJAN
