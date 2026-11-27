@@ -7,7 +7,7 @@ import re
 import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from urllib.parse import urlsplit, parse_qs, unquote
+from urllib.parse import urlsplit, parse_qs, unquote, urljoin
 
 import requests
 import urllib3
@@ -25,11 +25,16 @@ STATS_FILE = ROOT / "stats.json"
 
 MAX_SERVERS = 50
 SERVER_TTL_HOURS = 24  # сервер, которого уже сутки нет ни в одном источнике, удаляется
+# Оформление подписки в клиенте (читается из первых строк subscription.txt)
+PROFILE_TITLE = "Flogger VPN"
+PROFILE_ANNOUNCE = "✨ Наш ТГ канал: https://t.me/Flogger_VPN | 🆓 Бесплатная подписка ЧС | ✅ Без Ограничений!"
+PROFILE_UPDATE_INTERVAL = 1  # как часто клиент сам обновляет подписку, в часах
+
 SERVER_MAX_AGE_HOURS = 48  # сервер старше этого возраста считается старым и идёт в подписку в последнюю очередь
 MIN_SERVERS = 10  # если свежих меньше, подписку добирают старыми, чтобы она не опустела
 HISTORY_DAYS = 30  # сколько дней помнить, когда сервер впервые появился
 MAX_PING = 1500  # мс; более медленные серверы не попадают в подписку
-VERSION = "8.4"
+VERSION = "8.6"
 
 ALLOWED = (
     "vless://",
@@ -121,19 +126,35 @@ def download(url):
     session = requests.Session()
     session.trust_env = False
     for verify in (True, False):
-        try:
-            r = session.get(url, headers=HEADERS, timeout=25,
-                            allow_redirects=True, verify=verify)
+        for attempt in range(2):
+            try:
+                r = session.get(url, headers=HEADERS, timeout=25,
+                                allow_redirects=True, verify=verify)
+            except requests.exceptions.SSLError:
+                break  # повтор без проверки сертификата
+            except Exception as e:
+                print(f"[SKIP] Failed to fetch {url}: {e}")
+                return ""
+            if r.status_code in (429, 500, 502, 503, 504) and attempt == 0:
+                time.sleep(2)  # временная ошибка сервера: пробуем ещё раз
+                continue
             if r.status_code != 200:
                 print(f"[SKIP] HTTP {r.status_code} for {url}")
                 return ""
             return r.content.decode("utf-8", errors="ignore").strip()
-        except requests.exceptions.SSLError:
-            continue  # повтор без проверки сертификата
-        except Exception as e:
-            print(f"[SKIP] Failed to fetch {url}: {e}")
-            return ""
     return ""
+
+
+def alternative_urls(url):
+    """Запасные адреса для того же файла. Codeberg часто закрывает обычный raw
+    (403), но отдаёт тот же файл через свой API."""
+    parsed = urlsplit(url)
+    host = (parsed.hostname or "").lower()
+    match = re.match(r"^/([^/]+)/([^/]+)/raw/(?:branch|tag|commit)/([^/]+)/(.+)$", parsed.path)
+    if host in ("codeberg.org", "www.codeberg.org") and match:
+        owner, repo, ref, path = match.groups()
+        return [f"https://codeberg.org/api/v1/repos/{owner}/{repo}/raw/{path}?ref={ref}"]
+    return []
 
 
 def fetch_url(raw_url):
@@ -152,6 +173,9 @@ def fetch_url(raw_url):
             candidates.append("https://" + target[len("http://"):])
         elif target.startswith("https://"):
             candidates.append("http://" + target[len("https://"):])
+
+    for target in targets:
+        candidates.extend(alternative_urls(target))
 
     last_text = ""
     for url in candidates:
@@ -235,6 +259,45 @@ def get_source_content(source):
             print(f"[SOURCE ERROR] {source}: {error}")
             return ""
     return source
+
+
+FOLLOW_LIMIT = 10  # сколько ссылок со страницы открывать
+FOLLOW_EXTENSIONS = (".txt", ".list", ".conf", ".yaml", ".yml", ".json", ".sub")
+FOLLOW_SKIP_HOSTS = (
+    "t.me", "telegram.me", "telegram.org", "github.com", "youtube.com", "youtu.be",
+    "google.com", "facebook.com", "twitter.com", "x.com", "instagram.com", "vk.com",
+    "play.google.com", "apps.apple.com",
+)
+
+
+def find_followable(content, base_url):
+    """Ссылки на страницы с подписками/списками внутри HTML"""
+    text = html.unescape(content)
+    found = []
+    for attr, bare in re.findall(r'(?:href|src)=["\']([^"\'#]+)["\']|(https?://[^\s"\'<>]+)', text):
+        url = urljoin(base_url, (attr or bare).strip())
+        parsed = urlsplit(url)
+        host = (parsed.hostname or "").lower()
+        path = parsed.path.lower()
+        if parsed.scheme not in ("http", "https") or not host:
+            continue
+        if any(host == s or host.endswith("." + s) for s in FOLLOW_SKIP_HOSTS):
+            continue
+        if path.endswith(FOLLOW_EXTENSIONS) or "/sub" in path or "subscri" in path or "/raw/" in path:
+            if url not in found:
+                found.append(url)
+    return found[:FOLLOW_LIMIT]
+
+
+def follow_links(content, base_url):
+    """Если на странице нет конфигов, открываем ссылки на подписки внутри неё"""
+    links = set()
+    for url in find_followable(content, base_url):
+        inner = fetch_url(url)
+        got = extract_links(inner) if inner else set()
+        print(f"[FOLLOW] {url} -> {len(got)} configurations")
+        links.update(got)
+    return links
 
 
 def is_allowed(link):
@@ -334,6 +397,8 @@ def collect_sources(sources, database):
             report_telegram_page(content)
         else:
             links = extract_links(content)
+            if not links and source.startswith(("http://", "https://")):
+                links = follow_links(content, source)
             print(f"[FOUND] {len(links)} configurations")
             if not links:
                 snippet = re.sub(r"\s+", " ", content)[:200]
@@ -480,6 +545,19 @@ def cleanup_servers(servers):
     return cleaned, expired
 
 
+def b64_header(text):
+    """Текст с кириллицей и эмодзи передаётся в base64, так его понимают все клиенты"""
+    return "base64:" + base64.b64encode(text.encode("utf-8")).decode("ascii")
+
+
+def subscription_header():
+    return "\n".join([
+        f"#profile-title: {b64_header(PROFILE_TITLE)}",
+        f"#profile-update-interval: {PROFILE_UPDATE_INTERVAL}",
+        f"#announce: {b64_header(PROFILE_ANNOUNCE)}",
+    ])
+
+
 def write_results(exportable):
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     groups = {protocol: [] for protocol in PROTOCOLS}
@@ -499,7 +577,8 @@ def write_results(exportable):
             stale.unlink()
             print(f"[CLEANUP] Removed stale file: {stale.name}")
 
-    atomic_write(SUBSCRIPTION_FILE, "\n".join(item["link"] for item in exportable if item.get("link")))
+    links_text = "\n".join(item["link"] for item in exportable if item.get("link"))
+    atomic_write(SUBSCRIPTION_FILE, subscription_header() + "\n" + links_text)
 
 
 def main():
