@@ -1,16 +1,16 @@
 {
   "version": "8.6",
-  "updated": "2026-11-27T13:35:57.126073+00:00",
+  "updated": "2026-11-27T22:41:28.533647+00:00",
   "sources": 14,
   "source_errors": 1,
-  "found": 236,
-  "new": 196,
-  "expired": 5,
-  "checked": 238,
-  "working": 24,
-  "fresh": 24,
+  "found": 229,
+  "new": 229,
+  "expired": 0,
+  "checked": 229,
+  "working": 39,
+  "fresh": 39,
   "old": 0,
-  "subscription": 24,
-  "removed_dead": 211,
-  "duration_seconds": 1215.14
+  "subscription": 39,
+  "removed_dead": 184,
+  "duration_seconds": 1041.18
 }
