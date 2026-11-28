@@ -1,33 +1,15 @@
 {
   "version": "8.6",
-  "updated": "2026-11-28T05:34:05.397876+00:00",
+  "updated": "2026-11-28T14:59:41.956498+00:00",
   "servers": [
-    {
-      "id": "fb92e7ec07b2db0a4e02e84b5468bb94be3122ab2f6521574803342d71940807",
-      "protocol": "trojan",
-      "link": "trojan://weueHhlxEXGl@66.81.247.250:8443?fp=chrome&host=raYAn12-0fy4yUmd-t3.rAYan-12.wOrkers.deV&path=%2F%3Fed%3D2560&pcs=384D816BEE3478297FF2F6F2DA38BA2354744E1C8554DE95140CB00089F3F35D&security=tls&sni=raYAn12-0fy4yUmd-t3.rAYan-12.wOrkers.deV&type=ws#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20TROJAN",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:29:02.451621+00:00",
-      "last_success": "2026-11-28T05:29:02.451637+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "104.28.157.174",
-      "country": "United States",
-      "country_code": "US",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇺🇸 США | TROJAN",
-      "ping": 104
-    },
     {
       "id": "0cdb1297d578c2efc7f65f54d5f6e2fbce37690427c86784efa798dca203400b",
       "protocol": "hysteria2",
       "link": "hysteria2://AIcYjw5Oc9Rrrr9SGDUBbBIC@38.76.150.108:36712?sni=off&insecure=1#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20HYSTERIA2",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:14:42.535295+00:00",
-      "last_success": "2026-11-28T05:14:42.535316+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:40:07.788710+00:00",
+      "last_success": "2026-11-28T14:40:07.788729+00:00",
       "failures": 0,
       "status": "working",
       "ip": "38.76.150.108",
@@ -36,55 +18,19 @@
       "google": true,
       "telegram": true,
       "server_name": "🇺🇸 США | HYSTERIA2",
-      "ping": 250
+      "ping": 285
     },
     {
-      "id": "c8bac44dd15298aac9b7dc6d89f9f197c87b2021e12581f7de2f2a63111eddc4",
-      "protocol": "vless",
-      "link": "vless://327487f5-8665-48df-9e76-f1bee6d16557@201.58.133.77:443?encryption=none&type=tcp&security=reality&sni=127.0.0.1&fp=firefox&pbk=zYNnGVEkMFCUR_9NcYeaXfm9A_L-PP6iG2sIIST6S0M&sid=1ed136481e0ede74#%F0%9F%87%AC%F0%9F%87%A7%20%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE%D0%B1%D1%80%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20VLESS",
-      "first_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:24:43.561692+00:00",
-      "last_success": "2026-11-28T05:24:43.561710+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "203.57.82.185",
-      "country": "United Kingdom",
-      "country_code": "GB",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇬🇧 Великобритания | VLESS",
-      "ping": 330
-    },
-    {
-      "id": "4c0962ff79c4bdbe716d28497b150d944dd04faec61fa74a8a7ddf5f55d80185",
-      "protocol": "vless",
-      "link": "vless://327487f5-8665-48df-9e76-f1bee6d16557@eu121.cdn77.icu:443?encryption=none&fp=firefox&pbk=zYNnGVEkMFCUR_9NcYeaXfm9A_L-PP6iG2sIIST6S0M&security=reality&sid=1ed136481e0ede74&sni=127.0.0.1&spx=%2F&type=tcp#%F0%9F%87%AC%F0%9F%87%A7%20%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE%D0%B1%D1%80%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20VLESS",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:15:03.398831+00:00",
-      "last_success": "2026-11-28T05:15:03.398851+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "203.57.82.185",
-      "country": "United Kingdom",
-      "country_code": "GB",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇬🇧 Великобритания | VLESS",
-      "ping": 338
-    },
-    {
-      "id": "7fe61f92e9785a76b69214f09f196f500f6b174967089c725fc6105bd50cf607",
+      "id": "a029727e218f907cbc149a7d8b9b19265690744826d071dc77cc6c8a2141f236",
       "protocol": "vmess",
-      "link": "vmess://eyJ2IjogbnVsbCwgInBzIjogIvCfh7Pwn4exINCd0LjQtNC10YDQu9Cw0L3QtNGLIHwgVk1FU1MiLCAiYWRkIjogIjIwOS4zOC40Mi4yMzgiLCAicG9ydCI6IDEyNzAsICJpZCI6ICI1YzA0MGYxZC00NWRiLTQzYmQtOGQ0Ni1lNDk1MGU0MzM3MzUiLCAiYWlkIjogIjAiLCAic2N5IjogImF1dG8iLCAibmV0IjogInRjcCIsICJ0eXBlIjogbnVsbCwgImhvc3QiOiBudWxsLCAiYWxwbiI6IG51bGwsICJwYXRoIjogIi8iLCAidGxzIjogInRscyIsICJzbmkiOiAieG1maGxweS5jb20iLCAiZnAiOiBudWxsfQ==",
+      "link": "vmess://eyJ2IjogbnVsbCwgInBzIjogIvCfh7Pwn4exINCd0LjQtNC10YDQu9Cw0L3QtNGLIHwgVk1FU1MiLCAiYWRkIjogIjE4OC4xNjYuODEuMTM1IiwgInBvcnQiOiAxMjcwLCAiaWQiOiAiNWMwNDBmMWQtNDVkYi00M2JkLThkNDYtZTQ5NTBlNDMzNzM1IiwgImFpZCI6ICIwIiwgInNjeSI6ICJhdXRvIiwgIm5ldCI6ICJ0Y3AiLCAidHlwZSI6IG51bGwsICJob3N0IjogbnVsbCwgImFscG4iOiBudWxsLCAicGF0aCI6ICIvIiwgInRscyI6ICJ0bHMiLCAic25pIjogInhtZmhscHkuY29tIiwgImZwIjogbnVsbH0=",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:15:21.332397+00:00",
-      "last_success": "2026-11-28T05:15:21.332418+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:40:39.695822+00:00",
+      "last_success": "2026-11-28T14:40:39.695839+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "209.38.42.238",
+      "ip": "188.166.81.135",
       "country": "The Netherlands",
       "country_code": "NL",
       "google": true,
@@ -93,49 +39,13 @@
       "ping": 370
     },
     {
-      "id": "408b13f92692cd46164cb517096e38b0da891502491bd567ee95b2ebc0bf2f70",
-      "protocol": "hysteria2",
-      "link": "hy2://04920673-035c-410d-94e4-5b1469d3fb6f@171.22.183.158:42848/?hop_interval=10&sni=171.22.183.158#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20HYSTERIA2",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:15:08.324251+00:00",
-      "last_success": "2026-11-28T05:15:08.324273+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "171.22.183.158",
-      "country": "Netherlands",
-      "country_code": "NL",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇳🇱 Нидерланды | HYSTERIA2",
-      "ping": 371
-    },
-    {
-      "id": "f75ffa71daf2deab2c5e1598581370e6a08e0ccbbe5953bf58d7d193dc66e40f",
-      "protocol": "vmess",
-      "link": "vmess://eyJ2IjogIjIiLCAicHMiOiAi8J+Hs/Cfh7Eg0J3QuNC00LXRgNC70LDQvdC00YsgfCBWTUVTUyIsICJhZGQiOiAiMTg4LjE2Ni44MS4xMzUiLCAicG9ydCI6ICIxMjcwIiwgImlkIjogIjVjMDQwZjFkLTQ1ZGItNDNiZC04ZDQ2LWU0OTUwZTQzMzczNSIsICJhaWQiOiAiMCIsICJuZXQiOiAidGNwIiwgInR5cGUiOiAibm9uZSIsICJob3N0IjogIiIsICJwYXRoIjogIiIsICJ0bHMiOiAidGxzIiwgInNuaSI6ICJ4bWZobHB5LmNvbSIsICJhbHBuIjogIiIsICJzY3kiOiAiYXV0byJ9",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:15:12.654196+00:00",
-      "last_success": "2026-11-28T05:15:12.654216+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "188.166.81.135",
-      "country": "The Netherlands",
-      "country_code": "NL",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇳🇱 Нидерланды | VMESS",
-      "ping": 371
-    },
-    {
       "id": "0b19de83407e109a9739c566f3e7e5fa2e6dc6847dbe1e5aa6aff61ff99e9e5c",
       "protocol": "vmess",
       "link": "vmess://eyJ2IjogIjIiLCAicHMiOiAi8J+Hs/Cfh7Eg0J3QuNC00LXRgNC70LDQvdC00YsgfCBWTUVTUyIsICJhZGQiOiAiMjA5LjM4LjQyLjIzOCIsICJwb3J0IjogIjEyNzAiLCAiaWQiOiAiNWMwNDBmMWQtNDVkYi00M2JkLThkNDYtZTQ5NTBlNDMzNzM1IiwgImFpZCI6ICIwIiwgIm5ldCI6ICJ0Y3AiLCAidHlwZSI6ICJub25lIiwgImhvc3QiOiAiIiwgInBhdGgiOiAiIiwgInRscyI6ICJ0bHMiLCAic25pIjogInhtZmhscHkuY29tIiwgImFscG4iOiAiIiwgInNjeSI6ICJhdXRvIn0=",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:15:30.313661+00:00",
-      "last_success": "2026-11-28T05:15:30.313680+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:40:35.332360+00:00",
+      "last_success": "2026-11-28T14:40:35.332374+00:00",
       "failures": 0,
       "status": "working",
       "ip": "209.38.42.238",
@@ -144,142 +54,16 @@
       "google": true,
       "telegram": true,
       "server_name": "🇳🇱 Нидерланды | VMESS",
-      "ping": 372
-    },
-    {
-      "id": "a029727e218f907cbc149a7d8b9b19265690744826d071dc77cc6c8a2141f236",
-      "protocol": "vmess",
-      "link": "vmess://eyJ2IjogbnVsbCwgInBzIjogIvCfh7Pwn4exINCd0LjQtNC10YDQu9Cw0L3QtNGLIHwgVk1FU1MiLCAiYWRkIjogIjE4OC4xNjYuODEuMTM1IiwgInBvcnQiOiAxMjcwLCAiaWQiOiAiNWMwNDBmMWQtNDVkYi00M2JkLThkNDYtZTQ5NTBlNDMzNzM1IiwgImFpZCI6ICIwIiwgInNjeSI6ICJhdXRvIiwgIm5ldCI6ICJ0Y3AiLCAidHlwZSI6IG51bGwsICJob3N0IjogbnVsbCwgImFscG4iOiBudWxsLCAicGF0aCI6ICIvIiwgInRscyI6ICJ0bHMiLCAic25pIjogInhtZmhscHkuY29tIiwgImZwIjogbnVsbH0=",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:15:16.994321+00:00",
-      "last_success": "2026-11-28T05:15:16.994340+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "188.166.81.135",
-      "country": "The Netherlands",
-      "country_code": "NL",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇳🇱 Нидерланды | VMESS",
       "ping": 374
-    },
-    {
-      "id": "b274104cae9b6353a73759bdc2582451eea39414649139757c5b8b972115cd06",
-      "protocol": "hysteria2",
-      "link": "hysteria2://0b396097d052915ef304b40d2bda6a2d@179.254.94.184:8443/?insecure=1&sni=www.bing.com#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20HYSTERIA2",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:15:42.294527+00:00",
-      "last_success": "2026-11-28T05:15:42.294548+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "179.254.94.184",
-      "country": "United States",
-      "country_code": "US",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇺🇸 США | HYSTERIA2",
-      "ping": 375
-    },
-    {
-      "id": "9120fd196cd2be415865260b5cb540f2f8151f1af70e85f697038fcda0db485d",
-      "protocol": "vless",
-      "link": "vless://ba373a70-295f-482d-a471-8bc17b54e23b@5.255.127.12:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=nle.899themes.pro&fp=firefox&pbk=pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ&sid=27350908de933e09#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20VLESS",
-      "first_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:22:44.832707+00:00",
-      "last_success": "2026-11-28T05:22:44.832724+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "5.255.127.24",
-      "country": "The Netherlands",
-      "country_code": "NL",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇳🇱 Нидерланды | VLESS",
-      "ping": 395
-    },
-    {
-      "id": "a10ea142d307c66297f0b0a3b63708c17a16d92d6137d1603690de76f83c9ec5",
-      "protocol": "vless",
-      "link": "vless://3950b45e-740d-4dca-ac95-505ec8534592@45.90.59.15:443?security=reality&encryption=none&flow=xtls-rprx-vision&sni=www.cloudflare.com&fp=random&pbk=P7S4UPFlQbmiBr4txyy8NZIMTrmO3UdxyH16WBU-YzY&sid=19253fae84102271#%F0%9F%87%A8%F0%9F%87%AD%20%D0%A8%D0%B2%D0%B5%D0%B9%D1%86%D0%B0%D1%80%D0%B8%D1%8F%20%7C%20VLESS",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:16:04.080730+00:00",
-      "last_success": "2026-11-28T05:16:04.080750+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "45.90.59.15",
-      "country": "Switzerland",
-      "country_code": "CH",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇨🇭 Швейцария | VLESS",
-      "ping": 398
-    },
-    {
-      "id": "18cbfeb0901a9d3a46bc1bb6a529a6e690372b683548568e73984ce358701710",
-      "protocol": "hysteria2",
-      "link": "hysteria2://549766c3-fa5f-471e-8031-ffc1f8d5064f@212.34.137.105:443?sni=shorts.blog-forme.ru#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20HYSTERIA2",
-      "first_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:22:23.459073+00:00",
-      "last_success": "2026-11-28T05:22:23.459091+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "212.34.129.227",
-      "country": "The Netherlands",
-      "country_code": "NL",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇳🇱 Нидерланды | HYSTERIA2",
-      "ping": 400
-    },
-    {
-      "id": "db3254b2909ff06d5efcb5fbb0894ac90ae80b221b286a019fa609d7081ed0df",
-      "protocol": "vless",
-      "link": "vless://ba373a70-295f-482d-a471-8bc17b54e23b@5.255.127.12:443?security=reality&encryption=none&flow=xtls-rprx-vision&pbk=pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ&fp=firefox&type=tcp&sni=nle.899themes.pro&sid=27350908de933e09#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20VLESS",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_checked": "2026-11-28T05:15:48.644207+00:00",
-      "last_success": "2026-11-28T05:15:48.644240+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "5.255.127.24",
-      "country": "The Netherlands",
-      "country_code": "NL",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇳🇱 Нидерланды | VLESS",
-      "ping": 401
-    },
-    {
-      "id": "5c7fb4f4d0a3b5fc9dc46f08a74f280fa1f6fa369603e1dc564633d772686343",
-      "protocol": "hysteria2",
-      "link": "hy2://Cqx5aT9Zux@185.200.199.179:54706/?hop_interval=10&sni=185.200.199.179#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20HYSTERIA2",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:15:34.018336+00:00",
-      "last_success": "2026-11-28T05:15:34.018358+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "185.200.199.122",
-      "country": "The Netherlands",
-      "country_code": "NL",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇳🇱 Нидерланды | HYSTERIA2",
-      "ping": 418
     },
     {
       "id": "806267f0d55be9f1e0f1cb42f9076f654d9e642b26ccf75c51102eb80c47bf84",
       "protocol": "vless",
       "link": "vless://f4b08bf1-d9bd-4755-aa88-ba922282c608@144.31.203.145:443?flow=xtls-rprx-vision&encryption=none&security=reality&sni=nemicro543.aidating.am&fp=firefox&pbk=MAcch2LXcj3xo0ZZQIBvxS4GptpZ9ipzFNNn2BUa6mg&sid=a54ec85c94547b17&spx=%2F&type=tcp&headerType=none#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20VLESS",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:15:25.870515+00:00",
-      "last_success": "2026-11-28T05:15:25.870534+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:41:10.929761+00:00",
+      "last_success": "2026-11-28T14:41:10.929778+00:00",
       "failures": 0,
       "status": "working",
       "ip": "144.31.54.117",
@@ -288,52 +72,124 @@
       "google": true,
       "telegram": true,
       "server_name": "🇳🇱 Нидерланды | VLESS",
-      "ping": 421
+      "ping": 375
     },
     {
-      "id": "79858595dcc71d89e912c3dd43287298de127233bb7e191447c015572ea0d479",
-      "protocol": "vless",
-      "link": "vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@195.206.235.74:443?type=grpc&security=reality&encryption=none&sni=961ec0g.nl13.h1clayd.click&fp=chrome&pbk=xn7KVKS5MOnsFrYrEeRS04JssBCOxh12rxegaDFyGkA&sid=6d289ff0f47c0aac&serviceName=7d5abcd7d8a1#%F0%9F%87%AE%F0%9F%87%B1%20%D0%98%D0%B7%D1%80%D0%B0%D0%B8%D0%BB%D1%8C%20%7C%20VLESS",
-      "first_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:19:29.313494+00:00",
-      "last_success": "2026-11-28T05:19:29.313512+00:00",
+      "id": "7fe61f92e9785a76b69214f09f196f500f6b174967089c725fc6105bd50cf607",
+      "protocol": "vmess",
+      "link": "vmess://eyJ2IjogbnVsbCwgInBzIjogIvCfh7Pwn4exINCd0LjQtNC10YDQu9Cw0L3QtNGLIHwgVk1FU1MiLCAiYWRkIjogIjIwOS4zOC40Mi4yMzgiLCAicG9ydCI6IDEyNzAsICJpZCI6ICI1YzA0MGYxZC00NWRiLTQzYmQtOGQ0Ni1lNDk1MGU0MzM3MzUiLCAiYWlkIjogIjAiLCAic2N5IjogImF1dG8iLCAibmV0IjogInRjcCIsICJ0eXBlIjogbnVsbCwgImhvc3QiOiBudWxsLCAiYWxwbiI6IG51bGwsICJwYXRoIjogIi8iLCAidGxzIjogInRscyIsICJzbmkiOiAieG1maGxweS5jb20iLCAiZnAiOiBudWxsfQ==",
+      "first_seen": "2026-11-27T22:24:18.779054+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:40:15.423801+00:00",
+      "last_success": "2026-11-28T14:40:15.423818+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "79.182.55.27",
-      "country": "Israel",
-      "country_code": "IL",
+      "ip": "209.38.42.238",
+      "country": "The Netherlands",
+      "country_code": "NL",
       "google": true,
       "telegram": true,
-      "server_name": "🇮🇱 Израиль | VLESS",
-      "ping": 426
+      "server_name": "🇳🇱 Нидерланды | VMESS",
+      "ping": 383
     },
     {
-      "id": "4c977be3a9d64091f80e6b15975d788cd618d536c4b4dfc563ced77c8c989178",
-      "protocol": "hysteria2",
-      "link": "hysteria2://NL2026hy@147.45.149.88:8443/?obfs=salamander&obfs-password=SalamanderNL2026&sni=nl.nobelchat.ru#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20HYSTERIA2",
+      "id": "f75ffa71daf2deab2c5e1598581370e6a08e0ccbbe5953bf58d7d193dc66e40f",
+      "protocol": "vmess",
+      "link": "vmess://eyJ2IjogIjIiLCAicHMiOiAi8J+Hs/Cfh7Eg0J3QuNC00LXRgNC70LDQvdC00YsgfCBWTUVTUyIsICJhZGQiOiAiMTg4LjE2Ni44MS4xMzUiLCAicG9ydCI6ICIxMjcwIiwgImlkIjogIjVjMDQwZjFkLTQ1ZGItNDNiZC04ZDQ2LWU0OTUwZTQzMzczNSIsICJhaWQiOiAiMCIsICJuZXQiOiAidGNwIiwgInR5cGUiOiAibm9uZSIsICJob3N0IjogIiIsICJwYXRoIjogIiIsICJ0bHMiOiAidGxzIiwgInNuaSI6ICJ4bWZobHB5LmNvbSIsICJhbHBuIjogIiIsICJzY3kiOiAiYXV0byJ9",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:17:42.048936+00:00",
-      "last_success": "2026-11-28T05:17:42.048955+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:40:30.952033+00:00",
+      "last_success": "2026-11-28T14:40:30.952050+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "147.45.149.88",
+      "ip": "188.166.81.135",
+      "country": "The Netherlands",
+      "country_code": "NL",
+      "google": true,
+      "telegram": true,
+      "server_name": "🇳🇱 Нидерланды | VMESS",
+      "ping": 387
+    },
+    {
+      "id": "d437b033b2fbe2e84b9e2eda932f47a9016d9cf9352e6c58c68961be81958f94",
+      "protocol": "vless",
+      "link": "vless://80256d6f-7cd3-4a3a-8df6-2981e52551dc@91.107.185.86:16893?encryption=none&security=reality&sni=play.google.com&fp=chrome&pbk=dpmXAfLC6-Sf6cPjkQKGx_NliRQRFZ_oUiiPA5ALW0I&sid=849711f2b99d1176&spx=%2F&type=tcp&headerType=none#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20VLESS",
+      "first_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:46:56.391719+00:00",
+      "last_success": "2026-11-28T14:46:56.391734+00:00",
+      "failures": 0,
+      "status": "working",
+      "ip": "91.107.185.86",
+      "country": "Germany",
+      "country_code": "DE",
+      "google": true,
+      "telegram": true,
+      "server_name": "🇩🇪 Германия | VLESS",
+      "ping": 422
+    },
+    {
+      "id": "5c7fb4f4d0a3b5fc9dc46f08a74f280fa1f6fa369603e1dc564633d772686343",
+      "protocol": "hysteria2",
+      "link": "hy2://Cqx5aT9Zux@185.200.199.179:54706/?hop_interval=10&sni=185.200.199.179#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20HYSTERIA2",
+      "first_seen": "2026-11-27T22:24:18.779054+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:41:06.509997+00:00",
+      "last_success": "2026-11-28T14:41:06.510014+00:00",
+      "failures": 0,
+      "status": "working",
+      "ip": "185.200.199.122",
       "country": "The Netherlands",
       "country_code": "NL",
       "google": true,
       "telegram": true,
       "server_name": "🇳🇱 Нидерланды | HYSTERIA2",
-      "ping": 456
+      "ping": 425
+    },
+    {
+      "id": "a10ea142d307c66297f0b0a3b63708c17a16d92d6137d1603690de76f83c9ec5",
+      "protocol": "vless",
+      "link": "vless://3950b45e-740d-4dca-ac95-505ec8534592@45.90.59.15:443?security=reality&encryption=none&flow=xtls-rprx-vision&sni=www.cloudflare.com&fp=random&pbk=P7S4UPFlQbmiBr4txyy8NZIMTrmO3UdxyH16WBU-YzY&sid=19253fae84102271#%F0%9F%87%A8%F0%9F%87%AD%20%D0%A8%D0%B2%D0%B5%D0%B9%D1%86%D0%B0%D1%80%D0%B8%D1%8F%20%7C%20VLESS",
+      "first_seen": "2026-11-27T22:24:18.779054+00:00",
+      "last_seen": "2026-11-28T05:14:39.069903+00:00",
+      "last_checked": "2026-11-28T14:40:57.556334+00:00",
+      "last_success": "2026-11-28T14:40:57.556352+00:00",
+      "failures": 0,
+      "status": "working",
+      "ip": "45.90.59.15",
+      "country": "Switzerland",
+      "country_code": "CH",
+      "google": true,
+      "telegram": true,
+      "server_name": "🇨🇭 Швейцария | VLESS",
+      "ping": 446
+    },
+    {
+      "id": "18cbfeb0901a9d3a46bc1bb6a529a6e690372b683548568e73984ce358701710",
+      "protocol": "hysteria2",
+      "link": "hysteria2://549766c3-fa5f-471e-8031-ffc1f8d5064f@212.34.137.105:443?sni=shorts.blog-forme.ru#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20HYSTERIA2",
+      "first_seen": "2026-11-28T05:14:39.069903+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:41:01.032132+00:00",
+      "last_success": "2026-11-28T14:41:01.032149+00:00",
+      "failures": 0,
+      "status": "working",
+      "ip": "212.34.129.227",
+      "country": "The Netherlands",
+      "country_code": "NL",
+      "google": true,
+      "telegram": true,
+      "server_name": "🇳🇱 Нидерланды | HYSTERIA2",
+      "ping": 452
     },
     {
       "id": "b78a7e225fc719e93a6bcc24ab50e7553a2112e938f106421ff3953f0a83477b",
       "protocol": "vless",
       "link": "vless://9fdec6be-b6b5-4f18-bac0-461cb7953ff0@2.27.26.142:443?encryption=none&type=tcp&security=reality&flow=xtls-rprx-vision&sni=aq-1.global-cdn.org&pbk=HKkU-5UanGjWdmX8E-EGulXMk1BnidkFsVveyyOlTg8&sid=90f9d05bf95cb335&fp=firefox#%F0%9F%87%AB%F0%9F%87%AE%20%D0%A4%D0%B8%D0%BD%D0%BB%D1%8F%D0%BD%D0%B4%D0%B8%D1%8F%20%7C%20VLESS",
       "first_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:22:40.186140+00:00",
-      "last_success": "2026-11-28T05:22:40.186159+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:41:34.686006+00:00",
+      "last_success": "2026-11-28T14:41:34.686024+00:00",
       "failures": 0,
       "status": "working",
       "ip": "2.27.26.138",
@@ -342,25 +198,7 @@
       "google": true,
       "telegram": true,
       "server_name": "🇫🇮 Финляндия | VLESS",
-      "ping": 461
-    },
-    {
-      "id": "9df1e4b76e784c57acea1743fcf93bbc7785f009e5b4d2c132a55ba5d4f3c7f8",
-      "protocol": "vless",
-      "link": "vless://e894c08a-fecc-46f5-bf03-c95d0274c79d@201.58.190.223:443?type=tcp&headerType=none&security=reality&encryption=none&sni=lesson7.schoolpizorbz.xyz&fp=firefox&pbk=GOhYUjECeb39wHy3zMCWD60tuP2cV3cbONurnmo5TQE&sid=2e3656d5425ca623&flow=xtls-rprx-vision#%F0%9F%87%B5%F0%9F%87%B1%20%D0%9F%D0%BE%D0%BB%D1%8C%D1%88%D0%B0%20%7C%20VLESS",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_checked": "2026-11-28T05:16:19.641833+00:00",
-      "last_success": "2026-11-28T05:16:19.641860+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "201.58.190.223",
-      "country": "Poland",
-      "country_code": "PL",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇵🇱 Польша | VLESS",
-      "ping": 465
+      "ping": 455
     },
     {
       "id": "7acacf7e80bb1f88330c14725cb051864bc76454332ea48a07e8ea483e70f01b",
@@ -368,8 +206,8 @@
       "link": "vless://e894c08a-fecc-46f5-bf03-c95d0274c79d@177.202.76.30:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=lesson14.schoolpizorbz.xyz&fp=firefox&pbk=G465rpA3czwxSTrjkcl0KK6HohO5G8do2MxjcRbULSA&sid=d52f9a703c9bf2d9#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20VLESS",
       "first_seen": "2026-11-28T05:14:39.069903+00:00",
       "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:24:51.838538+00:00",
-      "last_success": "2026-11-28T05:24:51.838558+00:00",
+      "last_checked": "2026-11-28T14:41:45.296064+00:00",
+      "last_success": "2026-11-28T14:41:45.296081+00:00",
       "failures": 0,
       "status": "working",
       "ip": "177.202.76.30",
@@ -378,70 +216,16 @@
       "google": true,
       "telegram": true,
       "server_name": "🇺🇸 США | VLESS",
-      "ping": 475
-    },
-    {
-      "id": "57c7b538f436da206ab91fb32c361530c34c0121cbcf6485d740938f9b002640",
-      "protocol": "vless",
-      "link": "vless://ba373a70-295f-482d-a471-8bc17b54e23b@85.136.80.71:443?security=reality&encryption=none&pbk=pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ&fp=firefox&type=grpc&sni=hollowtide.xyz&sid=27350908de933e09&serviceName=neurex&mode=gun#%F0%9F%87%B3%F0%9F%87%B4%20%D0%9D%D0%BE%D1%80%D0%B2%D0%B5%D0%B3%D0%B8%D1%8F%20%7C%20VLESS",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_checked": "2026-11-28T05:16:48.418427+00:00",
-      "last_success": "2026-11-28T05:16:48.418446+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "85.136.80.71",
-      "country": "Norway",
-      "country_code": "NO",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇳🇴 Норвегия | VLESS",
-      "ping": 478
-    },
-    {
-      "id": "1f4f664cc70398909266d35dbd9ade1ad5f5de5b6e6535bc798959963931fae1",
-      "protocol": "hysteria2",
-      "link": "hysteria2://900c8c92-1979-4c7c-8f2f-63e87d53d8fe@128.254.186.57:13337?sni=mother-earth.fyi#%F0%9F%87%AC%F0%9F%87%A7%20%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE%D0%B1%D1%80%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20HYSTERIA2",
-      "first_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:21:17.766447+00:00",
-      "last_success": "2026-11-28T05:21:17.766465+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "46.20.105.110",
-      "country": "United Kingdom",
-      "country_code": "GB",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇬🇧 Великобритания | HYSTERIA2",
-      "ping": 484
-    },
-    {
-      "id": "370370b7ef7ddadb1e248f86456e75e81dd70bbe32b09a6684f2c7c972b55ece",
-      "protocol": "vless",
-      "link": "vless://e894c08a-fecc-46f5-bf03-c95d0274c79d@48.102.201.124:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=lesson11.schoolpizorbz.xyz&fp=firefox&pbk=bkgMxOi6NnagiY8Cc8PzW9skQSk9LDKmFtjGfqrlXHE&sid=a16c828fc2b70207#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20VLESS",
-      "first_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:23:56.878664+00:00",
-      "last_success": "2026-11-28T05:23:56.878682+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "48.102.201.124",
-      "country": "United States",
-      "country_code": "US",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇺🇸 США | VLESS",
-      "ping": 484
+      "ping": 473
     },
     {
       "id": "1c46c4969145f16aa78c039e23749c63d90735173db818fa2c0afb89a6c6c0be",
       "protocol": "hysteria2",
       "link": "hy2://04920673-035c-410d-94e4-5b1469d3fb6f@91.211.27.217:58509/?hop_interval=10&sni=91.211.27.217#🇵🇱",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:16:44.361977+00:00",
-      "last_success": "2026-11-28T05:16:44.361996+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:42:36.753595+00:00",
+      "last_success": "2026-11-28T14:42:36.753609+00:00",
       "failures": 0,
       "status": "working",
       "ip": null,
@@ -450,61 +234,61 @@
       "google": true,
       "telegram": true,
       "server_name": "🌐 Неизвестно | HYSTERIA2",
-      "ping": 489
+      "ping": 478
     },
     {
-      "id": "76b4eb2ae187d13d7c53bfd839b630831d56de92e7fb85c97cfdd3d39d84da6e",
+      "id": "8b66d9fee5111fb720f0459eb0b2d5da2223c6d7b209fffa655ede9aefa0db9b",
       "protocol": "vless",
-      "link": "vless://ba373a70-295f-482d-a471-8bc17b54e23b@89.150.45.156:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=frb.899themes.pro&fp=firefox&pbk=pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ&sid=27350908de933e09#%F0%9F%87%AB%F0%9F%87%B7%20%D0%A4%D1%80%D0%B0%D0%BD%D1%86%D0%B8%D1%8F%20%7C%20VLESS",
-      "first_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:21:12.030941+00:00",
-      "last_success": "2026-11-28T05:21:12.030959+00:00",
+      "link": "vless://e894c08a-fecc-46f5-bf03-c95d0274c79d@177.202.76.30:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=lesson14.schoolpizorbz.xyz&fp=firefox&pbk=G465rpA3czwxSTrjkcl0KK6HohO5G8do2MxjcRbULSA&sid=d52f9a703c9bf2d9&spx=%2F#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20VLESS",
+      "first_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:49:43.774988+00:00",
+      "last_success": "2026-11-28T14:49:43.775003+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "89.150.45.141",
-      "country": "France",
-      "country_code": "FR",
+      "ip": "177.202.76.30",
+      "country": "United States",
+      "country_code": "US",
       "google": true,
       "telegram": true,
-      "server_name": "🇫🇷 Франция | VLESS",
-      "ping": 498
+      "server_name": "🇺🇸 США | VLESS",
+      "ping": 496
     },
     {
-      "id": "b5037db3987d0f42b14f3406c52a11f9e0edf775a208873fb633a22434bc33a1",
-      "protocol": "hysteria2",
-      "link": "hysteria2://900c8c92-1979-4c7c-8f2f-63e87d53d8fe@uk-tube-01.stre4m.net:13337?sni=mother-earth.fyi#%F0%9F%87%AC%F0%9F%87%A7%20%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE%D0%B1%D1%80%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20HYSTERIA2",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_checked": "2026-11-28T05:16:56.635680+00:00",
-      "last_success": "2026-11-28T05:16:56.635698+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "46.20.105.110",
-      "country": "United Kingdom",
-      "country_code": "GB",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇬🇧 Великобритания | HYSTERIA2",
-      "ping": 499
-    },
-    {
-      "id": "44c072c6f4bdd8e9787a40cef0f4e400dc7f6738ea4b8427cc2ac033f68594c4",
-      "protocol": "hysteria2",
-      "link": "hy2://04920673-035c-410d-94e4-5b1469d3fb6f@91.211.27.231:42848?sni=171.22.183.158&alpn=h3#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20HYSTERIA2",
+      "id": "370370b7ef7ddadb1e248f86456e75e81dd70bbe32b09a6684f2c7c972b55ece",
+      "protocol": "vless",
+      "link": "vless://e894c08a-fecc-46f5-bf03-c95d0274c79d@48.102.201.124:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=lesson11.schoolpizorbz.xyz&fp=firefox&pbk=bkgMxOi6NnagiY8Cc8PzW9skQSk9LDKmFtjGfqrlXHE&sid=a16c828fc2b70207#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20VLESS",
       "first_seen": "2026-11-28T05:14:39.069903+00:00",
       "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:23:24.553718+00:00",
-      "last_success": "2026-11-28T05:23:24.553738+00:00",
+      "last_checked": "2026-11-28T14:42:32.845392+00:00",
+      "last_success": "2026-11-28T14:42:32.845408+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "171.22.183.158",
-      "country": "Netherlands",
+      "ip": "48.102.201.124",
+      "country": "United States",
+      "country_code": "US",
+      "google": true,
+      "telegram": true,
+      "server_name": "🇺🇸 США | VLESS",
+      "ping": 526
+    },
+    {
+      "id": "af620145f98c7cd205b01d00cdc508f45ba05ace3231cf201588bfc1a87a5078",
+      "protocol": "hysteria2",
+      "link": "hysteria2://549766c3-fa5f-471e-8031-ffc1f8d5064f@94.183.164.119:24403?sni=docs.blog-forme.ru#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20HYSTERIA2",
+      "first_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:47:40.889185+00:00",
+      "last_success": "2026-11-28T14:47:40.889206+00:00",
+      "failures": 0,
+      "status": "working",
+      "ip": "146.103.102.187",
+      "country": "The Netherlands",
       "country_code": "NL",
       "google": true,
       "telegram": true,
       "server_name": "🇳🇱 Нидерланды | HYSTERIA2",
-      "ping": 555
+      "ping": 530
     },
     {
       "id": "00c934a7d45af20c3191370df4b348cac0b693062ff95adbd7e87ecd1abe71ba",
@@ -512,8 +296,8 @@
       "link": "vless://ba0dbd83-3569-46dc-bc3d-ef6e58ffc97b@153.56.229.218:443?security=reality&type=tcp&packetEncoding=xudp&sni=71b840t.de7.h1clayd.click&fp=firefox&sid=e572b6579ea525d4&pbk=3wFF83gtIA0sXj-6GGCAa--oQbSr0MVUj0FBc-0QmiE&encryption=none#%F0%9F%87%AE%F0%9F%87%B1%20%D0%98%D0%B7%D1%80%D0%B0%D0%B8%D0%BB%D1%8C%20%7C%20VLESS",
       "first_seen": "2026-11-28T05:14:39.069903+00:00",
       "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:22:52.731203+00:00",
-      "last_success": "2026-11-28T05:22:52.731234+00:00",
+      "last_checked": "2026-11-28T14:43:03.117787+00:00",
+      "last_success": "2026-11-28T14:43:03.117805+00:00",
       "failures": 0,
       "status": "working",
       "ip": "79.182.59.39",
@@ -522,70 +306,34 @@
       "google": true,
       "telegram": true,
       "server_name": "🇮🇱 Израиль | VLESS",
-      "ping": 567
+      "ping": 560
     },
     {
-      "id": "ba2e755366fc4783b82b0bda0cba8635d25be11c49a64440b6c69c3826313935",
-      "protocol": "hysteria2",
-      "link": "hysteria2://04920673-035c-410d-94e4-5b1469d3fb6f@91.211.27.231:42848?sni=171.22.183.158&alpn=h3#%F0%9F%87%B3%F0%9F%87%B1%20%D0%9D%D0%B8%D0%B4%D0%B5%D1%80%D0%BB%D0%B0%D0%BD%D0%B4%D1%8B%20%7C%20HYSTERIA2",
+      "id": "9df1e4b76e784c57acea1743fcf93bbc7785f009e5b4d2c132a55ba5d4f3c7f8",
+      "protocol": "vless",
+      "link": "vless://e894c08a-fecc-46f5-bf03-c95d0274c79d@201.58.190.223:443?type=tcp&headerType=none&security=reality&encryption=none&sni=lesson7.schoolpizorbz.xyz&fp=firefox&pbk=GOhYUjECeb39wHy3zMCWD60tuP2cV3cbONurnmo5TQE&sid=2e3656d5425ca623&flow=xtls-rprx-vision#%F0%9F%87%B5%F0%9F%87%B1%20%D0%9F%D0%BE%D0%BB%D1%8C%D1%88%D0%B0%20%7C%20VLESS",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
       "last_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_checked": "2026-11-28T05:17:00.825938+00:00",
-      "last_success": "2026-11-28T05:17:00.825959+00:00",
+      "last_checked": "2026-11-28T14:41:40.263114+00:00",
+      "last_success": "2026-11-28T14:41:40.263131+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "171.22.183.158",
-      "country": "Netherlands",
-      "country_code": "NL",
+      "ip": "201.58.190.223",
+      "country": "Poland",
+      "country_code": "PL",
       "google": true,
       "telegram": true,
-      "server_name": "🇳🇱 Нидерланды | HYSTERIA2",
-      "ping": 573
-    },
-    {
-      "id": "3825ed0f0d3640521637ea19d937556788a8047f93526a7638fc207b7ac385ad",
-      "protocol": "vless",
-      "link": "vless://ba373a70-295f-482d-a471-8bc17b54e23b@46.28.67.210:443?encryption=none&type=grpc&security=reality&serviceName=neurex&sni=foxbramble.xyz&fp=firefox&pbk=pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ&sid=27350908de933e09#%F0%9F%87%B7%F0%9F%87%B4%20%D0%A0%D1%83%D0%BC%D1%8B%D0%BD%D0%B8%D1%8F%20%7C%20VLESS",
-      "first_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:23:30.609993+00:00",
-      "last_success": "2026-11-28T05:23:30.610011+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "46.28.67.56",
-      "country": "Romania",
-      "country_code": "RO",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇷🇴 Румыния | VLESS",
-      "ping": 592
-    },
-    {
-      "id": "f9bd7290c56f667479f99d894eff065e3c24cb438d2ea28e9c175f228072bf7b",
-      "protocol": "shadowsocks",
-      "link": "ss://YWVzLTI1Ni1nY206TlRpSEJnNjRmc1k4dThEYkdydHlwRDlnUEdTTDM4NnA=@185.22.152.168:18443#%F0%9F%87%B7%F0%9F%87%BA%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%20%7C%20SHADOWSOCKS",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:28:16.381479+00:00",
-      "last_success": "2026-11-28T05:28:16.381497+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "185.22.152.168",
-      "country": "Russia",
-      "country_code": "RU",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇷🇺 Россия | SHADOWSOCKS",
-      "ping": 596
+      "server_name": "🇵🇱 Польша | VLESS",
+      "ping": 564
     },
     {
       "id": "11f5d7a87b85ae486dd8aefe746462ec07cab6bd09d7c1a86490df0f3e21a0d5",
       "protocol": "hysteria2",
       "link": "hysteria2://0b396097d052915ef304b40d2bda6a2d@179.254.94.184:8443?insecure=1#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20HYSTERIA2",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:24:56.192291+00:00",
-      "last_success": "2026-11-28T05:24:56.192311+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:43:26.319819+00:00",
+      "last_success": "2026-11-28T14:43:26.319836+00:00",
       "failures": 0,
       "status": "working",
       "ip": "179.254.94.184",
@@ -594,70 +342,88 @@
       "google": true,
       "telegram": true,
       "server_name": "🇺🇸 США | HYSTERIA2",
-      "ping": 602
+      "ping": 612
     },
     {
-      "id": "4d9ac31fc111c05343b9b8a3492505b1100c2b2ed01d0011cfea46c9d30eaa45",
-      "protocol": "vless",
-      "link": "vless://37af0181-5598-4aad-a040-d926bcb65757@78.159.240.11:445/?type=grpc&encryption=none&flow=&serviceName=grpc&sni=passport.yandex.ru&fp=firefox&security=reality&pbk=VHWmCkZwC5XE-ctv0p8BinjoIx4SWgJUIsZPrhNf6TA&sid=#%F0%9F%87%B7%F0%9F%87%BA%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%20%7C%20VLESS",
+      "id": "f9bd7290c56f667479f99d894eff065e3c24cb438d2ea28e9c175f228072bf7b",
+      "protocol": "shadowsocks",
+      "link": "ss://YWVzLTI1Ni1nY206TlRpSEJnNjRmc1k4dThEYkdydHlwRDlnUEdTTDM4NnA=@185.22.152.168:18443#%F0%9F%87%B7%F0%9F%87%BA%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%20%7C%20SHADOWSOCKS",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:21:42.933697+00:00",
-      "last_success": "2026-11-28T05:21:42.933715+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:43:21.933517+00:00",
+      "last_success": "2026-11-28T14:43:21.933533+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "89.208.222.49",
+      "ip": "185.22.152.168",
       "country": "Russia",
       "country_code": "RU",
       "google": true,
       "telegram": true,
-      "server_name": "🇷🇺 Россия | VLESS",
-      "ping": 619
+      "server_name": "🇷🇺 Россия | SHADOWSOCKS",
+      "ping": 647
     },
     {
-      "id": "491df87d7142deef80c99a64651b10c046be1093c73a69eeee336d9cc57b15e2",
-      "protocol": "vless",
-      "link": "vless://ba373a70-295f-482d-a471-8bc17b54e23b@217.156.123.25:443?encryption=none&type=grpc&security=reality&serviceName=neurex&sni=farlantern.xyz&fp=firefox&pbk=pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ&sid=27350908de933e09#%F0%9F%87%B2%F0%9F%87%A9%20%D0%9C%D0%BE%D0%BB%D0%B4%D0%BE%D0%B2%D0%B0%20%7C%20VLESS",
+      "id": "1f4f664cc70398909266d35dbd9ade1ad5f5de5b6e6535bc798959963931fae1",
+      "protocol": "hysteria2",
+      "link": "hysteria2://900c8c92-1979-4c7c-8f2f-63e87d53d8fe@128.254.186.57:13337?sni=mother-earth.fyi#%F0%9F%87%AC%F0%9F%87%A7%20%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE%D0%B1%D1%80%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20HYSTERIA2",
       "first_seen": "2026-11-28T05:14:39.069903+00:00",
       "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:21:38.223674+00:00",
-      "last_success": "2026-11-28T05:21:38.223693+00:00",
+      "last_checked": "2026-11-28T14:42:10.973322+00:00",
+      "last_success": "2026-11-28T14:42:10.973339+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "217.156.123.52",
-      "country": "Moldova",
-      "country_code": "MD",
+      "ip": "46.20.105.110",
+      "country": "United Kingdom",
+      "country_code": "GB",
       "google": true,
       "telegram": true,
-      "server_name": "🇲🇩 Молдова | VLESS",
-      "ping": 691
+      "server_name": "🇬🇧 Великобритания | HYSTERIA2",
+      "ping": 653
     },
     {
-      "id": "ea36dcfb9f222837c65ebab5e1262235e909e5c65e2d62080d2885e2656ddd34",
-      "protocol": "hysteria2",
-      "link": "hy2://41edb44c8e@103.88.243.142:11592/?insecure=1&sni=srv-17e124.21freedom.net#%F0%9F%87%B7%F0%9F%87%BA%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%20%7C%20HYSTERIA2",
+      "id": "d438662691e62e78c36f7668095c70b1b30cee590b74551fc56aafdfb89d90bf",
+      "protocol": "shadowsocks",
+      "link": "ss://MjAyMi1ibGFrZTMtY2hhY2hhMjAtcG9seTEzMDU6OHlPM0FOV2VmdXVHczFsUktYRUNRQTFGRWh4bFdGVjJwcFFNY0JhWm81WT0@8.209.80.17:443#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20SHADOWSOCKS",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:18:22.639853+00:00",
-      "last_success": "2026-11-28T05:18:22.639873+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:46:06.602692+00:00",
+      "last_success": "2026-11-28T14:46:06.602709+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "2a03:6f00:a::2:c20b",
-      "country": "Russian Federation",
-      "country_code": "RU",
+      "ip": "163.123.193.9",
+      "country": "Germany",
+      "country_code": "DE",
       "google": true,
       "telegram": true,
-      "server_name": "🇷🇺 Россия | HYSTERIA2",
-      "ping": 739
+      "server_name": "🇩🇪 Германия | SHADOWSOCKS",
+      "ping": 710
+    },
+    {
+      "id": "3816cb9d487e30c5e03fa7346f6f26a6cfd72d9a38eb92b4aaf832281e1a52c7",
+      "protocol": "vless",
+      "link": "vless://327b1113-049e-4256-8d72-8815643dbb65@148.135.86.162:10000?security=reality&type=tcp&packetEncoding=xudp&sni=addons.mozilla.org&fp=chrome&flow=xtls-rprx-vision&sid=a1b2c3d4&pbk=DCbnS4mIPc1W2-wI0MGHhykwzf2nVuZvBadErSE6MxU&encryption=none#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20VLESS",
+      "first_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:47:58.205649+00:00",
+      "last_success": "2026-11-28T14:47:58.205665+00:00",
+      "failures": 0,
+      "status": "working",
+      "ip": "148.135.86.162",
+      "country": "United States",
+      "country_code": "US",
+      "google": true,
+      "telegram": true,
+      "server_name": "🇺🇸 США | VLESS",
+      "ping": 746
     },
     {
       "id": "478269a1e5ba74722ef358b952836b23a9ea569360516975e111447acb78cdba",
       "protocol": "hysteria2",
       "link": "hy2://41edb44c8e@103.88.243.142:11592?insecure=1&sni=srv-17e124#%F0%9F%87%B7%F0%9F%87%BA%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%20%7C%20HYSTERIA2",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:18:07.836035+00:00",
-      "last_success": "2026-11-28T05:18:07.836055+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:44:19.240618+00:00",
+      "last_success": "2026-11-28T14:44:19.240635+00:00",
       "failures": 0,
       "status": "working",
       "ip": "2a03:6f00:a::2:c20b",
@@ -666,16 +432,34 @@
       "google": true,
       "telegram": true,
       "server_name": "🇷🇺 Россия | HYSTERIA2",
-      "ping": 741
+      "ping": 756
+    },
+    {
+      "id": "218ead4c77b93507d5f6c710626805379703ddc3bef696bac3bb9940d4c6866f",
+      "protocol": "vless",
+      "link": "vless://f4b08bf1-d9bd-4755-aa88-ba922282c608@92.63.193.41:443?security=reality&type=tcp&packetEncoding=xudp&sni=ruswedmicro2.gangplatform.com&fp=qq&flow=xtls-rprx-vision&sid=b92d7008f05da71e&pbk=Hk7E17R41exzrPKAOeETobKQ0LOAmuLSzFXdEwLSmiQ#%F0%9F%87%B8%F0%9F%87%AA%20%D0%A8%D0%B2%D0%B5%D1%86%D0%B8%D1%8F%20%7C%20VLESS",
+      "first_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:47:24.018273+00:00",
+      "last_success": "2026-11-28T14:47:24.018290+00:00",
+      "failures": 0,
+      "status": "working",
+      "ip": "104.28.225.223",
+      "country": "Sweden",
+      "country_code": "SE",
+      "google": true,
+      "telegram": true,
+      "server_name": "🇸🇪 Швеция | VLESS",
+      "ping": 764
     },
     {
       "id": "6bdeeaafeb7799c3a851184678d3b8dfc7fa0f2de0887fe6da8c344671e2ff72",
       "protocol": "hysteria2",
       "link": "hysteria2://41edb44c8e@103.88.243.142:11592?sni=103.88.243.142&insecure=1#%F0%9F%87%B7%F0%9F%87%BA%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%20%7C%20HYSTERIA2",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:18:37.455302+00:00",
-      "last_success": "2026-11-28T05:18:37.455321+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:44:34.414388+00:00",
+      "last_success": "2026-11-28T14:44:34.414405+00:00",
       "failures": 0,
       "status": "working",
       "ip": "2a03:6f00:a::2:c20b",
@@ -684,34 +468,88 @@
       "google": true,
       "telegram": true,
       "server_name": "🇷🇺 Россия | HYSTERIA2",
-      "ping": 750
+      "ping": 765
     },
     {
-      "id": "44fb15432c87f801f07ad0b559a33b325f1fc2d55ecb071fde5ee80397887894",
-      "protocol": "vless",
-      "link": "vless://ba373a70-295f-482d-a471-8bc17b54e23b@95.85.230.31:443?encryption=none&type=grpc&security=reality&serviceName=neurex&sni=dea.899themes.pro&fp=firefox&pbk=pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ&sid=27350908de933e09#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20VLESS",
-      "first_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:22:30.020053+00:00",
-      "last_success": "2026-11-28T05:22:30.020070+00:00",
+      "id": "ea36dcfb9f222837c65ebab5e1262235e909e5c65e2d62080d2885e2656ddd34",
+      "protocol": "hysteria2",
+      "link": "hy2://41edb44c8e@103.88.243.142:11592/?insecure=1&sni=srv-17e124.21freedom.net#%F0%9F%87%B7%F0%9F%87%BA%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%20%7C%20HYSTERIA2",
+      "first_seen": "2026-11-27T22:24:18.779054+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:44:04.366081+00:00",
+      "last_success": "2026-11-28T14:44:04.366098+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "194.87.29.213",
-      "country": "Germany",
-      "country_code": "DE",
+      "ip": "2a03:6f00:a::2:c20b",
+      "country": "Russian Federation",
+      "country_code": "RU",
       "google": true,
       "telegram": true,
-      "server_name": "🇩🇪 Германия | VLESS",
-      "ping": 878
+      "server_name": "🇷🇺 Россия | HYSTERIA2",
+      "ping": 770
+    },
+    {
+      "id": "b5037db3987d0f42b14f3406c52a11f9e0edf775a208873fb633a22434bc33a1",
+      "protocol": "hysteria2",
+      "link": "hysteria2://900c8c92-1979-4c7c-8f2f-63e87d53d8fe@uk-tube-01.stre4m.net:13337?sni=mother-earth.fyi#%F0%9F%87%AC%F0%9F%87%A7%20%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE%D0%B1%D1%80%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20HYSTERIA2",
+      "first_seen": "2026-11-27T22:24:18.779054+00:00",
+      "last_seen": "2026-11-27T22:24:18.779054+00:00",
+      "last_checked": "2026-11-28T14:42:45.348197+00:00",
+      "last_success": "2026-11-28T14:42:45.348214+00:00",
+      "failures": 0,
+      "status": "working",
+      "ip": "46.20.105.110",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "google": true,
+      "telegram": true,
+      "server_name": "🇬🇧 Великобритания | HYSTERIA2",
+      "ping": 791
+    },
+    {
+      "id": "53d0c5ef5d9c3ef097127ac4c840cc5b0526c5abd929fc8a04a13b110ad90779",
+      "protocol": "hysteria2",
+      "link": "hysteria2://7ltdv0p-ThUzWHLNKwejOnmWRVfgq7gswzL34GP_7n8@48.102.229.114:443?sni=der.substituteme.space#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%7C%20HYSTERIA2",
+      "first_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:46:51.759507+00:00",
+      "last_success": "2026-11-28T14:46:51.759523+00:00",
+      "failures": 0,
+      "status": "working",
+      "ip": "48.102.229.114",
+      "country": "United States",
+      "country_code": "US",
+      "google": true,
+      "telegram": true,
+      "server_name": "🇺🇸 США | HYSTERIA2",
+      "ping": 791
+    },
+    {
+      "id": "e16f08e894651a0612efd3316c45692791cc833c884dc22d76f91b04e560a1df",
+      "protocol": "vless",
+      "link": "vless://e894c08a-fecc-46f5-bf03-c95d0274c79d@lesson1.schoolpizorbz.xyz:443?type=tcp&security=reality&flow=xtls-rprx-vision&sni=lesson1.schoolpizorbz.xyz&pbk=AdOl7XVxVk4Yb_tBxjrG-FP5elV_V2MeI_6WVC4H41s&sid=d14566fcec627162&fp=firefox#%F0%9F%87%B5%F0%9F%87%B1%20%D0%9F%D0%BE%D0%BB%D1%8C%D1%88%D0%B0%20%7C%20VLESS",
+      "first_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:47:04.408847+00:00",
+      "last_success": "2026-11-28T14:47:04.408864+00:00",
+      "failures": 0,
+      "status": "working",
+      "ip": "201.58.178.236",
+      "country": "Poland",
+      "country_code": "PL",
+      "google": true,
+      "telegram": true,
+      "server_name": "🇵🇱 Польша | VLESS",
+      "ping": 820
     },
     {
       "id": "218161f9ad7f90d79e995a9a066fdd89c6a19675db77a1eb1de2e487223a8730",
       "protocol": "vless",
       "link": "vless://e084837e-c738-4ce5-b691-cf4637356cd6@172.236.145.200:119?security=tls&sni=whatsapp.net&type=tcp&fp=chrome&alpn=h2%2Chttp%2F1.1&allowInsecure=1#%F0%9F%87%B8%F0%9F%87%AC%20%D0%A1%D0%B8%D0%BD%D0%B3%D0%B0%D0%BF%D1%83%D1%80%20%7C%20VLESS",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:18:48.328644+00:00",
-      "last_success": "2026-11-28T05:18:48.328663+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:44:43.794378+00:00",
+      "last_success": "2026-11-28T14:44:43.794395+00:00",
       "failures": 0,
       "status": "working",
       "ip": "172.236.145.200",
@@ -720,52 +558,16 @@
       "google": true,
       "telegram": true,
       "server_name": "🇸🇬 Сингапур | VLESS",
-      "ping": 911
-    },
-    {
-      "id": "66725bc266c27267c30b7b8d4073af988ab4461c7313321bf4d74d7f226abd47",
-      "protocol": "vless",
-      "link": "vless://ba373a70-295f-482d-a471-8bc17b54e23b@79.141.174.144:443?security=reality&encryption=none&pbk=pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ&fp=firefox&type=grpc&sni=seb.899themes.pro&sid=27350908de933e09&serviceName=neurex&mode=gun#%F0%9F%87%B8%F0%9F%87%AA%20%D0%A8%D0%B2%D0%B5%D1%86%D0%B8%D1%8F%20%7C%20VLESS",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_checked": "2026-11-28T05:16:40.321497+00:00",
-      "last_success": "2026-11-28T05:16:40.321517+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "79.141.174.156",
-      "country": "Sweden",
-      "country_code": "SE",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇸🇪 Швеция | VLESS",
-      "ping": 1037
-    },
-    {
-      "id": "2317121f80644ffd9aabf146a39db1ab037d3e4c401785f0a55b131e30c5098c",
-      "protocol": "vless",
-      "link": "vless://ba373a70-295f-482d-a471-8bc17b54e23b@95.85.230.31:443?security=reality&encryption=none&pbk=pR39Vv5qhk8r6akOicoy6mMs4-ppSWUez8MyAXG7wwQ&fp=firefox&type=grpc&sni=dea.899themes.pro&sid=27350908de933e09&serviceName=neurex&mode=gun#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20VLESS",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_checked": "2026-11-28T05:15:58.315719+00:00",
-      "last_success": "2026-11-28T05:15:58.315739+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "194.87.29.213",
-      "country": "Germany",
-      "country_code": "DE",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇩🇪 Германия | VLESS",
-      "ping": 1169
+      "ping": 896
     },
     {
       "id": "9c179a51c7c3a684fce11fd06b1721eed0fc38c9d39eb8cff3eda23c64313dfe",
       "protocol": "vless",
       "link": "vless://05f53797-bd04-4006-8a78-41c071e67837@108.138.26.63:80?type=ws&path=%2Ftikvpn2%2F&host=d27g7kjkk3cw22.cloudfront.net#%F0%9F%87%B9%F0%9F%87%AD%20Thailand%20%7C%20VLESS",
       "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:19:12.573181+00:00",
-      "last_success": "2026-11-28T05:19:12.573201+00:00",
+      "last_seen": "2026-11-28T14:40:02.994149+00:00",
+      "last_checked": "2026-11-28T14:45:16.102792+00:00",
+      "last_success": "2026-11-28T14:45:16.102809+00:00",
       "failures": 0,
       "status": "working",
       "ip": "43.229.150.44",
@@ -777,46 +579,28 @@
       "ping": 1180
     },
     {
-      "id": "9819206d35aea29e4bf22899e70ff8a045e440dc29818b1f999c2ae1669064a4",
-      "protocol": "hysteria2",
-      "link": "hy2://f4b08bf1-d9bd-4755-aa88-ba922282c608@timewhite655.thebestqas.am:443/?hop_interval=10&sni=timewhite655.thebestqas.am#%F0%9F%87%B0%F0%9F%87%BF%20%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%20%7C%20HYSTERIA2",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
+      "id": "79858595dcc71d89e912c3dd43287298de127233bb7e191447c015572ea0d479",
+      "protocol": "vless",
+      "link": "vless://cda0862a-0f87-4be9-8ed8-1d0c9e382839@195.206.235.74:443?type=grpc&security=reality&encryption=none&sni=961ec0g.nl13.h1clayd.click&fp=chrome&pbk=xn7KVKS5MOnsFrYrEeRS04JssBCOxh12rxegaDFyGkA&sid=6d289ff0f47c0aac&serviceName=7d5abcd7d8a1#%F0%9F%87%AE%F0%9F%87%B1%20%D0%98%D0%B7%D1%80%D0%B0%D0%B8%D0%BB%D1%8C%20%7C%20VLESS",
+      "first_seen": "2026-11-28T05:14:39.069903+00:00",
       "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:19:57.273264+00:00",
-      "last_success": "2026-11-28T05:19:57.273283+00:00",
+      "last_checked": "2026-11-28T14:41:18.488709+00:00",
+      "last_success": "2026-11-28T14:41:18.488726+00:00",
       "failures": 0,
       "status": "working",
-      "ip": "104.28.193.253",
-      "country": "Kazakhstan",
-      "country_code": "KZ",
+      "ip": "79.182.55.27",
+      "country": "Israel",
+      "country_code": "IL",
       "google": true,
       "telegram": true,
-      "server_name": "🇰🇿 Казахстан | HYSTERIA2",
-      "ping": 1273
-    },
-    {
-      "id": "d438662691e62e78c36f7668095c70b1b30cee590b74551fc56aafdfb89d90bf",
-      "protocol": "shadowsocks",
-      "link": "ss://MjAyMi1ibGFrZTMtY2hhY2hhMjAtcG9seTEzMDU6OHlPM0FOV2VmdXVHczFsUktYRUNRQTFGRWh4bFdGVjJwcFFNY0JhWm81WT0@8.209.80.17:443#%F0%9F%87%A9%F0%9F%87%AA%20%D0%93%D0%B5%D1%80%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F%20%7C%20SHADOWSOCKS",
-      "first_seen": "2026-11-27T22:24:18.779054+00:00",
-      "last_seen": "2026-11-28T05:14:39.069903+00:00",
-      "last_checked": "2026-11-28T05:14:59.319191+00:00",
-      "last_success": "2026-11-28T05:14:59.319211+00:00",
-      "failures": 0,
-      "status": "working",
-      "ip": "163.123.193.9",
-      "country": "Germany",
-      "country_code": "DE",
-      "google": true,
-      "telegram": true,
-      "server_name": "🇩🇪 Германия | SHADOWSOCKS",
-      "ping": 1440
+      "server_name": "🇮🇱 Израиль | VLESS",
+      "ping": 1256
     }
   ],
   "channels": {
     "outlineOpenKey": {
-      "last_message_id": 11545,
-      "last_checked": "2026-11-28T05:14:39.048870+00:00"
+      "last_message_id": 11551,
+      "last_checked": "2026-11-28T14:40:02.972020+00:00"
     }
   },
   "history": {
@@ -826,7 +610,7 @@
     },
     "a8773fbf8c996713c0de16030f1098b721fb981d7a47b2f211193d99c1d304a5": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "c9e2ea33ad609d3d0ab6c2cf78169656f2ade3af6043b259ab8be5595bdf9e17": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -838,15 +622,15 @@
     },
     "2f9c8c1d4d2238bc2b5f8c1d537656e7fc68fedae972209f3a143f226b60873b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "fc829911ca1b35c8253740c03f33b276e007960a12fdba76df76b2190122beb5": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "ab15b8181d3434b72b46b3f7b1957c762b27904303d0453b191c5fcf968fcb6c": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "07a3e182698a29c96a586842ca0c59d70ed7cb85d95b01790258dfedf4d5a842": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -874,7 +658,7 @@
     },
     "4c977be3a9d64091f80e6b15975d788cd618d536c4b4dfc563ced77c8c989178": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "4da27ad440a29e3ad4905cade67c1196f4392cde3ac18d6545e1f7fc5477ea0b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -886,7 +670,7 @@
     },
     "f958ba25b55a77aab2a1c96a7ebc903b15dc57617f452c46a7a0ed1bd08f09a6": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "bb0d83cb0f4d3a1aa6c396cdd6ce72be4c2c93c494c0a05042898bd88b826ae3": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -894,7 +678,7 @@
     },
     "a9d76c3a06b2c5c4f2a5b9aad9181f8ad33532a12d4f8281757bad4909074079": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "97306766d6b6b92efb44a9ce7bd0fef5cbde863e1e44e61180291b0eea28c7f1": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -906,7 +690,7 @@
     },
     "408b13f92692cd46164cb517096e38b0da891502491bd567ee95b2ebc0bf2f70": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "4de67201eaa825d3df855b5609b039128018fa93b6679e613367a0db566f26ee": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -918,15 +702,15 @@
     },
     "4d9ac31fc111c05343b9b8a3492505b1100c2b2ed01d0011cfea46c9d30eaa45": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "9819206d35aea29e4bf22899e70ff8a045e440dc29818b1f999c2ae1669064a4": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "85001fca1e4a30c16b7ca54fe31ceab0a6814cecd57834e016e2b0fff4b1d9c9": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "b5037db3987d0f42b14f3406c52a11f9e0edf775a208873fb633a22434bc33a1": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -942,11 +726,11 @@
     },
     "517a1c2ab6cd7a29b4423fe859a8fb8b29eefdae2fd89f6c82101a53751f4929": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "3b7a8901901682e25e1a6e9aa6eddec97f53cfe15e569c3080a6ebcee364b4d1": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "0a4e728bbec1f7a9cc4b1d4c3ba2cae81de3ae9154f1739a3667e8729f4321f2": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -958,11 +742,11 @@
     },
     "4e047b71abf98220fb473673f3c6f550600ef5a289c70cdd0a788438616a198b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "1c46c4969145f16aa78c039e23749c63d90735173db818fa2c0afb89a6c6c0be": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "f051f0f006fcfbcfb58a30cb0eab596e731b1ca2d8a817a2191c72b160d82848": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -974,11 +758,11 @@
     },
     "0b114aa3337e84d37f9052b7289f795e3fc78b305407dd73b107332829b092fa": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "bafabb37696cad79c4d101f856aa933c12a58a548905800af7c83f981c8e3453": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "db3254b2909ff06d5efcb5fbb0894ac90ae80b221b286a019fa609d7081ed0df": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -986,7 +770,7 @@
     },
     "806267f0d55be9f1e0f1cb42f9076f654d9e642b26ccf75c51102eb80c47bf84": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "d3a9a62a6ee2ed5a285a90b94cdbb8a9113df1c22e4f0dc9b57739c557a7516a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -998,11 +782,11 @@
     },
     "3fe21c1e712b46ec4fef64f777cc0b394a89c0a63bbfec6958b620b12f01b25b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "9be5395bf5125e400d242e83bc0ce0a42799ba7a2fe4da20a2d57bec29483f90": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "970f3cd519174ecf7c40947c91a21f6989a0318a66613e91706642d7bd723fb9": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1066,11 +850,11 @@
     },
     "8722672fd0572bfe012e58172a71495309b267ca9b6125f4c9f56c28e56c0ce2": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "5c7fb4f4d0a3b5fc9dc46f08a74f280fa1f6fa369603e1dc564633d772686343": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "7b80339302a25e3279ce2140c2afe332f2abe6ea4b077458b350c5073b6418dc": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1078,11 +862,11 @@
     },
     "bd0e73d741c659e72275a1e886e2a371138897ccf8a633d91b4c79cd085bc856": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "1a65a7a388a8adcf967500ff59c7819ffcec471963d7808ecd2dae3318b93203": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "04213a94f5a8ee295c25c9c83c52204b39699d23ad3aed498bf00be97141b43f": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1094,7 +878,7 @@
     },
     "e6e8ac02adf61b34f538ddbd8ce68049aa22baccaa40ab4c61f5662493199007": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "3b48f051cbfaca6c6e160ce0b6dea057c5f15b967b4c9ce0b39cf490f77bc0fc": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1106,19 +890,19 @@
     },
     "55754779ce9202cde187953135331b881a6ad82585586ea7aa628d3065bf6ccd": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "bd226b74183217637e4d67da5764a50447e1e237a0ae32a13afd571705956e0a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "d4b6d8da17d69dc8cec746f67861a648f56cef206ec9a8a8e7cd81f73d722c4a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "ea36dcfb9f222837c65ebab5e1262235e909e5c65e2d62080d2885e2656ddd34": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "e7c3f70572e7401605ad7ce7bdea2e59ced878bbf11e4c1c5b007d29d98e8300": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1126,11 +910,11 @@
     },
     "4738eb72d5dc1519c91955331763f19ec3b1ec709b7f5121f901a4358504b80a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "82b7a906fe8b37aca252c804fbe1040e53718650f57b6b61c0317635db2255b2": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "78cc00f0409d2dcb5b3db98ec626cbce40a341446f35af7f92b793c49a8c1f22": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1138,19 +922,19 @@
     },
     "0b19de83407e109a9739c566f3e7e5fa2e6dc6847dbe1e5aa6aff61ff99e9e5c": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "6d01a8139c7148fc6f484e3308d4ad34ae1b33205dab02ecc17469840c980926": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "e076d8faf7ce5f433a531c407ccbf8680d7067a853f68999ff29eea38af47a93": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "084004056a7c63152bf34801abc050ad781aa0ae61b4afd302607dd66d3efc5e": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "db4f3297088ae20a1209da3afce8bda922e6193a4ef8ad1cb9a121a73af54aa9": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1162,27 +946,27 @@
     },
     "756ea87c0b237fe39fef1148552a0caeec464037c6926a081d1afa675800159a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "679bb7ea788ffe3723df2be134d0ba2ad1c1767cf09a36bbca1d02c4311298ac": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "35c49834c886e5ecabd06145d6dbd2240a8489ac9ae52936fabae015b6156396": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "dc63aeb87679a99bd8c1793491eca6356d794967098f6c5ded6699361f8bdeb4": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "4e1823f391c57c97837f362209a4c9fcbca0a0a09b4e6bf27b51d06f34072a53": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "ef9e3a7d3b04e208e5bd4a21a3b93477639600907ef94ae3c4ae3a47820b31cb": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "c3e546c6c1aba697085c72cf2674634b2e188d37658df15f9e71f9a27d6005fa": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1194,27 +978,27 @@
     },
     "aa5ddead3707bf46dfc310792745426392be3c8be46e65079ed278cd25a80d39": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "5bd8c6a412b38b603f2a20d6d0af0ac9f7455fce4d6781e546e9d1f7b0b6c75d": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "37b7a8618a7db6ef1d65e3417fbdc9dca4295760359f333d5894f7527790fb90": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "cb1177d296aa342135d331aef66c2a1c7bfded4758c68b1a175fecba542dee1f": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "637b46fa9e75430297f18e8eacacea774ba1b1c0a03aaa3932f1a297b2ae5860": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "f098efec2aaf775acc2a306c7c848a68412f5e4e926890cbb9ad10f667767be4": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "10a6e7399b1eb86b16e7a53e07298f570d9bf10a05298c38aa910ffc03ec6c23": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1222,11 +1006,11 @@
     },
     "79e8fe527f4a7b5e7cb95af7caca2e5dcab52fec93cabf12a1a85df62053e9db": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "fc3a87ff4a4cc1f5d07cdba5e427228651112ecad83b508536173842d8dc048f": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "3f8d1ba38530b89113ca2ceb9cdd6fea11dad085250feeb68516c312c2b77772": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1234,31 +1018,31 @@
     },
     "9aece51ea4b8b676f646b894f0161f7e358cb0ddfd6b8a54b8255672c8128d09": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "3d06ec57fc7d883a7c6d3b03f6987b8748916d178bd0e634a38b19fdfa5a3811": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "6fe5042c69478ce4071e3b8657047c80139d8fe53cf7f419bbc7b6127dbf2ec5": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "374547252b008580788359d8e03e2241436909d419e2ea7ec8566a46fefafd7e": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "0880b407be221166b32819cda1adcef789c9f5ac034587223174a37216a56ed7": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "f9bd7290c56f667479f99d894eff065e3c24cb438d2ea28e9c175f228072bf7b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "fd2f91ab5c2efc875e45d8a9f77701194f276eaba468dd12ab76bae2713aa775": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "adcf10b12f04917269fe49894aa1ff6efda138e92f40e41beec1fe35057d8a33": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1266,75 +1050,75 @@
     },
     "ee26bd8764a06d7deec10b2783f5eb31d155ea6b952dd89bfe74bd3d639ef1aa": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "13a1e2b6c4dc279f767851585be02d814be38694d739fc0b453d52c91844998b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "218161f9ad7f90d79e995a9a066fdd89c6a19675db77a1eb1de2e487223a8730": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "253dc9f1b0b6576e4e073095d3ca50d071747b681111f953e0a8e4ef7ba25da1": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "cd7e580f0ea368e986d8192719736cd72f553a8c386133f132b31305ad9a06f5": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "9744e74ed68cbf0a9c22265dda468583395fc6ce560b59bade694ef5d8a1d885": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "235e3d1975aeb03bedb481663235d28725cd4ed53f56f1b5c614e9b09795d365": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "7df00765bf7b932bba4a6234c1316d99067e8233aba5c8d080cf7c4550f256f5": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "2793f70df6bdcc7d3317a3124ba093e3fbd7fa62872134297edcbc840d27e9e2": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "4c0962ff79c4bdbe716d28497b150d944dd04faec61fa74a8a7ddf5f55d80185": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "f75ffa71daf2deab2c5e1598581370e6a08e0ccbbe5953bf58d7d193dc66e40f": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "faf01ea7206cd0a894262b54200c8cb9c274916a70881ec0599ba681d721e898": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "b274104cae9b6353a73759bdc2582451eea39414649139757c5b8b972115cd06": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "bfb3588110c8eb32b457958e1f38661ca2b73f9f76ea7e11b8399bf4d691779b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "f785062dbf6164d68b63ec4270b7060796e18a61accf1c2789013f46e144217e": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "3df849af4df287682702bbafb9c13050b648a5ae019d69cb805fd65f5d38f2e1": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "fd5df0f88c70a02aa1a29233aa56b29180ac828e929012740954f8056e4e9a7e": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "a6cc8bd320afff9f22bb446aea54f4e2a7b120b6b9ad86ad3ce91be921233287": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "8a23ce77f8fd7f55b7955855e11e742ee569b496a95967b80791ed7b52d231e9": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1346,19 +1130,19 @@
     },
     "2cb221ae33c8e1dcd80498ef6fe5453851acabf96b7b23c3b31aeab9481db242": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "b362cb3120685b353c7d1ee67464fe792524db0fffd8a8f3b12bcc19c6bc637d": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "52726ecb88437b124f22d21eb7d46be52675f41392f03730f7575d31296843a0": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "05ff403901620b2231187f10c7ec464f6cd4d3f3bdc1c346af932180c2be7537": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "50082e739b2522f640c2d20207e02c1860936d45d5d3209e6dc6bb0f104c0379": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1370,7 +1154,7 @@
     },
     "5f39e5a8259352ddd5eed02169bbebe1aaf9850fdf7840838c1785736ceb8daa": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "aea1e7ca021fc6b9804301cbe5659c6cf34014a620160f66b42e33f96fc0bae3": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1378,7 +1162,7 @@
     },
     "c54f3720adf129cf7e840ea8f2d451bb0842937dbe3c30cb08ff8a4fd80b4bd2": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "87600cb7b0d92d4903278651b9f3b1bdffd03119f0a59bd12f3e2bb0bd79b120": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1386,11 +1170,11 @@
     },
     "70bdb606ac141a35603ee0866e5266ea73f1b53336d3c5208829ba2b3e6b41b9": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "92208d27fe8695a19005c912c1814b0f313bd7a78a7cb9bb87a06bd5163751a8": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "4f1f50b4818aabf635076383d75a5b7965a4a7364c4ac336e7b7a74f709a66a3": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1398,19 +1182,19 @@
     },
     "bb5c513848980c98af6d5a1550dbdee8cf772dd850a12ab89e2fff5bd0b60d9c": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "5430d8e2cf797d6070dcc018c201de276071b66a6e6305feabc77f09cbb941ef": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "0778cfa0ea371fdfdb1e9bf6ae7673f659c98be0f55c67a37f93ec97d65a9cba": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "0f2578492611fdb66a0a49471512c8d9d97ae37a11da3e8111a4a92a89f4c1b0": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "8b699450922a35b42d7f2057027aa35b36204f16744fe8f86283cd7b235eba4a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1418,19 +1202,19 @@
     },
     "b32d47fec99eaafb042ef12996a371481edbac525745adccd6b77e169b402ced": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "f668af2fe01684034bc6dfd417268ce0020f8722b1858e9d5c56c70514c294e6": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "f7c3b636d1a1f7748e48c5c9bf4ec00760b9a107953e8ff017ed196e7ba83e8f": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "1563b96d316868ced382d008de5fa909a95add5e7a9fcf0b48890b5eaf980cb3": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "0ba9e2fba43844c3c201b93738075b51bd4f6ad1ead13102174c25a0aaec52f4": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1438,19 +1222,19 @@
     },
     "c5990310ebf3dd3ed95069ca6d18158c71c75d3c99aeb3c4156bc50f820e3429": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "06df36e3712e6ba668d89162231e9d8b042624c733f7a3211704bb991f3a29dd": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "6b2ea1058484c68e6cc4b273f5790f295f94568eaa7cfc0bed30f9eb90ff981b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "4b4a00f8f18fd4fed633fbc713992a67e917f03dedac982b7ff9f7c664deaf97": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "b034503ca8bdcd6bfc961b8a13d0c44786ae563e9aafe00a5ee95ab7331bc811": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1458,27 +1242,27 @@
     },
     "80b3953fb783dcec36a90f600a2ee808b73f3e000bd3070cfda72ea1cdadd383": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "79709f858daf9a3d0b4eb05426adbd8a4199d8d7e9f751bd5b7a052bd74e454b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "6c9ec1fc0990175d2618d09f1ab700eadee90f8967ab36440a80c1b23b912535": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "5396b3314f684cba1e0816f32f192d79f7b08168735ec03d1a9ac4ad618c950c": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "0cdb1297d578c2efc7f65f54d5f6e2fbce37690427c86784efa798dca203400b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "77c1bfab763645441bfd2b2be223a472f1dc87491ae8bdf976fa989ed1e1f59e": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "7f390a7be4a804b59aeb6f04d8cf64dd993768badecea8000a03d2c12c934987": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1486,27 +1270,27 @@
     },
     "478269a1e5ba74722ef358b952836b23a9ea569360516975e111447acb78cdba": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "303a7fcab6bc2319c366f6665361e039ffb811b0be74fdd8c24294d7301b2185": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "2d5ab9fcff94c7149dc46a52839910ba1403733c8f06d0a1a6bdd5a1771e8935": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "3a235ff9774468d752bf3bee7f3ad3e1b5576204c8a7abedd9e09bbf8711016f": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "150f1f3f48cad7acdf54b74ae45710047418a7096d79573ed86b6f15cad4739b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "b777ad88532aaa5314ce9dddad7e5a85080ad70b06084ffe98be5dfcc7ee7bfa": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "91d402234e5cf5cb82cd3919f0f1cfc9255f0e0c76a209232bc18316a2b3c8b2": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1514,35 +1298,35 @@
     },
     "1b30959edffc33566f61438a5d491435bf7f3f9b5f4c1dcac90b98fafb43d0ca": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "01c2e1d7bca6fce84e08de96ece4d084324f03e68a087c047556e557a2ce7b53": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "15ab0ec7d4ef3b41e8b8179dc5597fc71106c972f23368d59a400e5dc49a20c6": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "9d40cbe6e8aeb3079f891a45413f50ad5bd8db6b3d40a7c9f0dc5954e50230ca": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "f92517cd428da5e31639cbb2d557b76b60af2778599e989d8a1af75659d113ea": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "6bdeeaafeb7799c3a851184678d3b8dfc7fa0f2de0887fe6da8c344671e2ff72": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "3dbba205828885ed325caeacbfae660f778dfde30b05a89381712ca184238efb": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "8e84acbb202b0f19ef60a5f8914e340de4a579d3a006553f61994dec7726f62c": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "01dd1b183a343b9ac3041799db176e156ea94c0cc3eb0f31279400dfe00dfc2a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1550,51 +1334,51 @@
     },
     "1797c751422789bb9485f4033ba490ddc20bb41a9db5770b7e216bf4c7c972c0": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "b6fe3ee36d4401ad35779d843f83ee637c896811e6407db83d32b3bd90a82700": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "c643a9457f1490502c0814def60c30e1ffb670bdb23825d02d0b49e18303442c": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "8a02462512ca76b3be2f8420b05cde38c4adc3d95302fea4830ab14c3ecf5a44": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "214e2299e93e9c5f68c5bcf5b260dc7575dafadfe6ed013ea77aa6404934f860": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "7bc10dcf8aabc7ee49af3843db47c7e3d5e9a1180119bb9ca824a2a43e69550a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "b10cb7bb5c185b936f691839699b2247dc29efdcf00db020270bd36f541ee199": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "5b06630d70dc6387eb2fad98764db5ce8a49ed96060f6085110f43bebdf07148": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "a89f99cdbf48e9fb449f5d621d5cb1c13ed64a5814756a4b50f43c3b7bd61cf9": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "11f5d7a87b85ae486dd8aefe746462ec07cab6bd09d7c1a86490df0f3e21a0d5": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "f53e0952c03058d4d34a4011c808fc3f108575b10ac259d0cd69e7a2b16ed889": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "f10179397397e43a4f26b84197600bfb37762a8bf0234e6c431f7b718e75cf29": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "fb92e7ec07b2db0a4e02e84b5468bb94be3122ab2f6521574803342d71940807": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1602,31 +1386,31 @@
     },
     "a92b545cd3adfdda029ddd8e46e2e7f401b253043c14d4dff9d99cac562ce411": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "53cf1088650d778b4f59e3f075ca295c44fa304d166cc6d58509bf5d7147a7fe": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "1b8958aba32f540681d7808dddbc10450c8ddeace3340140ea189b524ecf8004": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "ae41aad7f1b6b23b54f552d4b8ff56267997e5fc6c7725a86da6050d5d467734": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "985edfade57f399c5e7799de8b4ee33d5717f38bb64c0602355b5f668ad3ebba": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "113f1a2222015e306a43e39aae85be79dfc9beebf4500259cf6f7f03ce4e0bfe": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "9c179a51c7c3a684fce11fd06b1721eed0fc38c9d39eb8cff3eda23c64313dfe": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "460972cd89130f22619e1b7149b807746027d597bbb0366f745c96eace2534d8": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1638,55 +1422,55 @@
     },
     "7fe61f92e9785a76b69214f09f196f500f6b174967089c725fc6105bd50cf607": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "3738c7791ee4d34c1af18b84f64b4b9c6f74799aea5dafd38f3df4c0199e4959": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "d438662691e62e78c36f7668095c70b1b30cee590b74551fc56aafdfb89d90bf": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "b321c3df15c0f20b145e34efc31e6fe0f1fa3675868377fc4a8997309b44b94a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "17f025ac8751af1efe45b3318dc65c13dec9094a384b02f37dbb0750657b8ffd": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "83565feebfd923989ecd3c4f299e7b5b2f2cbb2dfaa7e9adc531940249a4be0b": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "e582a839d856ec2cd13b1746b8ef1be712837c98362815ae7807b99096064559": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "d4f62ad767c8d7141eda47745a57ebe525c079ba796b902fc01b4b1b0e4b0464": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "a029727e218f907cbc149a7d8b9b19265690744826d071dc77cc6c8a2141f236": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "5a814d5728d9283f92554dd3b941d6dc3b329828dc2c0492302b1cd70c9c358a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "e508e44810f505251cf8c3dd285da3c26098b4b2c5edf1a173292f8f98c1583a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "b6e9856ba5941d45bb99b56762466eb35e7c65dd8371cc38c7a8701e12fe5221": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "6bc3fb369426a8f2256e23f7ecadab57d19f66106bc7a6d7a2695aa5158cc1d5": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "760fd3b064a548a7dbc6ce3062312fafd5f9f93ca6b3ca6dba357adf87219fbf": {
       "first": "2026-11-27T22:24:18.779054+00:00",
@@ -1694,47 +1478,47 @@
     },
     "250be2e885bd052c1d8d410a21fdaf15f4ff625091e0cf5bf1b0f27d44a1fdce": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "de940cba92c2c5d08e352d8fa85d525477eb7501dd9bf5dd1fdc3a445ae0f819": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "11b034cf48dea8957b1bbec019980aefa31e2632fe098e699348fbe2f6c1c85e": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "d616a4905ef117fa39a60d52c8e5cb30637093b15867388af687d7beb5253c5a": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "ef713ff86ee73397a290c88e28b020debfcce7dcf7ba377fb0fc411aa55cb041": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "42f1591d888991fc2ae87169dbc2682e023d3df029cd9e9fea5b0a10304acda9": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "574a3761274b730084abd52ca8279321f54db1da24589de997d2dc324893c541": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "63e07179a85915199b10d778b0b65179fc810eeb5f97cedeca4241234063874e": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "7a1d0c84cff2ddde53595f9b570160d48886986d93acc2ae58a55628cd967675": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "3207cdb29e00f50a7ed7206f8242c5fe6ff91912a2135676ea29abdff554afa6": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "0dd75d054d270215d84663acca92f0eed4d69e033eac49e031efd499fbd5bc74": {
       "first": "2026-11-27T22:24:18.779054+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "cbf100605f3a596e7e744e5977f70e18104b5269d68942c9fdc4f802960f84ac": {
       "first": "2026-11-28T05:14:39.069903+00:00",
@@ -1842,7 +1626,7 @@
     },
     "18cbfeb0901a9d3a46bc1bb6a529a6e690372b683548568e73984ce358701710": {
       "first": "2026-11-28T05:14:39.069903+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "44fb15432c87f801f07ad0b559a33b325f1fc2d55ecb071fde5ee80397887894": {
       "first": "2026-11-28T05:14:39.069903+00:00",
@@ -1858,7 +1642,7 @@
     },
     "b78a7e225fc719e93a6bcc24ab50e7553a2112e938f106421ff3953f0a83477b": {
       "first": "2026-11-28T05:14:39.069903+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "9120fd196cd2be415865260b5cb540f2f8151f1af70e85f697038fcda0db485d": {
       "first": "2026-11-28T05:14:39.069903+00:00",
@@ -1886,7 +1670,7 @@
     },
     "3fc85b84352706691afefafda85f7acb35294869a31f608b04d2683aa31c84cd": {
       "first": "2026-11-28T05:14:39.069903+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "44c072c6f4bdd8e9787a40cef0f4e400dc7f6738ea4b8427cc2ac033f68594c4": {
       "first": "2026-11-28T05:14:39.069903+00:00",
@@ -1894,7 +1678,7 @@
     },
     "782dcdc7aebd0990801ca78eb1d02ccc98a8247483bc7b99b3cdc181331663ef": {
       "first": "2026-11-28T05:14:39.069903+00:00",
-      "last": "2026-11-28T05:14:39.069903+00:00"
+      "last": "2026-11-28T14:40:02.994149+00:00"
     },
     "3825ed0f0d3640521637ea19d937556788a8047f93526a7638fc207b7ac385ad": {
       "first": "2026-11-28T05:14:39.069903+00:00",
@@ -1943,6 +1727,202 @@
     "7acacf7e80bb1f88330c14725cb051864bc76454332ea48a07e8ea483e70f01b": {
       "first": "2026-11-28T05:14:39.069903+00:00",
       "last": "2026-11-28T05:14:39.069903+00:00"
+    },
+    "37f8be06af19832ddfbc3d783a11162189bb916f4e19a0286206cee73f449b72": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "6d39308b1920abb7d8dd318ac58a8878e0bfc762f4316a1131086b04d9d3bb51": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "d7c9009cd7ac2c824eb6f852af6df4185270cccaea6b70ba9fd4db2571dbd453": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "ba6300953100804df75d4e91fd53179e6d8392c897bf10cb4c59d0db5949d992": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "6adf53577cebe34e28f7266028004dd071fb396bbe73d729ead78eeda5b0cbca": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "334abeea2ee61590a97707a163dc093c939e9da082dbe96d8fa107f3d5d1378d": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "1f9bf206288258fb97ecef635921bc896031993bf41be388df20e6f783198db1": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "53d0c5ef5d9c3ef097127ac4c840cc5b0526c5abd929fc8a04a13b110ad90779": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "d437b033b2fbe2e84b9e2eda932f47a9016d9cf9352e6c58c68961be81958f94": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "8c32401eddcac0f09455dcc709a6d0e6160cc46a54c5e4519e8c02d2b780621e": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "e16f08e894651a0612efd3316c45692791cc833c884dc22d76f91b04e560a1df": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "5dd6eb401eec1ff669e6b0d2f885d80e5b7ee1e23d8cf42570261c7a7d433317": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "85ae078acb763ba67cda0c507aefa2fd4deb33809d07f2e9a4c3d591e1ea7857": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "218ead4c77b93507d5f6c710626805379703ddc3bef696bac3bb9940d4c6866f": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "bf4dc84c2eb61e637e0f59adb461ae91eb44ac469730b1c62d1f0387407d652a": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "00c5b34f5ffff1079a84d9c0002719f39995bf140c8d133b6250fbb1b6cdd338": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "af620145f98c7cd205b01d00cdc508f45ba05ace3231cf201588bfc1a87a5078": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "3816cb9d487e30c5e03fa7346f6f26a6cfd72d9a38eb92b4aaf832281e1a52c7": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "b80d67eefe00d8d600bb75f93c433152f4fc30a9a136c782eac21b818d177319": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "6c6fcbda5b117b9d4b5a4f3e681e1cf0a5c9ca9d28aa2f878d6b09ef6c8b95f0": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "6d1d57cf8deb9bd3d3e1d1b96ca22d9e3040e2ed726427e4580bc982328ae552": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "02fa0fb7dcf96e037a8c5e8fc802c38e50c6ffb344addbbaffb79c2bf6a9e809": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "5434fb85bb35fb23c5c9d48e1c9434f946e03765371d3a030f84d17775fc12be": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "211c093039948a46127e5e67e213923fb48ee5d76f95ded7f1fda84124b54ba1": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "ae7a0ab31f85efebc7fbd062179dca193a1eb3e01daec9c1ee6285eb22534c86": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "eef4ae9776030a9d6d784ee6f7016a95c0bcb3a7e4c5402ef4c67fce80e70511": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "a75e701f5bfb4a17b052a6deb90d3bb2a3d00c9bcd9c9362eea864ef62262490": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "9e4e73b5fc694016ebd0c56fd42ae46e54bd99805612c912fd7b6c42ded7ce49": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "37308c9fe5bc7ecd437bd215fdf7264403a64ea7cad47823dfd15d1af752d18c": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "98f6c0d333e85c1c928397838988271a9f27946b2b52a711f802712420e4718b": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "8b66d9fee5111fb720f0459eb0b2d5da2223c6d7b209fffa655ede9aefa0db9b": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "ab63b950c0a3fd4186bd6124a4ffb241b1971bea9349b30a54f8dab7b2031c95": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "8e04bda47280e9b10c1410b09ec9330dcf58da9a4bc02c5fc15d3373b4612a48": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "497a2cc9cbf6837c2c8d34a000e2319dc659013ba7572c2d4b73011f3d872f95": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "9bfb612124702327d8e5546cb2e21685fde9229c0abceb440a5e19ccc675179c": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "8037acde375a32b8af6d92f085f648c39b804fecdaa2b8555aa670fba5aaf675": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "18d441ee83af0fc99df2bb1e0387d3a4ba8c152ba5c8f00983f456d66b5cd77e": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "3c37b3d040e992cfc924bf4cc55b53044bd95d425ef715e04caa1b3a8dfc3aad": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "1be7fdea94207b5af234969b9411c8c65164021c196db4308f663128118b49d8": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "430fb56d1bd1397b006482bb9ccc6049a7d4f382e1a231a887feb15d35b1fd40": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "e15677d6bc15deaf8cd4357637cd4f2ec1061bcb3cdd531dabb59d7b4dbc38d5": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "d0ab654c6db3c35edadfbc64cf03ca0ce9c3fbc1fdd345ff63685e17e5d6ddd2": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "74886072de20b354281bddd126af67dcd1162ffb6e9efca324ab3c2442990b3f": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "35a271929d696123839bead2c1aeb1e2c115f7e8a6248915c4974457943c5b53": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "6bb931fe70cc7398f3ebae719ed115937ca1ea07840707ec3c3096c2a47d9401": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "228eb9649b71665ebecbfbb7f9a8a3b4b8ef6a6e3fe119f9dbab7cad73f0af2a": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "d60e37523fdb177e77bd97ebc2a0206591ae9cbd90a65eebadb83383b747fbf9": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "bc12cd7ac797597b88331d24470e9eaae6ce75a3cf62ca49ebb0838d48e2da31": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
+    },
+    "95957dfe3ad7a0a63e074fa32470bee5ae1ac3efc0847e6d0ae0424cf955e9d5": {
+      "first": "2026-11-28T14:40:02.994149+00:00",
+      "last": "2026-11-28T14:40:02.994149+00:00"
     }
   }
 }
